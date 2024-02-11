@@ -1,0 +1,77 @@
+{
+	"list": [
+		{
+			"type": "number",
+			"label": "价格",
+			"options": {
+				"width": "100%",
+				"defaultValue": 0,
+				"min": null,
+				"max": null,
+				"precision": null,
+				"step": 1,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入"
+			},
+			"model": "price",
+			"key": "number_1702629118256",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "number",
+			"label": "数量",
+			"options": {
+				"width": "100%",
+				"defaultValue": 1,
+				"min": null,
+				"max": null,
+				"precision": null,
+				"step": 1,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入"
+			},
+			"model": "number",
+			"key": "number_1702629132178",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

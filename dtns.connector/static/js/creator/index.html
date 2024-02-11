@@ -1,0 +1,167 @@
+<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.ico"><script src="./jquery.js"></script><script src="static/js/config.js"></script><script src="static/js/simple-signal-client.min.js"></script><script src="static/js/socket.io.min.js"></script><script src="static/js/compressor.min.js"></script><script src="static/js/jszip.min.js"></script><script src="static/js/axios.min.js"></script><script src="static/js/qrcode.js"></script><script src="static/js/current-device.min.js"></script><script src="static/js/eccryptojs.js"></script><script src="static/js/bs58.bundle.js"></script><script src="static/js/key_util_eccryptojs.js"></script><script src="static/js/DChatManager.js"></script><script src="static/js/DTNSManager.js"></script><script src="static/js/rpc-client.js"></script><script src="static/js/ifile-db.js"></script><script src="static/js/image-db.js"></script><script src="static/js/static/deepclone.js"></script><script src="static/js/static/dnalink_api_util.js"></script><script src="static/js/static/pop_runtime2.js"></script><title>dtns.creator德塔世界创建者引擎</title><style>.CodeMirror {
+            float: left;
+            width: 50%;
+            border: 1px solid black;
+        }
+        .visual-loading-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 999999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .visual-circle-path {
+            stroke: #0f62fe;
+            /* 给画笔设置一个颜色 */
+            stroke-width: 2;
+            /* 设置线条的宽度 */
+            stroke-dasharray: 95, 126;
+            /* 设置实现长95，虚线长126 */
+            stroke-dashoffset: 0;
+            /* 设置虚线的偏移位置 */
+            animation: visual-loading-dash 1.5s ease-in-out infinite;
+        }
+
+        @keyframes visual-loading-dash {
+            0% {
+                stroke-dasharray: 1, 126;
+                /* 实线部分1，虚线部分126 */
+                stroke-dashoffset: 0;
+                /* 前面1/126显示实线，后面125显示空白 */
+            }
+
+            50% {
+                stroke-dasharray: 95, 126;
+                /* 实线部分95，虚线部分126 */
+                stroke-dashoffset: -31px
+                    /* 顺时针偏移31/126，即前31/126显示空白，后面3/4显示线条 */
+            }
+
+            to {
+                stroke-dasharray: 6, 120;
+                /* 实线部分6，虚线部分120 */
+                stroke-dashoffset: -120px;
+                /* 最后顺时针偏移120/126，即前120/126显示空白，后面6点显示线条部分 */
+            }
+        }
+
+        .visual-loading-svg {
+            width: 2.5em;
+            height: 2.5em;
+            max-width: 50px;
+            /* 设置svg显示区域大小 */
+            max-height: 50px;
+            animation: visual-loading-rotate 1.5s infinite ease-in-out;
+            /* 给svg也加上一个旋转动画 */
+        }
+
+        @keyframes visual-loading-rotate {
+            to {
+                transform: rotate(1turn);
+                /* 旋转1圈 */
+            }
+        }</style><script defer="defer" src="js/chunk-vendors.e45a4ee9.js"></script><script defer="defer" src="js/app.61acaab5.js"></script><link href="css/chunk-vendors.8de084b5.css" rel="stylesheet"><link href="css/app.2e19a3a6.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but dtns.creator doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"><div class="visual-loading-container"><svg viewBox="0 0 50 50" class="visual-loading-svg"><circle cx="25" cy="25" r="20" fill="none" class="visual-circle-path"></circle></svg><p>正在努力加载页面，请耐心等候...</p></div></div><script>const imageDb =new ImageIndexDB()
+        imageDb.openDB()
+        window.imageDb = imageDb
+
+        // const imDb =new IMIndexDB()
+        // imDb.openDB()
+        // window.imDb = imDb
+
+        //用于backDb-订阅dnalink.node节点
+        const ifileDb = new IFileIndexDB('ifiledb','ifilecache')
+        ifileDb.openDB()
+        window.ifileDb = ifileDb
+
+        const iWalletDb = new IFileIndexDB('iwalletdb','iwalletcache')
+        iWalletDb.openDB()
+        window.iWalletDb = iWalletDb
+
+        const iSessionDb = new IFileIndexDB('isessiondb','isessioncache')
+        iSessionDb.openDB()
+        window.iSessionDb = iSessionDb
+
+        var now_roomid = localStorage.getItem('now_roomid')
+        var g_web3name =now_roomid ? now_roomid: 'nftlist'//'forklist'
+        window.g_web3name = g_web3name
+        async function g_get_wallet(){
+            if(typeof g_mywallet == 'undefined' || !g_mywallet)
+            {
+                while(iWalletDb.db == null) await new Promise((resolve)=>setTimeout(() => resolve(true), 300));
+                window.g_mywallet = (await iWalletDb.getDataByKey('g_mywallet'));
+                g_mywallet = g_mywallet ? g_mywallet.data :g_mywallet
+                console.log('iFileDb-g_mywallet:',g_mywallet)
+            }
+        }
+        window.g_get_wallet = g_get_wallet
+        g_get_wallet()
+
+        window.g_axios = axios
+        const dtnsManager = new DTNSManager()
+        window.g_dtnsManager = dtnsManager
+        const dchatManager = new  DChatManager(dtnsManager)
+        window.g_dchatManager = dchatManager
+
+        window.g_tns_urls = null
+        window.g_turn_urls = null
+        async function queryUrls()
+        {
+            let tnsUrls = await
+            axios.get( typeof g_tns_nslookup_url!='undefined' ? g_tns_nslookup_url : 'https://static.yunapi.org/tns-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), )
+            window.g_tns_urls = tnsUrls && tnsUrls.data ? tnsUrls.data :tnsUrls
+    
+            let turnUrls = await
+            axios.get( typeof g_turn_nslookup_url!='undefined' ? g_turn_nslookup_url : 'https://static.yunapi.org/turn-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+            window.g_turn_urls = turnUrls && turnUrls.data ? turnUrls.data:turnUrls
+            console.log('g_tns_urls:',g_tns_urls,'g_turn_urls:',g_turn_urls)
+        }
+        queryUrls()
+
+        const myroomid = g_web3name// localStorage.getItem('now_roomid')
+        const client = myroomid && myroomid.length>=1 ? new RTCClient(myroomid) : new RTCClient()//-svr')
+        window.rpc_client = client
+        dtnsManager.addRPCClient(client)
+
+        let b_img_q = localStorage.getItem('b_img_q')
+        b_img_q = !b_img_q ? 0.1 :b_img_q
+        rpc_client.img_q = b_img_q
+
+        function  queryImg(url, params) {
+            console.log('getImg-params:'+url+' params:'+JSON.stringify(params))
+            // if(url && url.indexOf('9000')) url = url.split('9000')[1]
+            params = !params ?{}:params
+            const xclient = window.rpc_client
+            return g_dtnsManager.run(url ? url:'dtns://web3:'+xclient.roomid+'/image/view',params)
+            // return new Promise((resolve,reject)=>{
+            //     if(!params || !params.filename) return resolve({ret:false,msg:'param(filename) is null'})
+            //     xclient.send('/image/view',params,null,function(rdata){
+            //     console.log('rdata:'+JSON.stringify(rdata))
+            //         resolve(rdata.data)
+            //     })
+            //     setTimeout(()=>reject(null),30000)
+            // })
+        }
+        window.queryImg = queryImg
+
+        async function rpc_query(url,params)
+        {
+            console.log('into rpc_query:',url,params)
+            params = !params ? {}:params
+            params.user_id = localStorage.getItem('user_id')
+            params.s_id = localStorage.getItem('s_id')
+                //将结果放入到opval指向的变量中。
+            console.log('call g_dtnsManager.run-params:',params)
+            let res = await g_dtnsManager.run('dtns://ibapp:'+rpc_client.roomid+url,params)
+            console.log('rpc_query-res:',res)
+            return res
+        }
+        window.rpc_query = rpc_query</script></body></html>

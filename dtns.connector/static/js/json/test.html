@@ -1,0 +1,28 @@
+<script src="./deepcopy.min.js"></script>
+<script src="./deepclone.js"></script>
+<script src="./stringify.js"></script>
+<script>
+    
+function test()
+{
+    let item = window['localStorage']['getItem']('userInfo')
+    console.log('item:',item)
+    let x = {a:'dadfadfasdfdsf',v:{e:'ddddd',f:1000}}
+    let c = {d:x,f:100,e:'hello',m:new Map()}
+    c.m.set('1111','1')
+    c.m.set('v','v-val')
+    c.m.set('x',x)
+    let a = {c:0,d:{x,y:{eee:x,z:1000,y:c}}}   
+    a.d.aV = a;
+    x.v.mmmmmmmx = x
+    x.v.mmmmmmma = a
+    let xa = deepClone(a)//deepcopy(a)
+    console.log('xa:',xa)
+    console.log('xa-string:'+stringify(xa))
+    console.log('xa-c.m:'+xa.d.y.y.m.get('1111')+' x:',xa.d.y.y.m.get('x'))
+    console.log('xa-string:'+stringify(xa))
+    console.log('xa-string:'+JSON.stringify(xa))
+}
+
+test()
+</script>

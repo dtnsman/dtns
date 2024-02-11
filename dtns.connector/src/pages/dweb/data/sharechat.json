@@ -1,0 +1,144 @@
+{
+  "style": {
+    "width": "300",
+    "height": "170",
+    "scale": 100,
+    "color": "#000",
+    "opacity": 1,
+    "background": "#fff",
+    "fontSize": 14,
+    "backgroundColor": "rgba(197, 246, 255, 1)"
+  },
+  "data": [
+    {
+      "animations": [],
+      "events": {},
+      "groupStyle": {},
+      "isLock": false,
+      "collapseName": "",
+      "linkage": {
+        "duration": 0,
+        "data": [
+          {
+            "id": "",
+            "label": "",
+            "event": "",
+            "style": [{ "key": "", "value": "" }]
+          }
+        ]
+      },
+      "component": "Picture",
+      "label": "图片",
+      "icon": "tupian",
+      "propValue": {
+        "url": "$img",
+        "flip": { "horizontal": false, "vertical": false }
+      },
+      "style": {
+        "rotate": 0,
+        "opacity": 1,
+        "width": 130,
+        "height": 121,
+        "borderRadius": "",
+        "top": 12,
+        "left": 5
+      },
+      "id": "XEyUJXjYYTnDumdtskHiC",
+      "poplang": null
+    },
+    {
+      "animations": [],
+      "events": {},
+      "groupStyle": {},
+      "isLock": false,
+      "collapseName": "style",
+      "linkage": {
+        "duration": 0,
+        "data": [
+          {
+            "id": "",
+            "label": "",
+            "event": "",
+            "style": [{ "key": "", "value": "" }]
+          }
+        ]
+      },
+      "component": "VText",
+      "label": "文字",
+      "propValue": "$title",
+      "icon": "wenben",
+      "request": {
+        "method": "GET",
+        "data": [],
+        "url": "",
+        "series": false,
+        "time": 1000,
+        "paramType": "",
+        "requestCount": 0
+      },
+      "style": {
+        "rotate": 0,
+        "opacity": 1,
+        "width": 275,
+        "height": 42,
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "",
+        "color": "",
+        "top": 133,
+        "left": 5
+      },
+      "id": "AQHGBuFBZRoalXYASLDqh",
+      "poplang": null
+    },
+    {
+      "animations": [],
+      "events": {},
+      "groupStyle": {},
+      "isLock": false,
+      "collapseName": "",
+      "linkage": {
+        "duration": 0,
+        "data": [
+          {
+            "id": "",
+            "label": "",
+            "event": "",
+            "style": [{ "key": "", "value": "" }]
+          }
+        ]
+      },
+      "component": "VText",
+      "label": "文字",
+      "propValue": "$desc",
+      "icon": "wenben",
+      "request": {
+        "method": "GET",
+        "data": [],
+        "url": "",
+        "series": false,
+        "time": 1000,
+        "paramType": "",
+        "requestCount": 0
+      },
+      "style": {
+        "rotate": 0,
+        "opacity": 1,
+        "width": 139,
+        "height": 99,
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeight": 1.5,
+        "letterSpacing": 0,
+        "textAlign": "",
+        "color": "",
+        "top": 23,
+        "left": 147
+      },
+      "id": "7gk34hw15Sk6hFJ6oZ42s",
+      "poplang": null
+    }
+  ]
+}

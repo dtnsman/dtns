@@ -1,0 +1,78 @@
+{
+	"list": [
+		{
+			"type": "input",
+			"label": "接收账户",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入账户",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "token_y",
+			"key": "input_1700188579547",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "number",
+			"label": "转账金额",
+			"options": {
+				"width": "100%",
+				"defaultValue": 10,
+				"min": null,
+				"max": null,
+				"precision": null,
+				"step": 1,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入金额"
+			},
+			"model": "opval",
+			"key": "number_1700188600751",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

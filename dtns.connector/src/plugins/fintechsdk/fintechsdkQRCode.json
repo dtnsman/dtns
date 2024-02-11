@@ -1,0 +1,130 @@
+{
+	"list": [
+		{
+			"type": "tabs",
+			"label": "标签页布局",
+			"options": {
+				"tabBarGutter": null,
+				"type": "line",
+				"tabPosition": "top",
+				"size": "default",
+				"noFormItem": true,
+				"animated": true
+			},
+			"columns": [
+				{
+					"value": "1",
+					"label": "选项1",
+					"list": [
+						{
+							"type": "textarea",
+							"label": "充值地址",
+							"options": {
+								"width": "100%",
+								"minRows": 4,
+								"maxRows": 6,
+								"maxLength": null,
+								"defaultValue": "",
+								"clearable": false,
+								"showLabel": true,
+								"hidden": false,
+								"disabled": false,
+								"placeholder": "请输入"
+							},
+							"model": "textarea_1701849624596",
+							"key": "textarea_1701849624596",
+							"help": "",
+							"rules": [
+								{
+									"required": false,
+									"message": "必填项"
+								}
+							]
+						},
+						{
+							"type": "image",
+							"label": "二维码",
+							"icon": "icon-zihao",
+							"options": {
+								"hidden": false,
+								"showLabel": true,
+								"defaultValue": ""
+							},
+							"key": "image_1701849614571",
+							"model": "image_1701849614571"
+						}
+					]
+				},
+				{
+					"value": "2",
+					"label": "选项2",
+					"list": []
+				},
+				{
+					"value": "3",
+					"label": "选项3",
+					"list": []
+				},
+				{
+					"value": "4",
+					"label": "选项4",
+					"list": []
+				},
+				{
+					"value": "5",
+					"label": "选项5",
+					"list": []
+				},
+				{
+					"value": "6",
+					"label": "选项6",
+					"list": []
+				},
+				{
+					"value": "7",
+					"label": "选项7",
+					"list": []
+				},
+				{
+					"value": "8",
+					"label": "选项8",
+					"list": []
+				},
+				{
+					"value": "9",
+					"label": "选项9",
+					"list": []
+				},
+				{
+					"value": "10",
+					"label": "选项10",
+					"list": []
+				}
+			],
+			"key": "tabs_1701848465319"
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

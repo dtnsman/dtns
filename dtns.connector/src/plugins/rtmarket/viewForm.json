@@ -1,0 +1,273 @@
+{
+	"list": [
+		{
+			"type": "input",
+			"label": "mark",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入mark",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": true
+			},
+			"model": "mark",
+			"key": "input_1704768554979",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "name",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入name",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "name",
+			"key": "input_1704768613440",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "textarea",
+			"label": "简介",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 6,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入简介"
+			},
+			"model": "desc",
+			"key": "textarea_1704770511890",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "tax_type",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "tax",
+				"placeholder": "请输入tax",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "tax_type",
+			"key": "input_1704768662513",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "tax",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "0.3",
+				"placeholder": "请输入tax",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "tax",
+			"key": "input_1704768645118",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "std_price",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入标准单价格（非标准单不用输入）",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "std_price",
+			"key": "input_1704768691094",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "number",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入（数字：例如10）",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "number",
+			"key": "input_1704768713120",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "number_type",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入（例如int）",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "number_type",
+			"key": "input_1704768732736",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadImg",
+			"label": "上传Logo",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"width": "100%",
+				"data": "{}",
+				"limit": 1,
+				"placeholder": "上传",
+				"fileName": "image",
+				"headers": {},
+				"action": "",
+				"listType": "picture-card"
+			},
+			"model": "pics",
+			"key": "uploadImg_1704768806777",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "image",
+			"label": "logo",
+			"options": {
+				"hidden": false,
+				"showLabel": true,
+				"defaultValue": ""
+			},
+			"key": "image_1704769611738",
+			"model": "logo"
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

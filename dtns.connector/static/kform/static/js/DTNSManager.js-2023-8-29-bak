@@ -1,0 +1,83 @@
+/**
+ * 新增一个DTNS连接管理器（主要用于映射解析、增加RPCClient实例、管理RPCClient实例等）
+ */
+class DTNSManager
+{
+    constructor()
+    {
+        this.clientMap = new Map()
+    }
+    addRPCClient(client)
+    {
+        if(!client) return false
+        this.clientMap.set(client.roomid,client)
+        return true
+    }
+    removeRPCClient(web3name)
+    {
+        this.clientMap.delete(web3name)
+        return true
+    }
+    /**
+     * 连接到web3app
+     * @param {*} dtnsUrl 
+     * @returns 
+     */
+    connect(dtnsUrl)
+    {
+        if(!dtnsUrl) return null
+        if(dtnsUrl.indexOf('dtns://web3:')!=0){
+            // let nsRet = await this.nslookup('dtns',dtnsUrl)
+            return null
+        } 
+        let idx = dtnsUrl.indexOf('/','dtns://web3:'.length)
+        let web3name = dtnsUrl.substring('dtns://web3:'.length,idx>0?idx:dtnsUrl.length)
+        console.log('connect-url,idx-web3name',dtnsUrl,idx,web3name)
+        if(web3name.length<=0) return null
+        let client = this.clientMap.get(web3name)
+        if(client) return client
+        client = new RTCClient(web3name)
+        client.init()
+        this.addRPCClient(client)
+        return client
+    }
+    /**
+     * 请求url，例如dtns://web3:name/path
+     * @param {*} dtnsUrl 
+     * @param {*} params 
+     * @returns 
+     */
+    async run(dtnsUrl,params)
+    {
+        let client = this.connect(dtnsUrl)
+        if(!client) return null
+
+        let idx = dtnsUrl.indexOf('/','dtns://web3:'.length)
+        if(idx<0) return null;
+        let url = dtnsUrl.substring(idx,dtnsUrl.length) //得到urlPath
+
+        console.log('run-params:'+dtnsUrl+' params:'+JSON.stringify(params))
+        // if(url && url.indexOf('9000')) url = url.split('9000')[1]
+        params = !params ?{}:params
+        return new Promise((resolve,reject)=>{
+            if(!params) return resolve({ret:false,msg:'param is null'})
+            client.send(url,params,null,function(rdata){
+            console.log('dtns-run-rdata:'+JSON.stringify(rdata))
+                resolve(rdata.data)
+            })
+            setTimeout(()=>reject(null),30000)
+        })
+    }
+    /**
+     * 解析dtnsUrl---例如domain、nft、证书编码、会员证书等（待完善/nslooup接口）
+     * @param {*} dtnsWeb3Name 使用哪个client进行web3-dtns请求（默认应该使用rpc_client（web3app）进行请求）
+     * @param {*} dtnsUrl 
+     * @returns 
+     */
+    async nslookup(dtnsWeb3Name,dtnsUrl)
+    {
+        let client = this.connect('dtns://web3:'+dtnsWeb3Name)
+        if(!client) return null
+        return this.run('dtns://web3:'+dtnsWeb3Name+'/nslookup',{url:dtnsUrl})
+    }
+}

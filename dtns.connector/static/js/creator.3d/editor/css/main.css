@@ -1,0 +1,708 @@
+/* :root {
+	color-scheme: light dark;
+} */
+
+.xverse {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	margin: 0;
+	overflow: hidden;
+}
+
+.xverse hr {
+	border: 0;
+	border-top: 1px solid #ccc;
+}
+
+.xverse button {
+	position: relative;
+}
+
+.xverse input {
+	vertical-align: middle;
+}
+
+.xverse input[type="color"]::-webkit-color-swatch-wrapper {
+		padding: 0;
+	}
+.xverse input[type="color"]::-webkit-color-swatch {
+		border: none;
+	}
+
+.xverse textarea {
+	tab-size: 4;
+	white-space: pre;
+	word-wrap: normal;
+}
+
+.xverse textarea.success {
+		border-color: #8b8 !important;
+	}
+
+.xverse textarea.fail {
+		border-color: #f00 !important;
+		background-color: rgba(255,0,0,0.05);
+	}
+
+.xverse textarea,.xverse input { outline: none; } /* osx */
+
+.xverse .Panel {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+
+	/* No support for these yet */
+	-o-user-select: none;
+	user-select: none;
+}
+
+.xverse .TabbedPanel {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+
+	/* No support for these yet */
+	-o-user-select: none;
+	user-select: none;
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.xverse .TabbedPanel .Tabs {
+	position: relative;
+	display: block;
+	width: 100%;
+	min-width: 300px;
+}
+
+.xverse .TabbedPanel .Tabs .Tab {
+		padding: 10px;
+		text-transform: uppercase;
+	}
+
+.xverse .TabbedPanel .Panels {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-width: 300px;
+	}
+
+/* Listbox */
+.xverse .Listbox {
+	color: #444;
+	background-color: #fff;
+	padding: 0;
+	width: 100%;
+	min-height: 140px;
+	font-size: 12px;
+	cursor: default;
+	overflow: auto;
+}
+
+.xverse .Listbox .ListboxItem {
+	padding: 6px;
+	color: #666;
+	white-space: nowrap;
+}
+
+.xverse .Listbox .ListboxItem.active {
+	background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* CodeMirror */
+
+.xverse .CodeMirror {
+
+	position: absolute !important;
+	top: 37px;
+	width: 100% !important;
+	height: calc(100% - 37px) !important;
+
+}
+
+.xverse .CodeMirror .errorLine {
+
+		background: rgba(255,0,0,0.25);
+
+	}
+
+.xverse .CodeMirror .esprima-error {
+
+		color: #f00;
+		text-align: right;
+		padding: 0 20px;
+
+	}
+
+/* outliner */
+
+.xverse #outliner .opener {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin: 0px 4px;
+	vertical-align: top;
+	text-align: center;
+}
+
+.xverse #outliner .opener.open:after {
+		content: '−';
+	}
+
+.xverse #outliner .opener.closed:after {
+		content: '+';
+	}
+
+.xverse #outliner .option {
+
+	border: 1px solid transparent;
+
+}
+
+#outliner .option.drag {
+
+	border: 1px dashed #999;
+
+}
+
+.xverse #outliner .option.dragTop {
+
+	border-top: 1px dashed #999;
+
+}
+
+.xverse #outliner .option.dragBottom {
+
+	border-bottom: 1px dashed #999;
+
+}
+
+.xverse #outliner .type {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	color: #ddd;
+	text-align: center;
+}
+
+.xverse #outliner .type:after {
+	content: '●';
+}
+
+/* */
+
+.xverse #outliner .Scene {
+	color: #8888dd;
+}
+
+.xverse #outliner .Camera {
+	color: #dd8888;
+}
+
+.xverse #outliner .Light {
+	color: #dddd88;
+}
+
+/* */
+
+.xverse #outliner .Object3D {
+	color: #aaaaee;
+}
+
+.xverse #outliner .Mesh {
+	color: #8888ee;
+}
+
+.xverse #outliner .Line {
+	color: #88ee88;
+}
+
+.xverse #outliner .LineSegments {
+	color: #88ee88;
+}
+
+.xverse #outliner .Points {
+	color: #ee8888;
+}
+
+/* */
+
+.xverse #outliner .Geometry {
+	color: #aaeeaa;
+}
+
+.xverse #outliner .Material {
+	color: #eeaaee;
+}
+
+/* */
+
+.xverse #outliner .Script:after {
+	content: '◎'
+}
+
+/*  */
+
+.xverse button {
+	color: #555;
+	background-color: #ddd;
+	border: 0px;
+	margin: 0px; /* GNOME Web */
+	padding: 5px 8px;
+	font-size: 12px;
+	text-transform: uppercase;
+	cursor: pointer;
+	outline: none;
+}
+
+.xverse button:hover {
+		background-color: #fff;
+	}
+
+.xverse button.selected {
+		background-color: #fff;
+	}
+
+.xverse input,.xverse textarea {
+	border: 1px solid transparent;
+	color: #444;
+}
+
+.xverse input.Number {
+	color: #08f!important;
+	font-size: 12px;
+	border: 0px;
+	padding: 2px;
+}
+
+.xverse select {
+	color: #666;
+	background-color: #ddd;
+	border: 0px;
+	text-transform: uppercase;
+	cursor: pointer;
+	outline: none;
+}
+
+.xverse select:hover {
+		background-color: #fff;
+	}
+
+/* UI */
+
+.xverse #resizer {
+	position: absolute;
+	top: 32px;
+	right: 295px;
+	width: 5px;
+	bottom: 0px;
+	/* background-color: rgba(255,0,0,0.5); */
+	cursor: col-resize;
+}
+
+.xverse #viewport {
+	position: absolute;
+	top: 32px;
+	left: 0;
+	right: 300px;
+	bottom: 0;
+}
+
+.xverse #viewport #info {
+		text-shadow: 1px 1px 0 rgba(0,0,0,0.25);
+		pointer-events: none;
+	}
+
+.xverse #script {
+	position: absolute;
+	top: 32px;
+	left: 0;
+	right: 300px;
+	bottom: 0;
+	opacity: 0.9;
+}
+
+.xverse #player {
+	position: absolute;
+	top: 32px;
+	left: 0;
+	right: 300px;
+	bottom: 0;
+}
+
+.xverse #menubar {
+	position: absolute;
+	width: 100%;
+	height: 32px;
+	background: #eee;
+	padding: 0;
+	margin: 0;
+	right: 0;
+	top: 0;
+}
+
+.xverse #menubar .menu {
+		float: left;
+		cursor: pointer;
+		padding-right: 8px;
+	}
+
+.xverse #menubar .menu.right {
+		float: right;
+		cursor: auto;
+		padding-right: 0;
+		text-align: right;
+	}
+
+.xverse #menubar .menu .title {
+			display: inline-block;
+			color: #888;
+			margin: 0;
+			padding: 8px;
+			line-height: 16px;
+		}
+
+.xverse #menubar .menu .options {
+			position: fixed;
+			display: none;
+			padding: 5px 0;
+			background: #eee;
+			width: 150px;
+			max-height: calc(100% - 80px);
+			overflow: auto;
+			margin:0px;
+		}
+
+.xverse #menubar .menu:hover .options {
+	display: block;
+}
+
+.xverse #menubar .menu .options hr {
+				border-color: #ddd;
+			}
+
+.xverse #menubar .menu .options .option {
+	color: #666;
+	background-color: transparent;
+	padding: 5px 10px;
+	margin: 0 !important;
+}
+
+.xverse	#menubar .menu .options .option:hover {
+		color: #fff;
+		background-color: #08f;
+	}
+
+.xverse	#menubar .menu .options .option:active {
+	color: #666;
+	background: transparent;
+}
+
+.xverse #menubar .menu .options .inactive {
+color: #bbb;
+background-color: transparent;
+padding: 5px 10px;
+margin: 0 !important;
+}
+
+.xverse #sidebar {
+	position: absolute;
+	right: 0;
+	top: 32px;
+	bottom: 0;
+	width: 300px;
+	background: #eee;
+	overflow: auto;
+}
+
+.xverse #sidebar .Panel {
+		color: #888;
+		padding: 10px;
+		border-top: 1px solid #ccc;
+	}
+
+.xverse #sidebar .Panel.collapsed {
+	margin-bottom: 0;
+}
+
+.xverse #sidebar .Row {
+	display: flex;
+	align-items: center;
+	min-height: 24px;
+	margin-bottom: 10px;
+}
+
+.xverse #tabs {
+	background-color: #ddd;
+	border-top: 1px solid #ccc;
+}
+
+.xverse #tabs span {
+	color: #aaa;
+	border-right: 1px solid #ccc;
+	padding: 10px;
+}
+
+.xverse #tabs span.selected {
+	color: #888;
+	background-color: #eee;
+}
+
+.xverse #toolbar {
+	position: absolute;
+	left: 10px;
+	top: 42px;
+	width: 32px;
+	background: #eee;
+	text-align: center;
+}
+
+.xverse #toolbar button,.xverse #toolbar input {
+	height: 32px;
+}
+
+.xverse #toolbar button img {
+		width: 16px;
+		opacity: 0.5;
+	}
+
+.xverse .Outliner {
+	color: #444;
+	background-color: #fff;
+	padding: 0;
+	width: 100%;
+	height: 140px;
+	font-size: 12px;
+	cursor: default;
+	overflow: auto;
+	resize: vertical;
+	outline: none !important;
+}
+
+.xverse .Outliner .option {
+		padding: 4px;
+		color: #666;
+		white-space: nowrap;
+	}
+
+.xverse .Outliner .option:hover {
+	background-color: rgba(0,0,0,0.02);
+}
+
+.xverse .Outliner .option.active {
+	background-color: rgba(0,0,0,0.04);
+}
+
+
+.xverse .TabbedPanel .Tabs {
+	background-color: #ddd;
+	border-top: 1px solid #ccc;
+}
+
+.xverse .TabbedPanel .Tab {
+	color: #aaa;
+	border-right: 1px solid #ccc;
+}
+
+.xverse .TabbedPanel .Tab.selected {
+	color: #888;
+	background-color: #eee;
+}
+
+.xverse .Listbox {
+	color: #444;
+	background-color: #fff;
+}
+
+.xverse .Panel {
+	color: #888;
+}
+
+/* */
+
+@media all and ( max-width: 600px ) {
+
+	.xverse #resizer {
+		display: none;
+	}
+
+	.xverse #menubar .menu .options {
+		max-height: calc(100% - 372px);
+	}
+
+	.xverse #menubar .menu.right {
+		display: none;
+	}
+
+	.xverse #viewport {
+		left: 0;
+		right: 0;
+		top: 32px;
+		height: calc(100% - 352px);
+	}
+
+	.xverse #script {
+		left: 0;
+		right: 0;
+		top: 32px;
+		height: calc(100% - 352px);
+	}
+
+	.xverse #player {
+		left: 0;
+		right: 0;
+		top: 32px;
+		height: calc(100% - 352px);
+	}
+
+	.xverse #sidebar {
+		left: 0;
+		width: 100%;
+		top: calc(100% - 320px);
+		bottom: 0;
+	}
+
+}
+
+/* DARK MODE */
+
+@media ( prefers-color-scheme: dark ) {
+
+	.xverse button {
+		color: #aaa;
+		background-color: #222;
+	}
+
+	.xverse button:hover {
+			color: #ccc;
+			background-color: #444;
+		}
+
+	.xverse button.selected {
+		color: #fff;
+		background-color: #08f;
+	}
+
+	.xverse input,.xverse textarea {
+	background-color: #222;
+	border: 1px solid transparent;
+	color: #888;
+	}
+
+	.xverse select {
+		color: #aaa;
+		background-color: #222;
+	}
+
+	.xverse select:hover {
+			color: #ccc;
+			background-color: #444;
+		}
+
+	/* UI */
+
+	.xverse #menubar {
+		background: #111;
+	}
+
+	.xverse #menubar .menu .options {
+		background: #111;
+	}
+
+	.xverse #menubar .menu .options hr {
+			border-color: #222;
+		}
+
+	.xverse #menubar .menu .options .option {
+		color: #888;
+	}
+
+	.xverse #menubar .menu .options .inactive {
+	color: #444;
+	}
+
+	.xverse #sidebar {
+		background-color: #111;
+	}
+
+	.xverse #sidebar .Panel {
+			border-top: 1px solid #222;
+		}
+
+	.xverse #sidebar .Panel.Material canvas {
+		border: solid 1px #5A5A5A;
+	}
+
+	.xverse #tabs {
+		background-color: #1b1b1b;
+		border-top: 1px solid #222;
+	}
+
+	.xverse #tabs span {
+			color: #555;
+			border-right: 1px solid #222;
+		}
+
+	.xverse #tabs span.selected {
+		background-color: #111;
+	}
+
+	.xverse #toolbar {
+		background-color: #111;
+	}
+
+	.xverse #toolbar img {
+		filter: invert(1);
+	}
+
+	.xverse .Outliner {
+		color: #888;
+		background: #222;
+	}
+
+	.xverse .Outliner .option:hover {
+			background-color: rgba(21,60,94,0.5);
+		}
+
+	.xverse .Outliner .option.active {
+		background-color: rgba(21,60,94,1);
+	}
+
+	.xverse .TabbedPanel .Tabs {
+		background-color: #1b1b1b;
+		border-top: 1px solid #222;
+	}
+
+	.xverse .TabbedPanel .Tab {
+			color: #555;
+			border-right: 1px solid #222;
+		}
+
+	.xverse .TabbedPanel .Tab.selected {
+		color: #888;
+		background-color: #111;
+	}
+
+	.xverse .Listbox {
+		color: #888;
+		background: #222;
+	}
+
+	.xverse .Listbox .ListboxItem:hover {
+		background-color: rgba(21,60,94,0.5);
+	}
+
+	.xverse .Listbox .ListboxItem.active {
+		background-color: rgba(21,60,94,1);
+	}
+
+}
+
+/* Temporary Chrome fix (#24794) */
+
+[draggable="true"] {
+	transform: translate(0, 0);
+	z-index: 0;
+}

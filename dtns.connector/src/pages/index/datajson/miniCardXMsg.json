@@ -1,0 +1,101 @@
+{
+	"list": [
+		{
+			"type": "textarea",
+			"label": "分享消息",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 6,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入分享的消息"
+			},
+			"model": "xmsg",
+			"key": "textarea_1696648672879",
+			"help": "",
+			"rules": [
+				{
+					"required": true,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadFile",
+			"label": "上传文件（json或zip文件）",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"disabled": false,
+				"showLabel": true,
+				"hidden": false,
+				"drag": false,
+				"downloadWay": "a",
+				"dynamicFun": "",
+				"width": "100%",
+				"limit": 1,
+				"data": "{}",
+				"fileName": "file",
+				"headers": {},
+				"action": "",
+				"placeholder": "上传"
+			},
+			"model": "files",
+			"key": "uploadFile_1696648711389",
+			"help": "",
+			"rules": [
+				{
+					"required": true,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "switch",
+			"label": "推送头榜",
+			"options": {
+				"defaultValue": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "send_dweb_flag",
+			"key": "switch_1700126716623",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

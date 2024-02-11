@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1591952849993'); /* IE9 */
+  src: url('iconfont.eot?t=1591952849993#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAPMAAsAAAAAB7gAAAN9AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCCfgqDJIJ7ATYCJAMMCwgABCAFhG0HORu8BsgOJS3BwOBhAABmBNEaOnt3QVaJQnRIKioqsWHhsICqxpKtJ2PrWfj+8O9pr1A6IzthkL/qgdlLmym99PXAridjIM7+kwy4Jn+J/+KA5hQZ1qWPAxwPaEDdWKUD3YRxw9hNBA1xN4FGA+ZgbSemy4BQAQYF4oZSFwBhxqo0lIZ6obZiZjllbVOjPr1NfQB4x38f/4BvCElqMjDy6CyhCET/THmTyjFUBifU7sV0bhjzyJgEFOK40nuEE8UncTR6ca5BYFudgp+p/yt+plDpZv/wCImoBYqbwahsTq5IhrUuTSYnJFy7n1o5+RzwWWW635zlYVMbDxPz24kXirFnsltN4Ph4AuvuQ+X4fblhTIZteL/vfOVF+7t3lZWtd1tkdycmNoyNycfH5XfvKpqi1hO+e/ba77W9PL7xrtdenr17yZ49mIWCiHuNMpwXi09377Y33/jpwjQzBVvcl7V3DzrT1WRo7p5e2VrRQiSjRt0PHrlwJ6bitmsn9q+OA1cQ/XfvnLt0mkdstMUpUc83cVWRzvXPnju4oHA4OxWzkJurgGwmKbhgv21G2gN2+vKDjkIqs/Im3X+LVipElMXW7sptbPkzeyp3mNpQoUuAZulLQAQxsv+S0qc4w6du6kvJeXD47Mm0efyeWUbHj5jG1NLJwlQ63jrz97FDVqam7WscFTfMs43Nk2c+OtQuswy1kLfbGxONZwXt8alRCe35fnz29wOeIB9QgXZPCuQYqJaWa/yYQDDey7TmmYd/FYoL+CEihyVxd1k3P/U35Qt+UEa5Vv2HKn0DtaqgnP2vqrVMf7Z3wwMTGjWiAiDY6clwfU/nYkK9ngRJnX5k9QaJwkyiRpNF1Kq3hkYTkuY36cLgiNKAcaslhHZXkbT6gqxdP1GYx6jR6zNqtQcHjY7DesUmw0FhcQwsQLAIL1yEUwRdTiIHwkSpBKr1pQVMWsFZBWR0VAj38fTOp5JgOWSmGKObr/ZFiMRJhi7DE6X9YGkpjWsZuhgSyFODkDbUy4usupEnQZcBzBYGVACBiuAKLYKjEGjlSFofwQrfl4DU9EoVYBo4PVEFiKFDNY/z4cm7A5GkLe/EuZVDdOZT84UgJByJQSuDS5TcUCmM03Da6m7FIALiSTMgqhXKS6lFdtV6Lq8ve78N0AhsnCNFjqJcQ1IvVNP6BXpCAwEAAAAA') format('woff2'),
+  url('iconfont.woff?t=1591952849993') format('woff'),
+  url('iconfont.ttf?t=1591952849993') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1591952849993#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-kefu:before {
+  content: "\e649";
+}
+
+.icon-gouwuche:before {
+  content: "\e64a";
+}
+

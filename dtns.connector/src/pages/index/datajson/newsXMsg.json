@@ -1,0 +1,132 @@
+{
+	"list": [
+		{
+			"type": "input",
+			"label": "标题",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "title",
+			"key": "input_1695693290850",
+			"help": "",
+			"rules": [
+				{
+					"required": true,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "textarea",
+			"label": "摘要",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 6,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入"
+			},
+			"model": "desc",
+			"key": "textarea_1695693317232",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "链接URL",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "news_url",
+			"key": "input_1695693329802",
+			"help": "",
+			"rules": [
+				{
+					"required": true,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadImg",
+			"label": "上传图片",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"width": "100%",
+				"data": "{}",
+				"limit": 1,
+				"placeholder": "上传",
+				"fileName": "image",
+				"headers": {},
+				"action": "",
+				"listType": "picture-card"
+			},
+			"model": "pics",
+			"key": "uploadImg_1695693346131",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

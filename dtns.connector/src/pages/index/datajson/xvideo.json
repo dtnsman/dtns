@@ -1,0 +1,18 @@
+{
+    "index":"main", 
+    "actions":[
+        {
+            "name":"main",
+            "url":"xxxx.webm",
+            "xtype":"video",
+            "ended":"main_ended",
+            "history":true
+        },
+        {
+            "name":"main_ended",
+            "url":"xxxx.pop.json/@folder/file.json",
+            "xtype":"minicard",
+            "history":false
+        }
+    ]
+}

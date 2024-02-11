@@ -1,0 +1,97 @@
+{
+	"list": [
+		{
+			"type": "switch",
+			"label": "开关",
+			"options": {
+				"defaultValue": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "switch_1699706154196",
+			"key": "switch_1699706154196",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadFile",
+			"label": "上传文件",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"disabled": false,
+				"showLabel": true,
+				"hidden": false,
+				"drag": false,
+				"downloadWay": "a",
+				"dynamicFun": "",
+				"width": "100%",
+				"limit": 3,
+				"data": "{}",
+				"fileName": "file",
+				"headers": {},
+				"action": "",
+				"placeholder": "上传"
+			},
+			"model": "uploadFile_1699706156062",
+			"key": "uploadFile_1699706156062",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "button",
+			"label": "按钮",
+			"options": {
+				"type": "primary",
+				"handle": "submit",
+				"dynamicFun": "",
+				"showLabel": false,
+				"hidden": false,
+				"disabled": false
+			},
+			"key": "button_1699706157645"
+		},
+		{
+			"type": "text",
+			"label": "文字",
+			"options": {
+				"textAlign": "left",
+				"hidden": false,
+				"showLabel": false,
+				"showRequiredMark": false,
+				"color": "rgba(0, 0, 0, 0.9)",
+				"fontFamily": "",
+				"fontSize": "10.5pt",
+				"defaultValue": "Text"
+			},
+			"key": "text_1699706158563",
+			"model": "text_1699706158563"
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"span": 4
+		},
+		"wrapperCol": {
+			"span": 18
+		},
+		"hideRequiredMark": false,
+		"width": "100%",
+		"marginTop": "0px",
+		"marginRight": "0px",
+		"marginBottom": "0px",
+		"marginLeft": "0px"
+	}
+}

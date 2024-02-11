@@ -1,0 +1,52 @@
+{
+	"list": [
+		{
+			"type": "textarea",
+			"label": "可供选中复制的内容：",
+			"options": {
+				"width": "100%",
+				"minRows": 20,
+				"maxRows": 10,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请复制此内容"
+			},
+			"model": "sharetext",
+			"key": "textarea_1696855235948",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

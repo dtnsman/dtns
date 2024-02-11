@@ -1,0 +1,61 @@
+<!-- <script src="https://unpkg.com/petite-vue" defer init></script> -->
+<script src="https://unpkg.com/petite-vue"></script> 
+<script src="https://unpkg.com/vue@3"></script>
+<script >//type="module"
+    // import {createApp} from "https://unpkg.com/vue@3"
+    console.log('globalThis:'+Object.keys(globalThis))
+    console.log('String.keys:'+Object.keys(globalThis['String'])+' String:'+globalThis['String'])
+    let a = new String('aaatetextaaaaaaa')
+    console.log('a-keys:'+Object.keys(a))
+    console.log('a-length:'+a['length']+' a-indexOf:'+a['indexOf']('text',0))
+
+    let $ = 1333;
+    let $pop={yes:'haha'}
+    console.log('$:'+$)
+    console.log('$p:'+JSON.stringify($pop))
+
+    let 中文 = {英文:1}
+    中文['英文']=200
+    console.log('￥:'+中文+' 英文：'+中文.英文)
+
+    let obj = {a:111,b:'ccccc',fun:'you have fun ',d:{a:'test',b:{key:'name',value:'your name'}}}
+
+    
+    let keys = Object['keys'](obj)
+    i = window["parseInt"]('0x10');
+    //hardcode the global-variable
+    window['eval']('i++;if(window) window.global=window;global.i = i;alert(global.i)')
+    console.log('i:'+i)
+    alert('obj-keys:'+JSON["stringify"](keys)+' value:'+JSON['stringify'](obj)+' i:'+i)
+//------------------------
+    if(typeof window != 'undefined'){
+        window.global=window
+        window.pop = window;
+    }
+    else {
+        global.window = global; 
+        global.alert = console.log;
+        global.pop = global;
+    }
+
+    keys = pop["Object"]['keys'](obj)
+    pop.i = pop["parseInt"]('0x10')
+
+    pop['eval']('i++;global.i = i;alert(global.i)')
+    console.log('obj-keys:'+pop["JSON"]["stringify"](keys)+' value:'+JSON['stringify'](obj)+' i:'+i)
+    //无法执行以下函数。
+    try{
+    alert(pop['JSON.stringify'](keys))}catch(ex){}
+    alert(pop['import'])
+
+    
+    console.log('pvue-keys:'+Object.keys( PetiteVue))
+
+    const { createApp, ref ,http} = Vue
+    console.log('vue-keys:'+Object.keys( Vue))
+    
+    // function test.v()
+    // {
+
+    // }
+</script>

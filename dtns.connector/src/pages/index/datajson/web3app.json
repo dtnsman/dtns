@@ -1,0 +1,186 @@
+{
+	"list": [
+		{
+			"type": "input",
+			"label": "应用标识",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入应用标识（2-10个英文字符）",
+				"clearable": false,
+				"maxLength": 10,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "web3name",
+			"key": "input_1685955712042",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "textarea",
+			"label": "应用介绍",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 8,
+				"maxLength": 100,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入应用介绍（100字符以内）"
+			},
+			"model": "web3desc",
+			"key": "textarea_1685955320052",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "应用名称（选填）",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入应用名称（2-16个字符）",
+				"clearable": false,
+				"maxLength": 16,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "name",
+			"key": "input_1685955137260",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "应用公钥（选填）",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入应用的公钥",
+				"clearable": false,
+				"maxLength": 50,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "pubkey",
+			"key": "input_1685956154183",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadImg",
+			"label": "上传图片",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"showLabel": false,
+				"hidden": false,
+				"disabled": false,
+				"width": "100%",
+				"data": "{}",
+				"limit": 1,
+				"placeholder": "上传图标（选）",
+				"fileName": "image",
+				"headers": {},
+				"action": "",
+				"listType": "picture-card"
+			},
+			"model": "logo",
+			"key": "uploadImg_1685955359948",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadImg",
+			"label": "上传图片",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"showLabel": false,
+				"hidden": false,
+				"disabled": false,
+				"width": "100%",
+				"data": "{}",
+				"limit": 5,
+				"placeholder": "上传应用截图（选）",
+				"fileName": "image",
+				"headers": {},
+				"action": "",
+				"listType": "picture-card"
+			},
+			"model": "pics",
+			"key": "uploadImg_1685955376433",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

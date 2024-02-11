@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>表单设计器kcz</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="shortcut icon"
+      href="http://cdn.kcz66.com/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="./lib/k-form-design.css" />
+    <script src="./static/js/simple-signal-client.min.js"></script>
+    <script src="./static/js/socket.io.min.js"></script>
+    <script src="./static/js/axios.min.js"></script>
+    <script src="./static/js/compressor.min.js"></script>
+    <script src="./static/js/qrcode.js"></script>
+    <script src="./static/js/current-device.min.js"></script>
+    <script src="./static/js/eccryptojs.js"></script>
+    <script src="./static/js/bs58.bundle.js"></script>
+    <script src="./static/js/key_util_eccryptojs.js"></script>
+    <script src="./static/js/config.js"></script>
+    <script src="./static/js/rpc-client.js"></script>
+    <script src="./static/js/DTNSManager.js"></script>
+    <script src="./static/js/DChatManager.js"></script>
+    <script src="./static/js/ifile-db.js"></script>
+    <script src="./static/js/image-db.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <k-form-design
+        :showBtnList="[
+    'preview',
+    'importJson',
+    'exportJson',
+    'exportCode',
+    'reset',
+  ]"
+        title="表单设计器 -自定义标题"
+      ></k-form-design>
+    </div>
+    <script src="http://cdn.kcz66.com/vue.min.js"></script>
+    <script src="./lib/k-form-design.umd.min.js"></script>
+    <script>
+      let jsonData = {
+        list: [
+          {
+            type: "input",
+            name: "单行文本",
+            options: {
+              width: "100%",
+              defaultValue: "",
+              placeholder: "请输入",
+              disabled: false,
+            },
+            model: "input_1574002292465",
+            key: "input_1574002292465",
+            rules: [{ required: false, message: "必填项" }],
+          },
+        ],
+        config: {
+          layout: "horizontal",
+          labelCol: { span: 4 },
+          wrapperCol: { span: 18 },
+          hideRequiredMark: false,
+          width: "100%",
+          marginTop: "0px",
+          marginRight: "0px",
+          marginBottom: "0px",
+          marginLeft: "0px",
+        },
+      };
+      let vm = new Vue({
+        el: "#app",
+        data: {
+          jsonData,
+        },
+        methods: {
+          handleSubmit() {},
+        },
+        mounted() {
+          let Cmp = {
+            label: "cmp",
+            render: function(h) {
+              return h("div", "我是自定义组件");
+            },
+          };
+
+          window["k-form-design"].setFormDesignConfig({
+            title: "自定义字段",
+            list: [
+              {
+                type: "demo", // 组件类型
+                label: "自定义组件", // 组件名称
+                component: Cmp, // 组件
+                options: {
+                  defaultValue: undefined, // 可选值
+                  multiple: false, // 可选值
+                  disabled: false, // 可选值
+                  width: "100%",
+                  clearable: true, // 可选值
+                  placeholder: "请选择", // 可选值
+                  showSearch: false, // 可选值
+                },
+                model: "", // 可选值
+                key: "",
+                rules: [
+                  // 可选值
+                  {
+                    required: false,
+                    message: "必填项",
+                  },
+                ],
+              },
+            ],
+          });
+         
+          // 添加组件
+          // window["k-form-design"].nodeSchema.addSchemas([
+          //   {
+          //     type: "demo", // 表单类型
+          //     label: "自定义组件", // 标题文字
+          //     icon: "icon-gallery",
+          //     component: Cmp,
+          //     options: {
+          //       defaultValue: undefined,
+          //       multiple: false,
+          //       disabled: false,
+          //       width: "100%",
+          //       clearable: true,
+          //       placeholder: "请选择",
+          //       showSearch: false,
+          //       showLabel: true,
+          //     },
+          //     model: "",
+          //     key: "",
+          //     rules: [
+          //       {
+          //         required: false,
+          //         message: "必填项",
+          //       },
+          //     ],
+          //   },
+          // ]);
+
+          // // 添加分组
+          // window["k-form-design"].nodeSchema.addSchemaGroup({
+          //   title: "自定义组件",
+          //   list: ["demo"],
+          // });
+        },
+      });
+    </script>
+    <script>
+      window.g_axios = axios
+      window.g_tns_urls = null
+      window.g_turn_urls = null
+      async function queryUrls()
+      {
+          let tnsUrls = await
+          axios.get('https://static.yunapi.org/tns-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), )
+          window.g_tns_urls = tnsUrls ? tnsUrls.data :null
+  
+          let turnUrls = await
+          axios.get('https://static.yunapi.org/turn-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+          window.g_turn_urls = turnUrls ? turnUrls.data:null
+          console.log('g_tns_urls:',g_tns_urls,'g_turn_urls:',g_turn_urls)
+      }
+      queryUrls()
+    </script>
+    <script>
+      //用于backDb-订阅dnalink.node节点
+      const ifileDb = new IFileIndexDB('ifiledb','ifilecache')
+      ifileDb.openDB()
+      window.ifileDb = ifileDb
+  
+      const iWalletDb = new IFileIndexDB('iwalletdb','iwalletcache')
+      iWalletDb.openDB()
+      window.iWalletDb = iWalletDb
+  
+      const iSessionDb = new IFileIndexDB('isessiondb','isessioncache')
+      iSessionDb.openDB()
+      window.iSessionDb = iSessionDb
+  
+      const imageDb =new ImageIndexDB()
+      imageDb.openDB()
+      window.imageDb = imageDb
+      console.log('imageDb:',imageDb)
+  
+      g_web3name = 'nftlist'
+      async function g_get_wallet(){
+          if(typeof g_mywallet == 'undefined' || !g_mywallet)
+          {
+              while(iWalletDb.db == null) await new Promise((resolve)=>setTimeout(() => resolve(true), 300));
+              window.g_mywallet = (await iWalletDb.getDataByKey('g_mywallet'));
+              g_mywallet = g_mywallet ? g_mywallet.data :g_mywallet
+              console.log('iFileDb-g_mywallet:',g_mywallet)
+          }
+      }
+      window.g_get_wallet = g_get_wallet
+      g_get_wallet()
+  </script>
+  <script>
+      let myroomid = localStorage.getItem('now_roomid')
+  const client = myroomid && myroomid.length>=1 ? new RTCClient(myroomid) : new RTCClient('nftlist')//-svr')
+  window.rpc_client = client
+  
+  const dtnsManager = new DTNSManager()
+  window.g_dtnsManager = dtnsManager
+  dtnsManager.addRPCClient(client)
+  const dchatManager = new  DChatManager(dtnsManager)
+  window.g_dchatManager = dchatManager
+  
+  if(localStorage.getItem('userInfo'))
+  setTimeout(function(){
+  console.log('now connect to web3:dtns:')
+  const dtnsClient = dtnsManager.connect('dtns://web3:dtns')
+  console.log('dtnsClient:',dtnsClient)
+  
+  //连接websocket和登录dtns操作
+  if(rpc_client.roomid=='dtns')
+  {
+      //启动dtns的消息接收器
+      setTimeout(function(){
+          dchatManager.initWebSocket('dtns')//照样创建多一个后台用的websocket，用于监听【请求授权信息】
+      },6000)
+  }
+  else
+  dtnsClient.setPeerRefreshCallback(async function(){
+      console.log('into dtns-tns-server-connected callback:')
+      let web3name = 'dtns'
+      let timestamp = parseInt( Date.now()/1000)
+      let hash = await key_util.hashVal(web3name+':'+timestamp)
+      let sign = await key_util.signMsg(hash,g_mywallet.private_key) //使用的是dtns-device-id设备id的密钥
+  
+      let ret = await dtnsManager.run('dtns://web3:dtns/user/device/login',{timestamp,web3name,sign})
+      console.log('/user/device/login--ret:'+JSON.stringify(ret))
+  
+      if(!ret || !ret.ret) return 
+      if(true)
+      {
+          console.log('[dtns]session:'+web3name+' save now:',ret)
+          iSessionDb.deleteDataByKey('session:'+web3name)
+          iSessionDb.addData({key:'session:'+web3name,data:ret}) 
+          iSessionDb.addData({key:'session:'+web3name+':'+Date.now(),data:ret})
+      }
+  
+      //启动dtns的消息接收器
+      dchatManager.initWebSocket(web3name)
+  
+      let dtns_private_key = g_mywallet.private_key
+      if(ret){
+          let dtnsUserInfo = ret
+          console.log('dtnsUserInfo:',dtnsUserInfo)
+          let keys = await iWalletDb.getAllDatas()
+          console.log('keys:',keys)
+          for(let i=0;i<keys.length;i++)
+          {
+            if(keys[i].data && keys[i].data.public_key == dtnsUserInfo.public_key)
+            {
+              dtns_private_key = keys[i].data.private_key
+              break;
+            }
+          }
+      }
+  
+      //不再自动化创建新设备（并绑定）2023-3-29
+      if(true) return 
+  
+      let user_id = ret.user_id
+      let s_id = ret.s_id
+      let deviceInfo = device.os +'-'+device.type +
+              '('+ (Math.floor(new Date().getTime()/1000)).toString(36) +')'
+      let keyPair = eccryptoJS.generateKeyPair()
+      console.log('dtnsManager-connect->keyPair:',keyPair)
+      let private_key = bs58.encode( keyPair.privateKey)
+      let public_key = bs58.encode( eccryptoJS.getPublicCompressed(keyPair.privateKey))
+      const msg = eccryptoJS.utf8ToBuffer(deviceInfo);
+      hash = await eccryptoJS.sha256(msg)
+      sign = bs58.encode( await eccryptoJS.sign(keyPair.privateKey,hash,true))
+      let sign2 = bs58.encode( await eccryptoJS.sign(bs58.decode(dtns_private_key),hash,true))
+  
+      let splitStr = '|'
+      let copyData = splitStr+sign+splitStr
+          +public_key.substring(public_key.length-4,public_key.length)
+          +splitStr+deviceInfo+splitStr+rpc_client.roomid+splitStr
+      console.log('dtnsClient-connect-copyData:'+copyData)
+  
+      // phoneHash,deviceName,sign,phoneEnInfo,public_key,web3name,invite_code
+      ret = await dtnsManager.run('dtns://web3:dtns/user/device/bind',
+          {deviceName: deviceInfo ,public_key:public_key,web3name:'ld',sign:sign,sign2:sign2,user_id,s_id})
+      console.log('/user/device/bind--ret:'+JSON.stringify(ret))
+      if(!ret || !ret.ret) return 
+      //保存钱包信息
+      if(web3name != rpc_client.roomid) //不要重复保存
+      {
+          iWalletDb.deleteDataByKey('mywallet:'+web3name)
+          ret.private_key = private_key
+          ret.public_key = public_key
+          ret.web3name = web3name
+          console.log('mywallet:'+web3name+' save now:',ret)
+          iWalletDb.addData({key:'mywallet:'+web3name,data:ret}) 
+          iWalletDb.addData({key:'mywallet:'+web3name+':'+Date.now(),data:ret})
+      }
+  
+      //登录ld（验证使用ecc-keys绑定的设备可以成功登录目标设备）--需要轮询--确保同步状态完成
+      let flag = true
+      while(flag){
+          await rpc_client.sleep(3000)
+          let web3name = 'ld'
+          let timestamp = parseInt( Date.now()/1000)
+          let hash = await key_util.hashVal(web3name+':'+timestamp)
+          let sign = await key_util.signMsg(hash,private_key)
+  
+          let web3Url = 'dtns://web3:'+web3name+'/user/device/login'
+          let tmpClient = dtnsManager.connect(web3Url) ///
+          console.log('web3url and tmpClient:',web3Url,tmpClient)
+          // if(tmpClient) tmpClient.setPeerRefreshCallback(async function(){
+          let ret = await dtnsManager.run(web3Url,{timestamp,web3name,sign})
+          console.log(web3name+' /user/device/login--ret:'+JSON.stringify(ret))
+          if(ret && ret.ret) flag = false
+          ret.web3name = web3name
+          // ret.login_private_key = private_key  （sesssion中不保存private，需要在iwalletdb中查询）
+  
+          //这里要重点考虑一下，如何处理（是保存在iwallet中还是其他的）
+          if(web3name != rpc_client.roomid && !flag) //不要重复保存
+          {
+              console.log('session:'+web3name+' save now:',ret)
+              iSessionDb.deleteDataByKey('session:'+web3name)
+              iSessionDb.addData({key:'session:'+web3name,data:ret}) 
+              iSessionDb.addData({key:'session:'+web3name+':'+Date.now(),data:ret})
+          }
+          // })   
+      }
+  })
+  
+  },1000)
+  
+  // const imDb =new IMIndexDB()
+  // imDb.openDB()
+  // window.imDb = imDb
+  </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{
+	"list": [
+		{
+			"type": "image",
+			"label": "图片",
+			"options": {
+				"hidden": false,
+				"showLabel": false,
+				"defaultValue": "obj_imgopen872J9g2MS"
+			},
+			"key": "image_1682330842507",
+			"model": "banner"
+		},
+		{
+			"type": "text",
+			"label": "文字",
+			"options": {
+				"textAlign": "left",
+				"hidden": false,
+				"showLabel": false,
+				"showRequiredMark": false,
+				"color": "rgba(0, 0, 0, 0.9)",
+				"fontFamily": "",
+				"fontSize": "10.5pt",
+				"defaultValue": "公告内容"
+			},
+			"key": "text_1682330850990",
+			"model": "chatnotice"
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

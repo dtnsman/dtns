@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>xlsx-reader</title>
+<script type="text/javascript" src="./xlsx.full.min.js"></script>
+<script src="../ifile-db.js"></script>
+</head>
+<body>
+    <div id="container" style="width:100%;height:100%"></div>
+</body>
+
+<script>
+    const ifileDb = new IFileIndexDB('ifiledb','ifilecache')
+    ifileDb.openDB()
+    window.ifileDb = ifileDb
+
+    async function test()
+    {
+        let params = {filename:localStorage.getItem('excel-filename')}
+
+        let cachedFileItem = await ifileDb.getDataByKey(params.filename)//await ifileDb.getDataByKey(params.filename)
+        console.log('download fast by ifileDb:',cachedFileItem)
+        if(!cachedFileItem ){
+            console.log('查看失败:docx文件不存在')
+        } 
+        // let minetype = cachedFileItem.data.fileInfo.minetype
+        // let blob = new Blob([cachedFileItem.data.filedata], { type: cachedFileItem.data.fileInfo.minetype });
+        // let src  = URL.createObjectURL(blob);
+        
+        var xworkbook = XLSX.read(cachedFileItem.data.filedata, {type: 'array'});
+        console.log('workbook:',xworkbook)
+        // var works = XLSX.utils.aoa_to_sheet(xworkbook)
+        // console.log('works:',works)
+        let html = ''
+        for (x in xworkbook.Sheets){
+            console.log('x:',x)
+            html += XLSX.utils.sheet_to_html(xworkbook.Sheets[x])
+            console.log('html:',html)
+            break
+        }
+
+        document.getElementById('container').innerHTML = html
+    }
+    setTimeout(()=>test(),500)
+
+</script>
+</html>

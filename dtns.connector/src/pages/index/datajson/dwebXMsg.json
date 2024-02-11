@@ -1,0 +1,197 @@
+{
+	"list": [
+		{
+			"type": "editor",
+			"label": "富文本",
+			"list": [],
+			"options": {
+				"height": 300,
+				"placeholder": "请输入内容",
+				"defaultValue": "",
+				"chinesization": true,
+				"hidden": false,
+				"disabled": false,
+				"showLabel": false,
+				"width": "100%"
+			},
+			"model": "xmsg",
+			"key": "editor_1685517437370",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadImg",
+			"label": "",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"width": "100%",
+				"data": "{}",
+				"limit": 9,
+				"placeholder": "上传图片",
+				"fileName": "image",
+				"headers": {},
+				"action": "",
+				"listType": "picture-card"
+			},
+			"model": "pics",
+			"key": "uploadImg_1685517431630",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "uploadFile",
+			"label": "",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"disabled": false,
+				"showLabel": true,
+				"hidden": false,
+				"drag": false,
+				"downloadWay": "a",
+				"dynamicFun": "",
+				"width": "100%",
+				"limit": 10,
+				"data": "{}",
+				"fileName": "file",
+				"headers": {},
+				"action": "",
+				"placeholder": "上传文件"
+			},
+			"model": "files",
+			"key": "uploadFile_1685517433247",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "number",
+			"label": "定价",
+			"options": {
+				"width": "100%",
+				"defaultValue": 0,
+				"min": null,
+				"max": null,
+				"precision": null,
+				"step": 1,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入"
+			},
+			"model": "xprice",
+			"key": "number_1700702454706",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"label": "创建/选择 [标签]",
+			"options": {
+				"width": "100%",
+				"multiple": false,
+				"disabled": false,
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"placeholder": "请选择",
+				"dynamicKey": "",
+				"dynamic": false,
+				"options": [
+					{
+						"value": "",
+						"label": "不使用标签"
+					},
+					{
+						"value": "newu",
+						"label": "创建标签（用户）"
+					},
+					{
+						"value": "newp",
+						"label": "创建标签（公共）"
+					},
+					{
+						"value": "newm",
+						"label": "创建标签（管理员）"
+					}
+				],
+				"showSearch": false,
+				"defaultValue": ""
+			},
+			"model": "label_type",
+			"key": "select_1697509479726",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "switch",
+			"label": "推送头榜",
+			"options": {
+				"defaultValue": true,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "send_dweb_flag",
+			"key": "switch_1700126716623",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

@@ -1,0 +1,78 @@
+{
+    "list": [
+        {
+            "type": "input",
+            "label": "网络名称",
+            "options": {
+                "type": "text",
+                "width": "100%",
+                "defaultValue": "",
+                "placeholder": "请输入",
+                "clearable": false,
+                "maxLength": null,
+                "addonBefore": "",
+                "addonAfter": "",
+                "showLabel": true,
+                "hidden": false,
+                "disabled": false
+            },
+            "model": "network",
+            "key": "input_1684987829929",
+            "help": "",
+            "rules": [
+                {
+                    "required": false,
+                    "message": "必填项"
+                }
+            ]
+        },
+        {
+            "type": "textarea",
+            "label": "配置信息",
+            "options": {
+                "width": "100%",
+                "minRows": 4,
+                "maxRows": 20,
+                "maxLength": null,
+                "defaultValue": "",
+                "clearable": false,
+                "showLabel": true,
+                "hidden": false,
+                "disabled": false,
+                "placeholder": "请输入网段配置信息"
+            },
+            "model": "config",
+            "key": "textarea_1684987848261",
+            "help": "",
+            "rules": [
+                {
+                    "required": false,
+                    "message": "必填项"
+                }
+            ]
+        }
+    ],
+    "config": {
+        "layout": "horizontal",
+        "labelCol": {
+            "xs": 4,
+            "sm": 4,
+            "md": 4,
+            "lg": 4,
+            "xl": 4,
+            "xxl": 4
+        },
+        "labelWidth": 100,
+        "labelLayout": "flex",
+        "wrapperCol": {
+            "xs": 18,
+            "sm": 18,
+            "md": 18,
+            "lg": 18,
+            "xl": 18,
+            "xxl": 18
+        },
+        "hideRequiredMark": false,
+        "customStyle": ""
+    }
+}

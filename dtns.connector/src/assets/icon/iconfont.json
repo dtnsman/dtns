@@ -1,0 +1,16 @@
+{
+  "id": "1745465",
+  "name": "连线",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "13991835",
+      "name": "V9",
+      "font_class": "V",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <script src="static/js/axios.min.js"></script>
+        <script src="static/js/simple-signal-client.min.js"></script>
+        <script src="static/js/socket.io.min.js"></script>
+        <script src="static/js/jszip.min.js"></script>
+        <script src="static/js/FileSaver.js"></script>
+        <script src="static/js/rpc-client.js"></script>
+        <script src="static/js/DTNSManager.js"></script>
+        <!-- <script src="static/js/image-db.js"></script> -->
+        <script src="static/js/icache-db.js"></script>
+        <script src="static/js/ifile-db.js"></script>
+        <script src="static/js/static/libs/current-device.min.js"></script>
+        <script src="static/js/static/libs/bs58.bundle.js"></script>
+        <!-- <script src="static/js/static/libs/bignumber.min.js"></script> -->
+        <script src="static/js/static/libs/eccryptojs.js"></script>
+        <script src="static/js/static/libs/key_util_eccryptojs.js"></script>
+        <script src="static/js/sign_util.js"></script>
+        <script src="static/js/static/str_filter.js"></script>
+    </head>
+    <body>
+        <center><h1>《pop-devtools》</h1></center>
+        <br/>
+        <span>远程调试URL：</span><input id="devtools_url"  value=""><br/><br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;连接&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <!-- <button onclick="save()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;保存&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button> -->
+    <script>
+        // window.onbeforeunload = function(){
+            
+        // }
+        window.g_ibapp_status_urls = ['https://groupbuying.opencom.cn:446/hosts']
+
+        window.g_tns_nslookup_url = 'https://static.yunapi.org/tns-urls.json'
+        window.g_turn_nslookup_url= 'https://static.yunapi.org/turn-urls.json'
+        window.g_static_dtns_network_nslookup_url= 'https://static.yunapi.org/static-dtns-network.json'
+        window.g_tns_default_url = 'https://groupbuying.opencom.cn:446'
+        window.g_phones_default_url='https://static.yunapi.org/phones.json'
+        window.g_dtns_nslookup_static_urls = ['http://static.dtns.forklist.opencom.cn','http://static.dtns.opencom.cn']//['http://static.dtns.nftlist.com.cn','http://static.dtns.forklist.nftlist.com.cn']
+
+        const ifileDb = new IFileIndexDB('ifiledb','ifilecache')
+        ifileDb.openDB()
+        window.ifileDb = ifileDb
+
+        // const filesDb = new IFileIndexDB('files-db','files-store',false,11);
+        // filesDb.openDB();
+        // window.filesDb = filesDb;
+        // console.log('filesDb:',filesDb)
+        // setTimeout(()=>{
+        //     // filesDb.clear()
+        //     // filesDb.deleteObjectStore()
+        // }
+        //     ,1000)
+
+        const iWalletDb = new IFileIndexDB('iwalletdb','iwalletcache')
+        iWalletDb.openDB()
+        window.iWalletDb = iWalletDb
+
+        const iSessionDb = new IFileIndexDB('isessiondb','isessioncache')
+        iSessionDb.openDB()
+        window.iSessionDb = iSessionDb
+        window.g_axios = axios
+        const dtnsManager = new DTNSManager()
+        window.g_dtnsManager = dtnsManager
+        async function queryUrls()
+        {
+            let tnsUrls = await
+            axios.get('https://static.yunapi.org/tns-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), )
+            window.g_tns_urls = tnsUrls ? tnsUrls.data :null
+
+            let turnUrls = await
+            axios.get('https://static.yunapi.org/turn-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+            window.g_turn_urls = turnUrls ? turnUrls.data:null
+            console.log('g_tns_urls:',g_tns_urls,'g_turn_urls:',g_turn_urls)
+        }
+        queryUrls()
+        // const roomMap = new Map()
+        function start(){
+            let devtools_url = document.getElementById('devtools_url').value
+            console.log('devtools_url:',devtools_url)
+            if(!devtools_url || devtools_url.trim().length==0){
+                return alert('URL不能为空')
+            }
+            devtools_url = devtools_url.trim()
+            window.g_devtools_rpc = new RTCClient(devtools_url)
+            // g_devtools_rpc.init()
+            console.log('连接成功',g_devtools_rpc)
+            g_devtools_rpc.devtools_rpc_callback = function(data)
+            {
+                //JSON.parse打印的日志不够直观
+                // try{
+                //     let json = JSON.parse(data)
+                //     console.log('devtools-log:',json)
+                // }catch(ex)
+                {
+                    str = ''+data
+                    console.log('devtools-log:',str)
+                }
+                // console.log('string-log:',new String(data))
+            }
+        }
+    </script>
+    </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.4/lib/index.css"> -->
+    <link rel="stylesheet" href="static/js/creator.3d/editor/css/main.css">
+<link rel="stylesheet" href="static/js/creator.3d/editor/js/libs/codemirror/codemirror.css">
+<link rel="stylesheet" href="static/js/creator.3d/editor/js/libs/codemirror/theme/monokai.css">
+<link rel="stylesheet" href="static/js/creator.3d/editor/js/libs/codemirror/addon/dialog.css">
+<link rel="stylesheet" href="static/js/creator.3d/editor/js/libs/codemirror/addon/show-hint.css">
+<link rel="stylesheet" href="static/js/creator.3d/editor/js/libs/codemirror/addon/tern.css">
+    <link rel="stylesheet" href="static/css/vant.css">
+    <link rel="stylesheet" href="static/kform/lib/k-form-design-mini.css">
+    <link rel="stylesheet" href="static/css/amap.css">
+    <!-- <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/> -->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=6b11ade85ab224e16cadec54dfa9bb43"></script>
+    <!-- <link rel="stylesheet" href="static/js/lib/k-form-design.css"> -->
+    <!-- <link rel="stylesheet" href="http//at.alicdn.com/t/font_1730342_goa96a3djc.css"> -->
+    <script src="static/js/config.js"></script>
+    <script src="static/js/event_bus.js"></script>
+    <script src="static/js/dash-2.9.2.all.min.js"></script>
+    <script src="static/js/flv-1.4.2.min.js"></script>
+    <script src="static/js/hwplayer.js"></script>
+    <link href="static/css/video-js.min.css" rel="stylesheet" />
+    <script src="static/js/video.min.js"></script>
+
+    <script src="static/js/vue-markdown/prism.min.js"></script>
+    <script src="static/js/showdown/showdown.min.js"></script>
+    <script src="static/js/showdown/github-markdown-light.css"></script>
+    <!-- <link rel="stylesheet" href="static/js/vue-markdown/prism.min.css">
+    <link rel="stylesheet" href="static/js/vue-markdown/katex.min.css"> -->
+
+    <!-- <script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/dash-2.9.2.all.min.js"></script>
+		<script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/flv-1.4.2.min.js"></script>
+		<script src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/dist/hwplayer.js?flvjs=true"></script> -->
+    <script src="static/js/font_1730342_goa96a3djc.js"></script>
+    <!-- 引入 Vue 和 Vant 的 JS 文件 -->
+    <script src="static/kform/vue.min.js"></script>
+    <script src="static/js/vant.min.js"></script>
+    <script src="static/js/simple-signal-client.min.js"></script>
+    <script src="static/js/socket.io.min.js"></script>
+    <script src="static/js/jszip.min.js"></script>
+    <script src="static/js/FileSaver.js"></script>
+    <script src="static/js/rpc-client.js"></script>
+    <script src="static/js/DTNSManager.js"></script>
+    <script src="static/js/DownloadManager.js"></script>
+    <script src="static/js/DChatManager.js"></script>
+    <script src="static/js/DXIBManager.js"></script>
+    <script src="static/js/static/libs/current-device.min.js"></script>
+    <script src="static/js/static/libs/bs58.bundle.js"></script>
+    <!-- <script src="static/js/static/libs/bignumber.min.js"></script> -->
+    <script src="static/js/static/libs/eccryptojs.js"></script>
+    <script src="static/js/static/libs/key_util_eccryptojs.js"></script>
+    <script src="static/js/sign_util.js"></script>
+    <script src="static/js/image-db.js"></script>
+    <script src="static/js/icache-db.js"></script>
+    <script src="static/js/ifile-db.js"></script>
+    <script src="static/js/compressor.min.js"></script>
+    <script src="static/js/qrcode.js"></script>
+    <script src="static/js/tc-qrcode.min.js"></script>
+    <script src="static/js/json/deepcopy.min.js"></script>
+    <script src="static/js/json/deepclone.js"></script>
+    <script src="static/js/json/stringify.js"></script>
+    <script src="static/js/json/NFTItem.js"></script>
+    <script src="static/js/json/NewsItem.js"></script>
+    <script src="static/js/json/FilesItem.js"></script>
+    <script src="static/js/json/ImgsItem.js"></script>
+    <script src="static/js/json/NewsObj.js"></script>
+
+    <!--新增了client模式（可允许管理员订阅到dnalink.node的数据---暂时支持管理员，后续可支持全员）-->
+    <script src="static/js/static/sql-wasm.js"></script>
+    <script src="static/js/static/SQLDB.js"></script>
+    <!-- <script src="./static/str_filter.js"></script>
+    <script src="./static/key_util_eccryptojs.js"></script> -->
+    <!-- <script src="./static/key_util.js"></script> -->
+    <script src="static/js/static/lx/lianxian_gsb_59872.js"></script>
+    <script src="static/js/static/lx/lianxian_msg_59876.js"></script>
+    <script src="static/js/static/lx/lianxian_obj_59875.js"></script>
+    <script src="static/js/static/lx/lianxian_order_59871.js"></script>
+    <script src="static/js/static/lx/lianxian_rmb_59874.js"></script>
+    <script src="static/js/static/lx/lianxian_score_59873.js"></script>
+    <script src="static/js/static/lx/lianxian_user_59877.js"></script>
+    <script src="static/js/static/lx/lianxian_vip_59870.js"></script>
+    <script src="static/js/static/dtns/dtns-score.js"></script>
+    <script src="static/js/static/dnalink_api_util.js"></script>
+    <script src="static/js/static/pop_runtime2.js"></script>
+    <script src="static/js/static/dnalink_dao_chain.js"></script>
+    <script src="static/js/static/dnalink_dao_wallet.js"></script>
+    <script src="static/js/static/dnalink_protocol.js"></script>
+    <script src="static/js/static/dnalink_engine.js"></script>
+    <!-- <script src="static/js/static/dnalink_rtc_client.js"></script> -->
+    <script src="static/js/static/str_filter.js"></script>
+    <script src="static/js/static/lx_all.js"></script>
+    <script src="static/js/static/dtns_all.js"></script>
+
+
+    <script src="static/js/creator.3d/examples/js/libs/draco/draco_encoder.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/codemirror/codemirror.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/codemirror/mode/javascript.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/codemirror/mode/glsl.js"></script>
+
+<script src="static/js/creator.3d/editor/js/libs/esprima.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/jsonlint.js"></script>
+
+<script src="static/js/creator.3d/editor/js/libs/ffmpeg.min.js" defer></script>
+<script src="static/js/creator.3d/editor/js/libs/codemirror/addon/dialog.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/codemirror/addon/show-hint.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/codemirror/addon/tern.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/acorn/acorn.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/acorn/acorn_loose.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/acorn/walk.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/polyfill.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/signal.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/tern.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/def.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/comment.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/infer.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/ternjs/doc_comment.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/tern-threejs/threejs.js"></script>
+<script src="static/js/creator.3d/editor/js/libs/signals.min.js"></script>
+<script async src="static/js/creator.3d/editor/js/libs/es-module-shims.js"></script>
+   
+    <!-- <link type="text/css" rel="stylesheet" href="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/video-js-7.2.3/video-js.css">
+    <link type="text/css" rel="stylesheet" href="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/plugins/css/videojs-allPlugins.css"> -->
+    <!-- <script type="text/javascript" src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/video-js-7.2.3/video.min.js" charset="utf-8" data-hwplayerid="videojs" data-hwplayerloaded="true"></script> -->
+    <!-- <script type="text/javascript" src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/plugins/js/videojs-resolution-switcher.js" charset="utf-8" data-hwplayerid="switcher" data-hwplayerloaded="true"></script> -->
+    <!-- <script type="text/javascript" src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/plugins/js/videojs.thumbnails.js" charset="utf-8" data-hwplayerid="thumbnails" data-hwplayerloaded="true"></script> -->
+    <!-- <script type="text/javascript" src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/plugins/js/videojs-hlsjs-plugin.js" charset="utf-8" data-hwplayerid="hlsjs" data-hwplayerloaded="true"></script> -->
+    <!-- <script type="text/javascript" src="https://media-cache.huaweicloud.com/video/hwplayer/1.0.0/lib/plugins/js/videojs-flv-0.2.0.min.js" charset="utf-8" data-hwplayerid="flvjsPlugin" data-hwplayerloaded="true"></script> -->
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;"/>
+    <title>DTNS.conenctor德塔世界连接器</title>
+    <script>
+    </script>
+    <style>
+ /* .exclude {
+filter: invert(1) hue-rotate(180deg);
+}  */
+    </style>
+  </head>
+  <body style="overflow-y: hidden;">
+    <div id="app"></div>
+    <audio id="bgmp3" style="width: 0px;height: 0px;" src="static/js/recved.mp3" style="opacity:0" preload="auto" autoplay="true" controls />  
+    <script>
+      window.bgMp3 = document.getElementById('bgmp3')
+      let styleHtml = `
+html {
+  filter: invert(1) hue-rotate(180deg);
+}
+img{
+  filter: invert(1) hue-rotate(180deg);
+}
+`
+      var style = document.createElement('style')
+      style.innerHTML =localStorage.getItem('dark_mode') &&  parseInt(localStorage.getItem('dark_mode')) ?  styleHtml : ''
+      var ref = document.querySelector('script')
+      ref.parentNode.insertBefore(style,ref)
+      window.darkModeStyleEle = style
+      window.darkModeStyleHtml = styleHtml
+
+      window.fullWidth = document.documentElement.clientWidth;
+      // window.onresize = () => {
+      //   return (() => {
+      //     window.fullWidth = document.documentElement.clientWidth;
+      //     console.log('window.fullWidth:'+fullWidth)
+      //   })();
+      // };
+
+      window.bakDbStart = bakDbStart
+      function bakDbStart(defaultRTCRoomID = 'dtns')
+      {
+          let roomid= defaultRTCRoomID
+         
+          //lx_all.js
+          main(defaultRTCRoomID)
+
+          if(roomid=='dtns')
+          {
+              //启动dtns_all
+              dtns_main(defaultRTCRoomID)
+          }
+          else{
+              dtns_main('dtns.network')
+          }
+      }
+      //将所有的同步数据保存到indexDb中（ifileDb）
+      function save(alertFlag = false)
+      {
+          window.m_onbeforeunload_results = []
+          let flag = false
+          if(typeof m_onbeforeunload == 'function'){
+              m_onbeforeunload()
+              if(alertFlag) alert('保存成功')
+              console.log('保存成功')
+              flag = true
+          }else{
+              console.log('保存函数不存在')
+          }
+          return {ret:flag,list:m_onbeforeunload_results,msg:flag ? 'success':'save failed'}
+      }
+      window.m_onbeforeunload_save = save
+      async function updateKeys(tokenName,private_key,public_key)
+      {
+        window.m_onbeforeunload_results = []
+        let flag = false
+        if(typeof m_onbeforeunload == 'function'){
+            await m_onbeforeunload({token_name:tokenName,private_key,public_key})
+            // if(alertFlag) alert('设置成功')
+            console.log('设置成功')
+            flag = true
+        }else{
+            console.log('设置函数不存在')
+        }
+        return {ret:flag,list:m_onbeforeunload_results,msg:flag ? 'success':'save failed'}
+      }
+      window.g_update_keys = updateKeys
+  </script>
+  </body>
+  <style>
+    body{color:rgba(0,0,0,1)}
+  </style>
+
+</html>

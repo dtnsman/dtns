@@ -1,0 +1,79 @@
+{
+	"list": [
+		{
+			"type": "input",
+			"label": "文件夹名称",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入名称（1-20字符以内）",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "name",
+			"key": "input_1687915715347",
+			"help": "",
+			"rules": [
+				{
+					"required": true,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "input",
+			"label": "群门禁（选填）",
+			"options": {
+				"type": "text",
+				"width": "100%",
+				"defaultValue": "",
+				"placeholder": "请输入聊天室的chatid",
+				"clearable": false,
+				"maxLength": null,
+				"addonBefore": "",
+				"addonAfter": "",
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "chatid",
+			"key": "input_1687915737310",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

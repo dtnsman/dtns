@@ -1,0 +1,76 @@
+{
+	"list": [
+		{
+			"type": "uploadFile",
+			"label": "上传文件",
+			"options": {
+				"defaultValue": "[]",
+				"multiple": false,
+				"disabled": false,
+				"showLabel": true,
+				"hidden": false,
+				"drag": false,
+				"downloadWay": "a",
+				"dynamicFun": "",
+				"width": "100%",
+				"limit": 100,
+				"data": "{}",
+				"fileName": "file",
+				"headers": {},
+				"action": "",
+				"placeholder": "上传"
+			},
+			"model": "files",
+			"key": "uploadFile_1687915902893",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "switch",
+			"label": "文件锁🔒",
+			"options": {
+				"defaultValue": true,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false
+			},
+			"model": "lock_flag",
+			"key": "switch_1700616075501",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

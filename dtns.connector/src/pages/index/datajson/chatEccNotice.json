@@ -1,0 +1,211 @@
+{
+	"list": [
+		{
+			"type": "alert",
+			"label": "通知信息",
+			"options": {
+				"type": "success",
+				"description": "下面是授权通知信息（请授权或查看）",
+				"showIcon": true,
+				"banner": false,
+				"showLabel": false,
+				"hidden": false,
+				"closable": false
+			},
+			"key": "alert_1682067895335"
+		},
+		{
+			"type": "card",
+			"label": "",
+			"list": [
+				{
+					"type": "text",
+					"label": "用户名：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "user_name"
+					},
+					"key": "text_1682067623711",
+					"model": "user_name"
+				},
+				{
+					"type": "text",
+					"label": "用户ID：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "user_id"
+					},
+					"key": "text_1682067639551",
+					"model": "user_id"
+				},
+				{
+					"type": "text",
+					"label": "手机号码：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "phone"
+					},
+					"key": "text_1682067526696",
+					"model": "phone"
+				},
+				{
+					"type": "text",
+					"label": "手机号码Hash：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "phoneHash"
+					},
+					"key": "text_1682067548166",
+					"model": "phoneHash"
+				},
+				{
+					"type": "text",
+					"label": "DTNS-用户ID：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "dtns_user_id"
+					},
+					"key": "text_1682067592246",
+					"model": "dtns_user_id"
+				},
+				{
+					"type": "text",
+					"label": "公钥：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "public_key"
+					},
+					"key": "text_1682067638585",
+					"model": "public_key"
+				},
+				{
+					"type": "text",
+					"label": "注册时间：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "regist_time"
+					},
+					"key": "text_1682067682727",
+					"model": "regist_time"
+				},
+				{
+					"type": "text",
+					"label": "设备名称：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "deviceName"
+					},
+					"key": "text_1682067704551",
+					"model": "deviceName"
+				},
+				{
+					"type": "text",
+					"label": "DTNS设备ID：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "dtns_device_id"
+					},
+					"key": "text_1682067722623",
+					"model": "dtns_device_id"
+				},
+				{
+					"type": "text",
+					"label": "通知类型：",
+					"options": {
+						"textAlign": "left",
+						"hidden": false,
+						"showLabel": true,
+						"showRequiredMark": false,
+						"color": "rgba(0, 0, 0, 0.9)",
+						"fontFamily": "",
+						"fontSize": "10.5pt",
+						"defaultValue": "notice_msg_type"
+					},
+					"key": "text_1682067751488",
+					"model": "notice_msg_type"
+				}
+			],
+			"options": {
+				"noFormItem": true
+			},
+			"key": "card_1682067913952"
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

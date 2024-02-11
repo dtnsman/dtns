@@ -1,0 +1,67 @@
+{
+  "_from": "@jscad/examples@2.4.2",
+  "_id": "@jscad/examples@2.4.2",
+  "_inBundle": false,
+  "_integrity": "sha512-MiqA+yRn8gc/PlFvCysNQdgUxtiQjeeobsQiyWv+Dncibi6KT2QeMTmTRfFDFPAHRtcKBnMOmMuQN9zYFGetJw==",
+  "_location": "/@jscad/examples",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@jscad/examples@2.4.2",
+    "name": "@jscad/examples",
+    "escapedName": "@jscad%2fexamples",
+    "scope": "@jscad",
+    "rawSpec": "2.4.2",
+    "saveSpec": null,
+    "fetchSpec": "2.4.2"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@jscad/examples/-/examples-2.4.2.tgz",
+  "_shasum": "e28ad58a50d4c73c158965ae3b4ff1c50dc77b7f",
+  "_spec": "@jscad/examples@2.4.2",
+  "_where": "D:\\2022-6dgs\\后端代码\\6dgs.code-tmp\\OpenJSCAD.org-master\\packages\\web",
+  "bugs": {
+    "url": "https://github.com/jscad/OpenJSCAD.org/issues"
+  },
+  "bundleDependencies": false,
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/openjscad",
+    "logo": "https://opencollective.com/openjscad/logo.txt"
+  },
+  "contributors": [
+    {
+      "name": "Rene K. Mueller",
+      "url": "http://renekmueller.com"
+    },
+    {
+      "name": "z3dev",
+      "url": "http://www.z3d.jp"
+    },
+    {
+      "name": "Mark 'kaosat-dev' Moissette",
+      "url": "http://kaosat.net"
+    }
+  ],
+  "deprecated": false,
+  "description": "Example Files for JSCAD",
+  "gitHead": "9768af96e5da00cd113c00ddeb0f6046707819b1",
+  "homepage": "https://openjscad.xyz/",
+  "keywords": [
+    "openjscad",
+    "jscad",
+    "examples",
+    "tutorials"
+  ],
+  "license": "MIT",
+  "name": "@jscad/examples",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jscad/OpenJSCAD.org.git"
+  },
+  "scripts": {},
+  "version": "2.4.2"
+}

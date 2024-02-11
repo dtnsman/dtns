@@ -1,0 +1,52 @@
+{
+    "list": [
+        {
+            "type": "textarea",
+            "label": "FORKIDS",
+            "options": {
+                "width": "100%",
+                "minRows": 4,
+                "maxRows": 20,
+                "maxLength": null,
+                "defaultValue": "",
+                "clearable": false,
+                "showLabel": false,
+                "hidden": false,
+                "disabled": false,
+                "placeholder": "请输入FORKID，以分号;分隔可使用多条FORKID"
+            },
+            "model": "forkids",
+            "key": "textarea_1682584350721",
+            "help": "",
+            "rules": [
+                {
+                    "required": false,
+                    "message": "必填项"
+                }
+            ]
+        }
+    ],
+    "config": {
+        "layout": "horizontal",
+        "labelCol": {
+            "xs": 4,
+            "sm": 4,
+            "md": 4,
+            "lg": 4,
+            "xl": 4,
+            "xxl": 4
+        },
+        "labelWidth": 100,
+        "labelLayout": "flex",
+        "wrapperCol": {
+            "xs": 18,
+            "sm": 18,
+            "md": 18,
+            "lg": 18,
+            "xl": 18,
+            "xxl": 18
+        },
+        "hideRequiredMark": false,
+        "customStyle": ""
+    }
+}

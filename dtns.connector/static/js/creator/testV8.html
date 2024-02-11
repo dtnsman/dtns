@@ -1,0 +1,17 @@
+<script>
+    let sum = 0;
+    let begin = new Date().getTime()
+    for(let i =0 ;i<1000000000;i++)
+    {
+        sum+= i+ Math.random()
+    }
+    console.log('sum：'+sum)
+    console.log('used-time:'+(new Date().getTime() - begin))
+
+    
+    /**test by edge and  chrome
+     * sum：499999999999997950
+testV8.html:9 used-time:15804
+     * 
+     * */
+</script>

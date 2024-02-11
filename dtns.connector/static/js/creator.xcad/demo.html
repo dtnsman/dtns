@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="JSCAD is an open source set of modular, browser and command line tools for creating parametric 2D and 3D CAD designs with JavaScript code."/>
+
+    <title>JSCAD - JavaScript CAD</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/demo.css">
+    <link rel="shortcut icon" href="imgs/favicon.png" type="image/x-png">
+    <style>
+        body{
+          height: 100%;
+          min-height: 100%;
+          min-width: 100%;
+          margin: 0px;
+          font-family: 'Open Sans', sans-serif;
+        }
+        noscript{
+          text-align: center;
+        }
+        #jscad{
+          width: 100%;
+          height: 100%;
+        }
+      </style>
+  </head>
+
+  <body>
+    <noscript>
+      <h1>Please enable JavaScript to use this website</h1>
+    </noscript>
+    <div id='jscad'></div>
+    <script language="javascript" src="./dist/jscad-web.min.js"></script> 
+    <script language="javascript">
+      const el1 = document.getElementById('jscad')
+      const jscadInst1 = jscadWeb(el1, {name: 'jscad1'})
+    </script>
+    <script language="javascript">
+      window.addEventListener('beforeunload', (event) => {
+        event.preventDefault()
+        event.returnValue = ''
+      })
+    </script>
+    <script>
+      class IFileIndexDB{
+        constructor(dbname='ifiledb',storeName = 'ifilecache')
+        {
+            this.dbname = dbname
+            this.db = null;
+            this.version = 1
+            this.storeName = storeName
+            // this.cached = new Map()
+        }
+        async openDB() {
+            let This = this
+            // var version = version || 1;
+            var request = window.indexedDB.open(this.dbname,this.version);
+
+            await new Promise((res)=>{
+                request.onerror = function (e) {
+                    console.log(e.currentTarget.error.message);
+                    res(null)
+                };
+                request.onsuccess = function (e) {
+                    This.db = e.target.result;
+                    res(This.db)
+                };
+                request.onupgradeneeded = function (e) {
+                    var db = e.target.result;
+                    if (!db.objectStoreNames.contains(This.storeName)) {
+                        var store = db.createObjectStore(This.storeName, { keyPath: 'key' ,autoIncrement:false});
+                        store.createIndex('key', 'key', { unique: true });
+                    }
+                    console.log('DB version changed to ' + This.version);
+                };
+            })
+            console.log('opened-db:',This.db)
+            return This.db
+        }
+
+        closeDB() {
+            this.db.close();
+        }
+
+        deleteDB(name) {
+            indexedDB.deleteDatabase(name);
+        }
+
+        addData( data ) {
+            if(!data || !data.key) return null
+            if(data && !data.data)
+                return null
+
+            var transaction = this.db.transaction(this.storeName, 'readwrite');
+            var store = transaction.objectStore(this.storeName)
+            store.add(data);
+            return true
+            // this.cached.set(data.key,data)
+        }
+
+        addDataByKey(data,key)
+        {
+            // if(!data || !data.key) return null
+            // if(data && !data.data)
+            //     return null
+
+            var transaction = this.db.transaction(this.storeName, 'readwrite');
+            var store = transaction.objectStore(this.storeName)
+            store.add(data,key);
+            return true
+        }
+
+        async getDataByKey(key) {
+            if(!key) return null
+            // if(this.cached.has(key)){
+            //     let result = this.cached.get(key)
+            //     //如果存储了为空的内容，直接返回null，并清理缓存。
+            //     if(result  && !result.data) 
+            //     {
+            //         this.deleteDataByKey(request.key)
+            //         return null;
+            //     }
+            //     else 
+            //         return result
+            // } 
+
+            let This = this
+            var transaction = this.db.transaction(this.storeName, 'readwrite');
+                var store = transaction.objectStore(this.storeName);
+            let data = await new Promise((res)=>{
+                try{
+                    var request = store.get(key);
+                    request.onsuccess = function (e) {
+                        var result = e.target.result;
+                        if(result  && !result.data) 
+                        {
+                            This.deleteDataByKey(request.key)
+                            return res(null)
+                        }
+                        res(result)
+                    };
+                    request.onerror = function(e) {
+                        console.log('[Error]ImageIndexDB-getDataByKey-onerror',e.target.error);
+                        res(null)
+                      };
+                }
+                catch(ex){
+                    console.log('ImageIndexDB-getDataByKey:'+key+' exception:',ex)
+                    res(null)
+                }
+            })
+            // if(data) this.cached.set(key,data)
+            return data
+        }
+
+        updateData(value) {
+            var transaction = this.db.transaction(this.storeName, 'readwrite');
+            var store = transaction.objectStore(this.storeName);
+            store.put(value)
+        }
+
+        deleteDataByKey(key) {
+            var transaction = this.db.transaction(this.storeName, 'readwrite');
+            var store = transaction.objectStore(this.storeName);
+            store.delete(key)
+            // this.cached.delete(key)
+        }
+
+        clearObjectStore() {
+            var transaction = this.db.transaction(this.storeName, 'readwrite');
+            var store = transaction.objectStore(this.storeName);
+            store.clear();
+        }
+        clear(){
+            console.log('call imDb-clear()')
+            this.clearObjectStore()
+        }
+
+        deleteObjectStore() {
+            var transaction = this.db.transaction(this.storeName, 'versionchange');
+            this.db.deleteObjectStore(this.storeName);
+        }
+
+        fetchStoreByCursor() {
+            var transaction = this.db.transaction(this.storeName);
+            var store = transaction.objectStore(this.storeName);
+            var request = store.openCursor();
+            request.onsuccess = function (e) {
+                var cursor = e.target.result;
+                if (cursor) {
+                    console.log('key:'+cursor.key);
+                    var value = cursor.value;
+                    console.log(JSON.stringify('value:',value));
+                    cursor.continue();
+                }
+            };
+        }
+        async getAllDatas() {
+            var transaction = this.db.transaction(this.storeName);
+            var store = transaction.objectStore(this.storeName);
+            var index = store.index("key");
+            var request = index.openCursor(null, IDBCursor.prev);
+            let results = []
+            await new Promise((res)=>{
+                request.onsuccess = function (e) {
+                    var cursor = e.target.result;
+                    if (cursor) {
+                        results.push(cursor.value)
+                        cursor.continue();
+                    }else{
+                        res(results)
+                    }
+                }
+            })
+            return results
+        }
+    }
+    async  function msleep(ms){
+      return new Promise((resolve)=>{
+        setTimeout(()=>resolve(true),ms)
+      })
+    }
+    window.msleep = msleep
+    // test()
+    const ifileDb = new IFileIndexDB('ifiledb','ifilecache');
+    ifileDb.openDB();
+    window.ifileDb = ifileDb;
+    </script>
+    <script src="./html2canvas.min.js"></script>
+    <script src="./fix-webm-duration.js"></script>
+    <script src="./xbody_record.js"></script>
+    <script>
+      setTimeout(()=>{
+        document.getElementById('toggleEditor').click()
+        document.getElementById('toggleGrid').click()
+      },1000)
+      setTimeout(()=>{
+        document.getElementById('toggleEditor').click()
+      },6000)
+
+      window.g_send_xmsg = function(path,blob,script)
+      {
+        let canvas = document.getElementById('renderTarget')
+        var gl = canvas.getContext("webgl2", {preserveDrawingBuffer: true});
+        console.log('gl:',gl)
+        console.log('toggleAutoRotate-val:'+document.getElementById('toggleAutoRotate').checked)
+        window.g_need_rotate = !document.getElementById('toggleAutoRotate').checked
+        if(g_need_rotate) document.getElementById('toggleAutoRotate').click()
+        let base64 = null
+        // setTimeout(()=>{
+        //   base64 = gl.canvas.toDataURL('image/webp',0.9)
+        //   console.log('base64-script:',base64)
+        // },1000)
+        // setTimeout(()=>document.getElementById('toggleAutoRotate').click(),3000)
+        g_xbody_start_record(gl.canvas)
+        //录制5秒的视频
+        setTimeout(async ()=>{
+          if(g_need_rotate) document.getElementById('toggleAutoRotate').click()
+          let videoBlob = await g_xbody_stop_record()
+          console.log('videoBlob-ret:',videoBlob)
+          console.log('save-xcad-export-files-to-ifiledb:',path,blob,script,videoBlob)
+
+          const videoSrc = window.URL.createObjectURL(videoBlob)
+          let video = document.createElement('video')
+          video.setAttribute("crossOrigin", "anonymous");
+          video.src = videoSrc
+          video.addEventListener('canplay', async function() {
+            console.log('canplay:',this.videoWidth,this.videoHeight)
+            video.play()
+            await msleep(300)
+            var canvas = document.createElement("canvas");
+    
+            let player = video
+            canvas.width = this.videoWidth/2 // player.clientWidth;
+            canvas.height = this.videoHeight/2//player.clientHeight;
+            // canvas = canvas.getContext("2d")
+            console.log('player:',player,player.childNodes[0] )
+            canvas.getContext("2d").drawImage(player ,0,0,this.videoWidth,this.videoHeight, 0, 0, canvas.width, canvas.height);//截
+            var dataURL = canvas.toDataURL("image/webp",0.9);  //将图片转成base64格式
+            console.log('output-dataURL:',dataURL)
+
+            ifileDb.deleteDataByKey('from.dtns.xcad.creator.data')
+            ifileDb.addData({key:'from.dtns.xcad.creator.data',data:{path,blob,script,videoBlob,base64:dataURL}})
+
+            const xmsgObj = { xtype: 'dtns.xcad.creator2xcad', xmsg: 'from dtns.xcad.creator' };
+            window.top.postMessage( JSON.stringify( xmsgObj ), '*' );
+            video.pause()
+            video = null
+          })
+        },10000)
+      }
+      // setTimeout(()=>{
+      //   let canvas = document.getElementById('renderTarget')
+      //   var gl = canvas.getContext("webgl2", {preserveDrawingBuffer: true});
+      //   // var gl = canvas.getContext("webgl", {preserveDrawingBuffer: true});
+      //   // gl.canvas.toDataURL();
+      //   console.log('gl:',gl)
+      //   // var sampler = gl.createSampler();
+      //   // console.log('sampler:',sampler)
+      //   // document.getElementById('toggleAutoReload').click()
+      //   console.log('toggleAutoRotate-val:'+document.getElementById('toggleAutoRotate').checked)
+      //   document.getElementById('toggleAutoRotate').click()
+      //   let base64 = null
+      //   setTimeout(()=>{
+      //     base64 = gl.canvas.toDataURL('image/webp',0.9)
+      //     console.log('base64-script:',base64)
+      //   },1000)
+      //   setTimeout(()=>document.getElementById('toggleAutoRotate').click(),3000)
+        
+      //   g_xbody_start_record(gl.canvas)
+      // },5000)
+      // setTimeout(()=>{
+      //   g_xbody_stop_record()
+      // },18000)
+    </script>
+  </body>
+</html>

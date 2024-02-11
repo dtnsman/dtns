@@ -1,0 +1,37 @@
+{
+  "ret": true,
+  "msg": "success",
+  "list": [
+    {
+      "type": "folder",
+      "chatid": "msg_chat012RhjWiUJMQ",
+      "folder_id": "obj_folder5BVnWxormJ",
+      "name": "myfolder3-inner",
+      "p_folder_id": "obj_folder8xt4t1uZeF",
+      "user_id": "user_7UqLsF191oQHxmaf",
+      "create_time_i": 1687858264,
+      "create_time": "2023-06-27 17:31",
+      "token_y": "obj_folder5BVnWxormJ"
+    },
+    {
+      "fieldname": "file",
+      "encoding": "fromfile_binary",
+      "originalname": "aes256|GGkUDvDqpm1rG8cMLNi6K9teAeHJHbBYSEN7M2HGPHgh|YHNfrdyjBmjz6FuCUnPjsb",
+      "mimetype": "image/png",
+      "filename": "aes256|GGkUDvDqpm1rG8cMLNi6K9teAeHJHbBYSEN7M2HGPHgh|YHNfrdyjBmjz6FuCUnPjsb",
+      "path": "8ad9592250e7b15bbc789be0e635c152b3fae4f798bdebea0b139882d0416ee9",
+      "size": 398976,
+      "user_id": "user_7UqLsF191oQHxmaf",
+      "s_id": "3a86e7b1acb5bc835dd1111441c9de86",
+      "file_kind": "file",
+      "random": 0.18578832791261668,
+      "obj_id": "obj_filefile67NdrwBv",
+      "save_time": 1687854409,
+      "save_on_dnalink": false,
+      "hash": "8ad9592250e7b15bbc789be0e635c152b3fae4f798bdebea0b139882d0416ee9",
+      "preview_img": null,
+      "chatid": "msg_chat012RhjWiUJMQ",
+      "token_y": "obj_filefile67NdrwBv"
+    }
+  ]
+}

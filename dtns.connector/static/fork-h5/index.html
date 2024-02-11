@@ -1,0 +1,80 @@
+<!DOCTYPE html><html lang=zh-CN><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>NFTList福刻利市</title><script src=static/js/config.js></script><script src=static/js/simple-signal-client.min.js></script><script src=static/js/socket.io.min.js></script><script src=static/js/compressor.min.js></script><script src=static/js/jszip.min.js></script><script src=static/js/axios.min.js></script><script src=static/js/qrcode.js></script><script src=static/js/current-device.min.js></script><script src=static/js/eccryptojs.js></script><script src=static/js/bs58.bundle.js></script><script src=static/js/key_util_eccryptojs.js></script><script src=static/js/DTNSManager.js></script><script src=static/js/rpc-client.js></script><script src=static/js/ifile-db.js></script><script src=static/js/image-db.js></script><script>var coverSupport = 'CSS' in window && typeof CSS.supports === 'function' && (CSS.supports('top: env(a)') || CSS.supports('top: constant(a)'))
+            document.write('<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' + (coverSupport ? ', viewport-fit=cover' : '') + '" />')</script><link rel=stylesheet href=./static/index.63b34199.css><link rel=icon type=image/x-icon sizes=32x32 href=static/nftlist-minlogo.ico></head><body><noscript><strong>Please enable JavaScript to continue.</strong></noscript><div id=app></div><script>const imageDb =new ImageIndexDB()
+            imageDb.openDB()
+            window.imageDb = imageDb
+
+            // const imDb =new IMIndexDB()
+            // imDb.openDB()
+            // window.imDb = imDb
+
+            //用于backDb-订阅dnalink.node节点
+            const ifileDb = new IFileIndexDB('ifiledb','ifilecache')
+            ifileDb.openDB()
+            window.ifileDb = ifileDb
+
+            const iWalletDb = new IFileIndexDB('iwalletdb','iwalletcache')
+            iWalletDb.openDB()
+            window.iWalletDb = iWalletDb
+
+            const iSessionDb = new IFileIndexDB('isessiondb','isessioncache')
+            iSessionDb.openDB()
+            window.iSessionDb = iSessionDb
+
+            var now_roomid = localStorage.getItem('now_roomid')
+            var g_web3name =now_roomid ? now_roomid: 'nftlist'//'forklist'
+            window.g_web3name = g_web3name
+            async function g_get_wallet(){
+                if(typeof g_mywallet == 'undefined' || !g_mywallet)
+                {
+                    while(iWalletDb.db == null) await new Promise((resolve)=>setTimeout(() => resolve(true), 300));
+                    window.g_mywallet = (await iWalletDb.getDataByKey('g_mywallet'));
+                    g_mywallet = g_mywallet ? g_mywallet.data :g_mywallet
+                    console.log('iFileDb-g_mywallet:',g_mywallet)
+                }
+            }
+            window.g_get_wallet = g_get_wallet
+            g_get_wallet()
+
+            window.g_axios = axios
+            const dtnsManager = new DTNSManager()
+            window.g_dtnsManager = dtnsManager
+
+            window.g_tns_urls = null
+            window.g_turn_urls = null
+            async function queryUrls()
+            {
+                let tnsUrls = await
+                axios.get( typeof g_tns_nslookup_url!='undefined' ? g_tns_nslookup_url : 'https://static.yunapi.org/tns-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), )
+                window.g_tns_urls = tnsUrls ? tnsUrls.data :null
+        
+                let turnUrls = await
+                axios.get( typeof g_turn_nslookup_url!='undefined' ? g_turn_nslookup_url : 'https://static.yunapi.org/turn-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+                window.g_turn_urls = turnUrls ? turnUrls.data:null
+                console.log('g_tns_urls:',g_tns_urls,'g_turn_urls:',g_turn_urls)
+            }
+            queryUrls()
+
+            const myroomid = g_web3name// localStorage.getItem('now_roomid')
+            const client = myroomid && myroomid.length>=1 ? new RTCClient(myroomid) : new RTCClient()//-svr')
+            window.rpc_client = client
+            dtnsManager.addRPCClient(client)
+
+            let b_img_q = localStorage.getItem('b_img_q')
+            b_img_q = !b_img_q ? 0.1 :b_img_q
+            rpc_client.img_q = b_img_q
+
+            function  queryImg(url, params) {
+                console.log('getImg-params:'+url+' params:'+JSON.stringify(params))
+                // if(url && url.indexOf('9000')) url = url.split('9000')[1]
+                params = !params ?{}:params
+                const xclient = window.rpc_client
+                return new Promise((resolve,reject)=>{
+                    if(!params || !params.filename) return resolve({ret:false,msg:'param(filename) is null'})
+                    xclient.send('/image/view',params,null,function(rdata){
+                    console.log('rdata:'+JSON.stringify(rdata))
+                        resolve(rdata.data)
+                    })
+                    setTimeout(()=>reject(null),30000)
+                })
+            }
+            window.queryImg = queryImg</script><script src=./static/js/chunk-vendors.58317f29.js></script><script src=./static/js/index.c46c33c0.js></script></body></html>

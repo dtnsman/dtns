@@ -1,0 +1,165 @@
+{
+	"list": [
+		{
+			"type": "textarea",
+			"label": "群权限",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 6,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入群聊chatids，以分号;分隔可使用多条chatid"
+			},
+			"model": "chatids",
+			"key": "textarea_1700551563839",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "textarea",
+			"label": "FORK权限",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 6,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入forkids，以分号;分隔可使用多条forkid"
+			},
+			"model": "forkids",
+			"key": "textarea_1700551626591",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "textarea",
+			"label": "头榜权限",
+			"options": {
+				"width": "100%",
+				"minRows": 4,
+				"maxRows": 6,
+				"maxLength": null,
+				"defaultValue": "",
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"disabled": false,
+				"placeholder": "请输入头榜xmsgids，以分号;分隔可使用多条xmsgid"
+			},
+			"model": "xmsgids",
+			"key": "textarea_1700551658328",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		},
+		{
+			"type": "select",
+			"label": "VIP等级权限",
+			"options": {
+				"width": "100%",
+				"multiple": false,
+				"disabled": false,
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"placeholder": "请选择VIP等级",
+				"dynamicKey": "",
+				"dynamic": false,
+				"options": [
+					{
+						"value": "1",
+						"label": "VIP1"
+					},
+					{
+						"value": "2",
+						"label": "VIP2"
+					},
+					{
+						"value": "3",
+						"label": "VIP3"
+					},
+					{
+						"value": "4",
+						"label": "VIP4"
+					},
+					{
+						"value": "5",
+						"label": "VIP5"
+					},
+					{
+						"value": "6",
+						"label": "VIP6"
+					},
+					{
+						"value": "7",
+						"label": "VIP7"
+					},
+					{
+						"value": "8",
+						"label": "VIP8"
+					},
+					{
+						"value": "9",
+						"label": "VIP9"
+					}
+				],
+				"showSearch": false
+			},
+			"model": "vip_level",
+			"key": "select_1700551714128",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

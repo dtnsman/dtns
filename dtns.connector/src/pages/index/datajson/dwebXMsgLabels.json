@@ -1,0 +1,63 @@
+{
+	"list": [
+		{
+			"type": "select",
+			"label": "选择关联的[标签]",
+			"options": {
+				"width": "100%",
+				"multiple": false,
+				"disabled": false,
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"placeholder": "请选择",
+				"dynamicKey": "",
+				"dynamic": false,
+				"options": [
+					{
+						"value": "",
+						"label": "不使用标签"
+					},
+					{
+						"value": "dweb",
+						"label": "推送头榜"
+					}
+				],
+				"showSearch": false,
+				"defaultValue": ""
+			},
+			"model": "label_type",
+			"key": "select_1697509479726",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "vertical",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}
