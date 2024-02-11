@@ -1,0 +1,33 @@
+<script src="../libs/bn.js"></script>
+<script src="../libs/secp256k1.js"></script>
+<script src="../libs/bs58.bundle.js"></script>
+
+<script>
+async function test(){
+    const encoder = new TextEncoder()//将字符串转码为utf8编码的unit8Array
+    let a = await window.crypto.subtle.digest(
+    {
+        name: "SHA-256",
+    },
+    new Uint8Array(encoder.encode('helloworld11112')))//[1,2,3,4,6,7,8,9,10]))
+    console.log('a:',a)
+    const tx = new Uint8Array(a)//Secp256k1.uint256(new Uint8Array(a), 16)
+    
+    let t = bs58.encode(tx)
+    console.log('tx',tx,t)
+    let txStr = Secp256k1.uint256(tx, 16).toString(16)
+    console.log('hex-tx',txStr)
+    console.log('t.len:'+t.length)
+
+    //解码成uint8Array---成功保持一致。
+    let dt = bs58.decode(t)
+    console.log('dt:',dt)
+}
+test()
+/**  与node.js的key_util中的let sha256Str = bs58Encode(Buffer.from( hashVal('helloworld11112'),'hex'))得到的结果一致。 
+ * : ArrayBuffer(32)
+testSha256.html:16 tx Uint8Array(32) [249, 90, 115, 80, 96, 252, 26, 104, 111, 155, 109, 65, 51, 228, 130, 55, 45, 243, 38, 30, 189, 177, 121, 102, 41, 51, 177, 253, 116, 146, 246, 92, buffer: ArrayBuffer(32), byteLength: 32, byteOffset: 0, length: 32, Symbol(Symbol.toStringTag): 'Uint8Array']
+ HnNWfwPfkDXSE769PpVt3Kfwo695bBuTKZ3r2H1LNcio
+testSha256.html:17 t.len:44
+*/
+</script>

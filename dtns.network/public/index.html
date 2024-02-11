@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <script src="./rmb_test.js"></script>
+        <script src="../libs/bn.js"></script>
+        <script src="../libs/secp256k1.js"></script>
+        <script src="../libs/bs58.bundle.js"></script>
+        <script src="../libs/bignumber.min.js"></script>
+        <script src="../libs/icache-db.js"></script>
+        <script src="../libs/ifile-db.js"></script>
+        <script src="../libs/md5.js"></script>
+        <!-- <script src="../libs/rpc-client.js"></script> -->
+        <script src="../libs/simple-signal-client.min.js"></script>
+        <script src="../libs/socket.io.min.js"></script>
+        <!-- <script src="http://lx.opencom.cn/js/sql-wasm.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script> -->
+        <script src="../static/sql-wasm.js"></script>
+        <!-- <script src="../libs/sql-wasm.wasm"></script> -->
+        <script src="../static/pop_runtime2.js"></script>
+        <script src="../static/SQLDB.js"></script>
+        <script src="../static/str_filter.js"></script>
+        <script src="../static/key_util.js"></script>
+
+        <script src="../static/dnalink_api_util.js"></script>
+        <script src="../static/dnalink_dao_chain.js"></script>
+        <script src="../static/dnalink_dao_wallet.js"></script>
+        <script src="../static/dnalink_engine.js"></script>
+        <script src="../static/dnalink_protocol.js"></script>
+        <script src="../static/dnalink_rpc.js"></script>
+        <script src="../static/dnalink_rtc_client.js"></script>
+        <script src="../static/dnalink_rtc_service.js"></script>
+        <script src="../static/dnalink_super_file.js"></script>
+        <script src="../static/dnalink_super_meta.js"></script>
+        <script src="../static/dnalink_super_websocket.js"></script>
+
+        <script src="../static/dnalink_rpc_main.js"></script>
+    </head>
+    <body>
+        <center><h1>《真实模拟》</h1></center>
+        <!-- <br/> -->
+        <span>房间号：</span><input id="roomid"  value=""><br/><br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;开启&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>
+    <script>
+        // window.onbeforeunload = function(){
+            
+        // }
+        const roomMap = new Map()
+        function start(){
+            let roomid = document.getElementById('roomid').value
+            console.log('start roomid:',roomid)
+            if(roomMap.has(roomid) || !roomid) return 
+            roomMap.set(roomid,roomid)
+            console.log('start roomid now:',roomid)
+            main(roomid)
+        }
+        
+    </script>
+    </body>
+</html>

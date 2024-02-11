@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <script src="./public/rmb_test.js"></script>
+        <!-- <script src="./libs/bn.js"></script>
+        <script src="./libs/secp256k1.js"></script> -->
+        <script src="./libs/bs58.bundle.js"></script>
+        <script src="./libs/bignumber.min.js"></script>
+        <script src="./libs/eccryptojs.js"></script>
+        <script src="./libs/icache-db.js"></script>
+        <script src="./libs/ifile-db.js"></script>
+        <script src="./static/SQLDB.js"></script>
+        <script src="./static/str_filter.js"></script>
+        <script src="./static/key_util_eccryptojs.js"></script>
+    </head>
+    <body>
+        <center><h1>《DTNS.network签名查验工具》</h1></center>
+        <br/>
+        Hash：<input id="hash"  value="" ><br/>
+        Sign：<input id="sign"  value="" ><br/>
+        公钥：<span id="public_key" ></span><br/><br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;恢复&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp;
+    <script>
+        async function start(){
+            let hash = document.getElementById('hash').value.trim()
+            let sign = document.getElementById('sign').value.trim()
+            let pubkeyEle = document.getElementById('public_key')
+            console.log('start hash-sign:',hash,sign)
+            console.log('start now:')
+            let public_key = await key_util.recoverPublickey(sign,hash)
+            console.log('public_key:',public_key)
+            pubkeyEle.innerHTML = public_key
+        }
+    </script>
+    </body>
+</html>

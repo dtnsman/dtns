@@ -1,0 +1,85 @@
+<!-- <script src="../libs/bignumber.min.js"></script> -->
+<script src="../libs/bn.js"></script>
+<script src="../libs/secp256k1.js"></script>
+<script src="../libs/bs58.bundle.js"></script>
+<script src="../static/str_filter.js"></script>
+<script src="../libs/md5.js"></script>
+<body>
+    <button type="input" onclick="fileP()">点击我上传文件并计算sha256</button>
+</body>
+<script>
+async function test()
+{
+    let md5Str9 = hex_md5('hello-11111')
+    console.log('md5Str9:'+md5Str9+' len:'+md5Str9.length)
+
+    let randomHex = str_filter.randomBytes(16)
+
+    console.log('randomHex:'+randomHex+' len:'+randomHex.length)
+    let md5Str = await str_filter.md5('hello-11111')
+    console.log('md5Str:'+md5Str+' len:'+md5Str.length)
+}
+test()
+
+function fileP(){
+    const a = document.createElement('input')
+    a.setAttribute('type', 'file')
+    let This = this
+    // console.log('this:' + this.)
+
+    a.addEventListener('change',async function selectedFileChanged() {
+        console.log('data:' + this.files)
+        if (this.files.length == 0) return alert('请选择文件')
+        let file = this.files[0]
+        console.log('file.size:'+file.size)
+        
+        let fileReader = new FileReader();
+        fileReader.onerror = error => console.error('Error reading file:', error);
+        fileReader.onabort = event => console.log('File reading aborted:', event);
+        fileReader.onload =async e => {
+            console.log('result:'+e.target.result)
+            let result =e.target.result// new Uint8Array(e.target.result)
+
+            let sha256Str = await str_filter.hashVal(result)
+            console.log('sha256Str:'+sha256Str+' len:'+sha256Str.length)
+        }
+
+        var readSlice = o => {
+            console.log('readSlice ', o);
+            const slice = file.slice(o,file.size);
+            fileReader.readAsArrayBuffer(slice);
+        };
+
+        readSlice(0)
+    })
+    a.click()
+}
+/**
+ * md5Str9:e4488cb79021d450967dac200d7796ac len:32
+ * mysql:e4488cb79021d450967dac200d7796ac
+ * [ok]使用hex_md5即可。
+ * 
+ * 
+ * data:[object FileList]
+file.size:4098
+readSlice  0
+result:[object ArrayBuffer]
+sha256Str:426a7774a78127b7367847c5f088940bc945a0fbca64c409652d4c6feaba1c0a len:64
+
+与node.js和linux命令一致（二进制文件）
+[root@VM-0-14-centos ~]# sha256sum 3dcn.png 
+426a7774a78127b7367847c5f088940bc945a0fbca64c409652d4c6feaba1c0a  3dcn.png：
+
+
+文本文件与node.js一致：
+result:[object ArrayBuffer]
+sha256Str:36358d25bd1e2ae3d0fec316a87c4f616457431b0a4f695069e78244e5985fd7 len:64
+
+node.js:
+PS D:\2022-poplang\source\$pop.lite\pop.lite.dnalink.engine\libs> node .\str_filter.js
+sha0:426a7774a78127b7367847c5f088940bc945a0fbca64c409652d4c6feaba1c0a len:64
+sha0:36358d25bd1e2ae3d0fec316a87c4f616457431b0a4f695069e78244e5985fd7 len:64  //newHello.txt
+ * */
+
+</script>
+

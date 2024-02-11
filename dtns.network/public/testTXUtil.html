@@ -1,0 +1,33 @@
+<!-- <script src="../libs/bignumber.min.js"></script> -->
+<script src="../libs/bn.js"></script>
+<script src="../libs/secp256k1.js"></script>
+<script src="../libs/bs58.bundle.js"></script>
+<!-- <script src="../static/key_util.js"></script> -->
+<script src="../static/dnalink_protocol.js"></script>
+<script src="./rmb_test.js"></script>
+<script>
+async function testTXUtil()
+{
+    let protocol = rmb_protocol_config
+    let tx_util = new TXUtil(protocol)
+    tx_util.test()
+}
+testTXUtil()
+/**UDIDSTR:7VpAM2Eu2PAs9xvtuhXmdcchGZpemAuomEmvk7n5YHu7 len:44
+validateTXID-ret=true txid:txid_7VpAM2Eu2PAs9xvt length:21
+opcode:fork validate:true
+opcode:send validate:true
+opcode:check validate:false
+XINFO-toTXJSONString:{"txid":"txid_13412352152354","token_x":"token_adfasdfadfas","token_y":"token_ayjjkkkkkkkk111","opcode":"fork","opval":"123","extra_data":"not have","timestamp_i":"13429348349"}
+【注】与node.js是一样的。
+ * */
+/**node.js test()
+ * 
+validateTXID-ret=true txid:txid_z5gCNobWw2RC82qt length:21
+opcode:fork validate:true
+opcode:send validate:true
+opcode:check validate:false
+TXINFO-toTXJSONString:{"txid":"txid_13412352152354","token_x":"token_adfasdfadfas","token_y":"token_ayjjkkkkkkkk111","opcode":"fork","opval":"123","extra_data":"not have","timestamp_i":"13429348349"}
+*/
+</script>
+
