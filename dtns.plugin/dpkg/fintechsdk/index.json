@@ -1,0 +1,14 @@
+[
+    {
+        "name": "fintech",
+        "path":"/fintech/:step",
+        "url": "FintechSdk",
+        "title":"",
+        "desc":"",
+        "author":"poplang",
+        "date":"2023-12-7",
+        "type":"name",
+        "word":"fintech",
+        "wordPath":"/fintech/ccy"
+    }
+]

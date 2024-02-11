@@ -1,0 +1,98 @@
+{
+	"list": [
+		{
+			"type": "select",
+			"label": "请选择",
+			"options": {
+				"width": "100%",
+				"multiple": false,
+				"disabled": false,
+				"clearable": false,
+				"showLabel": true,
+				"hidden": false,
+				"placeholder": "请选择",
+				"dynamicKey": "",
+				"dynamic": false,
+				"options": [
+					{
+						"value": "USDT",
+						"label": "USDT"
+					},
+					{
+						"value": "BTC",
+						"label": "BTC"
+					},
+					{
+						"value": "ETH",
+						"label": "ETH"
+					},
+					{
+						"value": "FIL",
+						"label": "FIL"
+					},
+					{
+						"value": "XCH",
+						"label": "XCH"
+					},
+					{
+						"value": "OKB",
+						"label": "OKB"
+					},
+					{
+						"value": "USDC",
+						"label": "USDC"
+					},
+					{
+						"value": "AR",
+						"label": "AR"
+					},
+					{
+						"value": "BNB",
+						"label": "BNB"
+					},
+					{
+						"value": "UNI",
+						"label": "UNI"
+					},
+					{
+						"value": "DOGE",
+						"label": "DOGE"
+					}
+				],
+				"showSearch": false
+			},
+			"model": "ccy",
+			"key": "select_1701849759655",
+			"help": "",
+			"rules": [
+				{
+					"required": false,
+					"message": "必填项"
+				}
+			]
+		}
+	],
+	"config": {
+		"layout": "horizontal",
+		"labelCol": {
+			"xs": 4,
+			"sm": 4,
+			"md": 4,
+			"lg": 4,
+			"xl": 4,
+			"xxl": 4
+		},
+		"labelWidth": 100,
+		"labelLayout": "flex",
+		"wrapperCol": {
+			"xs": 18,
+			"sm": 18,
+			"md": 18,
+			"lg": 18,
+			"xl": 18,
+			"xxl": 18
+		},
+		"hideRequiredMark": false,
+		"customStyle": ""
+	}
+}

@@ -1,0 +1,38 @@
+<meta charset="utf-8">
+<title>dtns-plugin demo</title>
+
+
+<!-- <link rel="stylesheet" href="./dtns-plugin.css"> -->
+<script src="http://cdn.kcz66.com/vue.min.js"></script>
+<!-- <script src="./pkgs/pages/rtchess/zh-chess.browser.min.js"></script> -->
+<script src="./lib/dtns-plugin.umd.js"></script>
+<style>
+  body{padding: 0px;margin: 0px;}
+</style>
+<div id="app" style="padding: 0px;">
+    <!-- <test-page :value="1" ></test-page> -->
+    <msg-bottle :value="1" ></msg-bottle>
+    <!-- <FintechSdk :value="1"></FintechSdk> -->
+    <!-- <rt-chess :value="1"></rt-chess> -->
+    <!-- <rt-audio-room :value="1"></rt-audio-room> -->
+    <!-- <rt-video-room :value="1"></rt-video-room>  -->
+</div>
+<script>
+    // window.Vue = Vue
+    // window['dtns-plugin'].install(Vue)
+    // console.log('dtns-plugin:',window['dtns-plugin'])
+    // console.log('vue-component:',window.Vue.component('TestPage'))
+// console.log(dtns-plugin)
+// Vue.component('MsgBottle',{}) //重名覆盖 2023-4-15
+let vm = new Vue({
+        el: "#app",
+        data: {
+        
+        },
+        methods: {
+          handleSubmit() {},
+        },
+        mounted() {
+        },
+      });
+</script>
