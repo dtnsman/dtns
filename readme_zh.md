@@ -10,7 +10,7 @@ dtns.network 允许每个人都使用 dtns.connector 连接到 ib3.hub 和 dtns.
 
 dtns.connector 还具有许多强大的组件:
 
-[x] dweb，将微内容发布到社区
+1、dweb，将微内容发布到社区
 
 2、Im，聊天和群聊，支持表情符号、文字、图片、视频-音频聊天内容，e2ee端到端加密网络！
 

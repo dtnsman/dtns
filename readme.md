@@ -9,15 +9,25 @@ Dtns.network is safety and powerfully, simply to use! The program language which
 dtns.network allow every one use the dtns.connector to connect to ib3.hub and dtns.network. dtns.connector is simply and powerfully client. Let people write poplang program by dtns.creator、dtns.3d.creator、ibchat. It have pop-devtools ,which is commonly same as the chrome-tools, allow poplang programer can create dtns.plugin 、xcard lite-app easily.
 
 dtns.connector also have many powerful components:
+
 1、dweb，post micro-content to community
+
 2、Im，the p2p chat and groupchat，suport emoji、text、image、video-audio chat content，e2ee network!
+
 3、dfolder, save your private or public files、folders
+
 4、forklist, provide the nft-token-shopping mall
+
 5、wallet, the dnalink’s wallet client
+
 6、mini-shopping-mall、forkpay: the software component to provide pay service
+
 7、dtns.plugin:write by vue-js、poplang
+
 8、dtns.creator、dtns.3d.creator
+
 9、dtns.bakdb:backup the dtns.network and ib3.hub data
+
 10、dtns-manager: dtns:// protocol client to connect all kind of ib3.hub, help agent use the service of ib3.hub same as http protocol easily!
 
 The dtns.connector：the client of dtns.network, base on p2p protocol，powered by webrtc, allow people to build their private or public ib3.hub or opensource agent hub, can run on js-runtime , as web-browser、nodejs、deno、electron, and support many kinds of OS: windows、linux、mac、android、openharmony。
@@ -27,11 +37,17 @@ the pop-network, or name the dnalink. here simple api to operate the dnalink lik
 opcode token_x token_y opval extra_data
 
 opcode suported:
+
 1、fork: fork the child token chain from parent token chain
+
 2、send: send the msg or money
+
 3、assert: assert the data into chain
+
 4、relate: save relation of token_x and token_y
+
 5、rela-relz: 26 relation opcodes provide to programer 
+
 6、etc.
 
 opval allow max than 10kb text or json data write to dnalink!
@@ -44,16 +60,27 @@ Build on the simply opcode system--also name poplang（program language on opcod
 poplang means: you can easily make your software or hardware being intelligent! it is powerfully ecosystem to help every one to build ib3.hub!
 
 To build the ib3.hub, we also have some dtns.plugin examples:
+
 1、rt-market
+
 2、rt-standard-market
+
 3、rt-channel
+
 4、rt-msgbottle
+
 5、rt-code
+
 6、rt-shopping
+
 7、rt-chess
+
 8、rt-audioroom
+
 9、rt-videoroom
+
 10、api-monitor
+
 11、dxib-application
 
 dtns.network create DID-system、dtns protocol、forkpay fintech system、dnalink（kvdb and ORD data storage and dna-app system） to make ib3.hub simply and usefully. Allow ib3.hub can connect to each other, and help each other, just like three-body-world.
