@@ -1,0 +1,46 @@
+<html>
+    <script src="./echarts.common.min.js"></script>
+    <style>
+        #line {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+    <body>
+        <div id="line"></div>
+        <script>
+            // 折线图
+            // 基于准备好的dom，初始化echarts实例
+            var line = echarts.init(document.getElementById('line'));
+            // 指定图表的配置项和数据
+            lineOption = {
+                // 标题
+                title: {
+                    text: 'echarts实现折线图'
+                },
+                // 图例
+                tooltip: {
+                    show: true,
+                    trigger: "axis",
+                    // backgroundColor: "#1677FF",
+                    // textColor:"#ff0000",
+                    // {a}（系列名称），{b}（类目值），{c}（数值）, {d}（无）
+                    formatter: "{b}：{c}元"
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','xx','yy']
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '价格',
+                    data: [0.1,820, 932, 901, 934, 1290, 1330, 1320,15000,15],
+                    type: 'line'
+                }]
+            };
+            line.setOption(lineOption);
+        </script>
+    </body>
+</html>
