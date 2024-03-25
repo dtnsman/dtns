@@ -191,7 +191,7 @@ window.dtns_config.root_config={
      * 域名
      * 这里会影响db与redis的访问
      *
-     * DOMAIN_6DGS:'coin.poplang.dtns',
+     * DOMAIN_dtns:'coin.poplang.dtns',
      */
     DOMAIN_DTNS:'coin.poplang.dtns',
     /**

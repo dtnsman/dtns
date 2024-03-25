@@ -3,7 +3,7 @@
  */
 const http_req = require('./libs/http_request')
 
-//这里配置6dgs.node的相关节点信息。
+//这里配置dtns.node的相关节点信息。
 const APPID = '10001'
 const SECRET_KEY = '0000'
 const NODEID= 'NFTlist'
@@ -58,7 +58,7 @@ module.exports={
     SCORE_TOKEN_ROOT:SCORE_TOKEN_NAME+"_0000000000000000",
 
     //#5 代金券模块-pcash
-    PCASH_API_BASE: 'https://c3.6dgs.opencom.org.cn/node.'+NODEID+'.'+PCASH_TOKEN_NAME+':vvvvvvvvvvv',
+    PCASH_API_BASE: 'https://c3.dtns.opencom.org.cn/node.'+NODEID+'.'+PCASH_TOKEN_NAME+':vvvvvvvvvvv',
     PCASH_TOKEN_NAME: PCASH_TOKEN_NAME,
     PCASH_TOKEN_ROOT:PCASH_TOKEN_NAME+"_0000000000000000",
 
@@ -358,14 +358,14 @@ async function rpc_query(url,reqdata){
 
 
     url = getNodeUrl(url)
-    // if(url.indexOf('c2.6dgs.opencom')>0)
+    // if(url.indexOf('c2.dtns.opencom')>0)
     // {
-    //     url = url.replace('c2.forklist.dtns','c2.6dgs.opencom.vip')
+    //     url = url.replace('c2.forklist.dtns','c2.dtns.opencom.vip')
     // }
 
-    // if(url.indexOf('c3.6dgs.opencom')>0)
+    // if(url.indexOf('c3.dtns.opencom')>0)
     // {
-    //     url = url.replace('c3.forklist.dtns','c3.6dgs.opencom.org.cn')
+    //     url = url.replace('c3.forklist.dtns','c3.dtns.opencom.org.cn')
     // }
 
     let rpc_name = url.split(':')[2]

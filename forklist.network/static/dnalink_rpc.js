@@ -580,7 +580,7 @@ class DNALinkRPC
                     smsRet = await http_request.http_post('https://cloud.forklist.dtns/cloud-sms/send',
                         {
                             appid, secret_key,
-                            user_name: X6DGS_NODE_ID,
+                            user_name: Xdtns_NODE_ID,
                             token_name: this.TOKEN_NAME,
                             order_number,
                             phone,
@@ -621,7 +621,7 @@ class DNALinkRPC
                     mailRet = await http_request.http_post('https://cloud.forklist.dtns/cloud-mail/send',
                         {
                             appid, secret_key,
-                            user_name: X6DGS_NODE_ID,
+                            user_name: Xdtns_NODE_ID,
                             token_name: this.TOKEN_NAME,
                             order_number,
                             mail_list,
@@ -685,7 +685,7 @@ class DNALinkRPC
                         payQRet = await http_request.http_post('https://cloud.forklist.dtns/cloud-pay/order/new',
                             {
                                 appid, secret_key,
-                                user_name: X6DGS_NODE_ID,
+                                user_name: Xdtns_NODE_ID,
                                 token_name: this.TOKEN_NAME,
                                 token_x,token_y,
                                 order_name,extra_data:tmpOpval.extra_data,
@@ -1437,7 +1437,7 @@ class DNALinkRPC
     /**
      * 查询所有token的map_value
      * @type {query_token_map_value}
-     * http://127.0.0.1:59868/chain/map/value?appid=10001&secret_key=&opcode=map&token=tns_0000000000000000&map_key=www.6dgs.cn
+     * http://127.0.0.1:59868/chain/map/value?appid=10001&secret_key=&opcode=map&token=tns_0000000000000000&map_key=www.dtns.cn
      */
     async query_token_map_value(req, res) {
         let {token,map_key} = str_filter.get_req_data(req, res);

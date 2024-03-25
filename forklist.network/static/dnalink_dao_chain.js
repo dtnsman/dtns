@@ -357,7 +357,7 @@ class DNALinkChainDAO
                 //fix the web3.key bug on 2022/8/5
                 if(txjsonTmp.opcode == this.fsm_config.OP_WEB3_KEY)
                 {
-                    //const token_writer = require("../6dgs/TokenWriter")
+                    //const token_writer = require("../dtns/TokenWriter")
                     let clear_ret = this.engine ?  await this.engine.clearTokenState(info.token) :null;
                     console.log('OP_WEB3_KEY:clear-ret:'+clear_ret)
                 }
@@ -449,8 +449,8 @@ class DNALinkChainDAO
      * @param rows
      * @returns {Promise<number>}
      * 
-     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=add&extra_data=%7B%22map_key%22%3A%22www.6dgs.cn%22%2C%22map_value%22%3A%22tns_0000000000000000%22%7D
-     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=del&extra_data=%7B%22map_key%22%3A%22www.6dgs.cn5%22%2C%22map_value%22%3A%22tns_12%22%7D
+     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=add&extra_data=%7B%22map_key%22%3A%22www.dtns.cn%22%2C%22map_value%22%3A%22tns_0000000000000000%22%7D
+     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=del&extra_data=%7B%22map_key%22%3A%22www.dtns.cn5%22%2C%22map_value%22%3A%22tns_12%22%7D
      */
     async saveTXQueue2TokenMaps(rows)
     {

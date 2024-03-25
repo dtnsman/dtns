@@ -140,7 +140,7 @@ window.lgsb_config.root_config={
     /**
      * token的状态机
      */
-    TOKEN_FSM:'6dgs.fsm',//（使用TOKEN_VAL_TYPE进行真正的fms-state计算）
+    TOKEN_FSM:'dtns.fsm',//（使用TOKEN_VAL_TYPE进行真正的fms-state计算）
     // TOKEN_OPLIST:JSON.stringify(oplist),
     /**
      * token的主要数值类型NUM

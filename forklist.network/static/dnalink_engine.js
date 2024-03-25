@@ -394,7 +394,7 @@ class DNALinkEngine
         {
             let ret = await this.commitTXToTokenWriterWaitQueue(txid,token_x,JSON.stringify(txjson),this.token_util.TOKEN_X);
         }
-        let commit_token_write_ret = await this.commitTXToTokenWriterWaitQueue(txid,token_x,JSON.stringify(txjson),this.token_util.TOKEN_X)//await rpc_http_api.rpc_query(x6dgs_api.getApiUrl(x6dgs_api.api_commit_tx2token_queue),
+        let commit_token_write_ret = await this.commitTXToTokenWriterWaitQueue(txid,token_x,JSON.stringify(txjson),this.token_util.TOKEN_X)//await rpc_http_api.rpc_query(xdtns_api.getApiUrl(xdtns_api.api_commit_tx2token_queue),
            // {txid:txid,token:token_x,txinfo: JSON.stringify(txjson),token_relate:token_util.TOKEN_X})
         console.log("commit_token_write_ret:"+ JSON.stringify(commit_token_write_ret));
 
@@ -664,7 +664,7 @@ class DNALinkEngine
         {
             let commit_token_write_ret = await this.commitTXToTokenWriterWaitQueue(
                 txid,token_y,nowtx_txinfo instanceof String ?
-                 nowtx_txinfo: JSON.stringify(nowtx_txinfo),this.token_util.TOKEN_Y)//  await rpc_http_api.rpc_query(x6dgs_api.getApiUrl(x6dgs_api.api_commit_tx2token_queue),
+                 nowtx_txinfo: JSON.stringify(nowtx_txinfo),this.token_util.TOKEN_Y)//  await rpc_http_api.rpc_query(xdtns_api.getApiUrl(xdtns_api.api_commit_tx2token_queue),
                         // {txid:txid,token:token_y,txinfo: nowtx_txinfo instanceof String ? nowtx_txinfo: JSON.stringify(nowtx_txinfo),
                         //     token_relate:token_util.TOKEN_Y})
 
@@ -695,7 +695,7 @@ class DNALinkEngine
                 txinfo_now.list_y = list_y;
 
                 let commit_token_write_ret = await this.commitTXToTokenWriterWaitQueue(
-                    txid,token_now,toJSON.stringify(txinfo_now),token_relate_now)//await rpc_http_api.rpc_query(x6dgs_api.getApiUrl(x6dgs_api.api_commit_tx2token_queue),
+                    txid,token_now,toJSON.stringify(txinfo_now),token_relate_now)//await rpc_http_api.rpc_query(xdtns_api.getApiUrl(xdtns_api.api_commit_tx2token_queue),
                     //{txid:txid,token:token_now,txinfo:JSON.stringify(txinfo_now),token_relate:token_relate_now})
 
                 if(!commit_token_write_ret || !commit_token_write_ret.ret)

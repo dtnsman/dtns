@@ -11,7 +11,7 @@
 // const {USER_API_BASE,USER_TOKEN_ROOT,USER_TOKEN_NAME,OBJ_API_BASE,OBJ_TOKEN_ROOT,OBJ_TOKEN_NAME,VIP_API_BASE,VIP_TOKEN_ROOT,VIP_TOKEN_NAME } = require('../rpc_api_config')
 window.obj_c = {}
 /**
- * 新建一个gnode节点商品（考虑所有的6dgs所有的链产品，都基于此购买----参数差异大？？）。
+ * 新建一个gnode节点商品（考虑所有的dtns所有的链产品，都基于此购买----参数差异大？？）。
  * @type {new_gnode_obj}
  *
  */

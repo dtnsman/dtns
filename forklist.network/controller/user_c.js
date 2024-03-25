@@ -1025,7 +1025,7 @@ async function send_bind_code(req, res) {
 
     user_redis.set(config.redis_key+":sms_code:bind:"+phone,code,10*60)
 
-    let emailFlag = await notice_util.send_email(email,'【请查收安全邮箱验证码】您在6DGS云绑定安全邮箱','【请查收安全邮箱验证码】您在6DGS云绑定安全邮箱，安全验证码为：'+email_code)
+    let emailFlag = await notice_util.send_email(email,'【请查收安全邮箱验证码】您在dtns云绑定安全邮箱','【请查收安全邮箱验证码】您在dtns云绑定安全邮箱，安全验证码为：'+email_code)
     if(!emailFlag) return res.json({ret: false, msg: "send email failed"});
 
     user_redis.set(config.redis_key+":sms_code:bind:"+email,email_code,10*60)
@@ -1083,11 +1083,11 @@ async function bind_role(req, res) {
         opval:JSON.stringify(obj),extra_data:user_id})
     if(!sendAllRet || !sendAllRet.ret)  return res.json({ret: false, msg: "send role-order-info to allorder failed"});
 
-    notice_util.send_email('251499600@qq.com','【6DGS云】有新的认证用户申请认证','认证内容为：'+
+    notice_util.send_email('251499600@qq.com','【dtns云】有新的认证用户申请认证','认证内容为：'+
         JSON.stringify(obj)+'<img src="https://cloud.forklist.dtns/image/view?filename='+filename+
         '" width="100%" height="100%">处理链接为：<a href="http://cloud.forklist.dtns/user/role/bind_success?order_id='+userInfo.role_order_id+'">审核通过</a>')
 
-    notice_util.send_sms(86,18675516875,'【6DGS云】有新的认证用户申请认证'+'认证内容为：'+
+    notice_util.send_sms(86,18675516875,'【dtns云】有新的认证用户申请认证'+'认证内容为：'+
         JSON.stringify(obj)+'<img src="https://cloud.forklist.dtns/image/view?filename='+filename+'" width="100%" height="100%">处理链接为：<a href="http://cloud.forklist.dtns/user/role/bind_success?order_id='+userInfo.role_order_id+'">审核通过</a>')
 
     user_redis.del(config.redis_key+":sms_code:"+phone)
