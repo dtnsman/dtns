@@ -3601,7 +3601,7 @@ async function recvWSMsg(data) {
     console.log("dnalink-engine-rsp:------client-socket-recv:"+JSON.stringify(data));
     // if(data  && data.indexOf('keepalive')>0) return ;
     // data =JSON.parse(data)
-    //{"user_name":"donrain","token_name":"rmb","appid":"10001","list":[{"token":"rmb_0000000000000000","height":54,"token_relate":"token_x","token_x":"rmb_0000000000000000","token_y":"rmb_29ZHvBZy2uy9RrXU","opcode":"pay","opval":"{\"order_number\":\"obj_order2zG6HcsVyXs\",\"order_name\":\"充值101.12元钱\",\"pay_money\":0.1,\"auto\":1,\"version\":1,\"extra_data\":\"云支付自动充值\",\"x6dgs_cloud_func_ret\":{\"ret\":true,\"msg\":\"success\",\"order_id\":\"order_rmb2wherkb6aWzKw\",\"pay_url\":\"https://cloud.6dgs.opencom.cn/h5.","opval_len":286},{"token":"rmb_29ZHvBZy2uy9RrXU","height":26,"token_relate":"token_y","token_x":"rmb_0000000000000000","token_y":"rmb_29ZHvBZy2uy9RrXU","opcode":"pay","opval":"{\"order_number\":\"obj_order2zG6HcsVyXs\",\"order_name\":\"充值101.12元钱\",\"pay_money\":0.1,\"auto\":1,\"version\":1,\"extra_data\":\"云支付自动充值\",\"x6dgs_cloud_func_ret\":{\"ret\":true,\"msg\":\"success\",\"order_id\":\"order_rmb2wherkb6aWzKw\",\"pay_url\":\"https://cloud.6dgs.opencom.cn/h5.","opval_len":286},{"token":"rmb_0000000000000000","height":55,"token_relate":"token_y","token_x":"rmb_0000000000000000","token_y":"rmb_29ZHvBZy2uy9RrXU","opcode":"pay","opval":"{\"order_number\":\"obj_order2zG6HcsVyXs\",\"order_name\":\"充值101.12元钱\",\"pay_money\":0.1,\"auto\":1,\"version\":1,\"extra_data\":\"云支付自动充值\",\"x6dgs_cloud_func_ret\":{\"ret\":true,\"msg\":\"success\",\"order_id\":\"order_rmb2wherkb6aWzKw\",\"pay_url\":\"https://cloud.6dgs.opencom.cn/h5.","opval_len":286}],"count":"3"}
+    //{"user_name":"donrain","token_name":"rmb","appid":"10001","list":[{"token":"rmb_0000000000000000","height":54,"token_relate":"token_x","token_x":"rmb_0000000000000000","token_y":"rmb_29ZHvBZy2uy9RrXU","opcode":"pay","opval":"{\"order_number\":\"obj_order2zG6HcsVyXs\",\"order_name\":\"充值101.12元钱\",\"pay_money\":0.1,\"auto\":1,\"version\":1,\"extra_data\":\"云支付自动充值\",\"xdtns_cloud_func_ret\":{\"ret\":true,\"msg\":\"success\",\"order_id\":\"order_rmb2wherkb6aWzKw\",\"pay_url\":\"https://cloud.dtns.opencom.cn/h5.","opval_len":286},{"token":"rmb_29ZHvBZy2uy9RrXU","height":26,"token_relate":"token_y","token_x":"rmb_0000000000000000","token_y":"rmb_29ZHvBZy2uy9RrXU","opcode":"pay","opval":"{\"order_number\":\"obj_order2zG6HcsVyXs\",\"order_name\":\"充值101.12元钱\",\"pay_money\":0.1,\"auto\":1,\"version\":1,\"extra_data\":\"云支付自动充值\",\"xdtns_cloud_func_ret\":{\"ret\":true,\"msg\":\"success\",\"order_id\":\"order_rmb2wherkb6aWzKw\",\"pay_url\":\"https://cloud.dtns.opencom.cn/h5.","opval_len":286},{"token":"rmb_0000000000000000","height":55,"token_relate":"token_y","token_x":"rmb_0000000000000000","token_y":"rmb_29ZHvBZy2uy9RrXU","opcode":"pay","opval":"{\"order_number\":\"obj_order2zG6HcsVyXs\",\"order_name\":\"充值101.12元钱\",\"pay_money\":0.1,\"auto\":1,\"version\":1,\"extra_data\":\"云支付自动充值\",\"xdtns_cloud_func_ret\":{\"ret\":true,\"msg\":\"success\",\"order_id\":\"order_rmb2wherkb6aWzKw\",\"pay_url\":\"https://cloud.dtns.opencom.cn/h5.","opval_len":286}],"count":"3"}
     let list = data;//data.list;
     let token = null;
     for(let i=0;list && i<list.length;i++)
@@ -3663,7 +3663,7 @@ async function wait() {
     }
     console.log('wsRet:'+JSON.stringify(wsRet));
 
-    ///x6dgs_cloud_func_ret
+    ///xdtns_cloud_func_ret
     if(!wsRet|| !wsRet.ret || !wsRet.rpc_func_ret || !wsRet.rpc_func_ret.ret) {
         //reCallListen();
         console.log('wsRet is false',wsRet)
@@ -3671,7 +3671,7 @@ async function wait() {
     }
 
     //参考示例。
-    // var sock = new ws("wss://cloud.6dgs.opencom.cn/cloud/ws/svr?token=e90562720a5be8c366376cab2699d28c6b5bb7e2f50202ff1509af17178e260f");
+    // var sock = new ws("wss://cloud.dtns.opencom.cn/cloud/ws/svr?token=e90562720a5be8c366376cab2699d28c6b5bb7e2f50202ff1509af17178e260f");
     rpc_client.setWs(wsRet.rpc_func_ret.token,function(data){
         console.log('groupchat-dnalink-engine-websocket-res:',data)
         recvWSMsg(data)
@@ -3739,7 +3739,7 @@ async function wsLisenReqKey(req, res) {
 
     //发送成功。
     if(setRet)
-        res.json({ret:true,msg:'success',listen_token})//,listen_url:"wss://cloud.6dgs.opencom.cn/cloud/ws/svr?token="+listen_token})
+        res.json({ret:true,msg:'success',listen_token})//,listen_url:"wss://cloud.dtns.opencom.cn/cloud/ws/svr?token="+listen_token})
     else
         res.json({ret:false,msg:'failed:'+setRet})
 
@@ -3762,7 +3762,7 @@ async function wsUserLisenReqKey(req, res) {
 
     //发送成功。
     if(setRet)
-        res.json({ret:true,msg:'success',listen_token})//,listen_url:"wss://cloud.6dgs.opencom.cn/cloud/ws/svr?token="+listen_token})
+        res.json({ret:true,msg:'success',listen_token})//,listen_url:"wss://cloud.dtns.opencom.cn/cloud/ws/svr?token="+listen_token})
     else
         res.json({ret:false,msg:'failed:'+setRet})
 }

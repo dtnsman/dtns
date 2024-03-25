@@ -143,7 +143,7 @@ rmb_protocol_config.root_config={
     /**
      * token的状态机
      */
-    TOKEN_FSM:'6dgs.fsm',//（使用TOKEN_VAL_TYPE进行真正的fms-state计算）
+    TOKEN_FSM:'dtns.fsm',//（使用TOKEN_VAL_TYPE进行真正的fms-state计算）
     // TOKEN_OPLIST:JSON.stringify(oplist),
     /**
      * token的主要数值类型NUM
@@ -191,14 +191,14 @@ rmb_protocol_config.root_config={
      * 域名
      * 这里会影响db与redis的访问
      *
-     * DOMAIN_6DGS:'coin.6dgs.opencom.cn',
+     * DOMAIN_dtns:'coin.dtns.opencom.cn',
      */
-    DOMAIN_6DGS:'coin.6dgs.opencom.cn',
+    DOMAIN_dtns:'coin.dtns.opencom.cn',
     /**
      * 全功能节点的端口（各个rcp_server保持一致性，这里可以优化和改进---以在一台机器上部署多个node进程）
      * 如果使用nginx重定向域名的话，可以指向不同的半功能节点，但是对外的全节点功能依然以该端口为核心。
      */
-    TOKEN_GROUP:'6dgs.opencom.cn',
+    TOKEN_GROUP:'dtns.opencom.cn',
 
     appids:[10001],
     secret_keys:["**"],

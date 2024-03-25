@@ -5,7 +5,7 @@
 // const RPCClient = require('./RPCClient')
 // const rpc_client = new RPCClient('linkline-cell',null,null,1)
 
-//这里配置6dgs.node的相关节点信息。
+//这里配置dtns.node的相关节点信息。
 const APPID = '10001'
 const SECRET_KEY = '0000'
 const NODEID= 'chat02G32Zmqgh8P'
@@ -45,7 +45,7 @@ window.rpc_api_config={
     SCORE_TOKEN_ROOT:SCORE_TOKEN_NAME+"_0000000000000000",
 
     //#5 代金券模块-pcash
-    // PCASH_API_BASE: 'https://c3.6dgs.opencom.org.cn/node.'+NODEID+'.'+PCASH_TOKEN_NAME+':vvvvvvvvvvv',
+    // PCASH_API_BASE: 'https://c3.dtns.opencom.org.cn/node.'+NODEID+'.'+PCASH_TOKEN_NAME+':vvvvvvvvvvv',
     // PCASH_TOKEN_NAME: PCASH_TOKEN_NAME,
     // PCASH_TOKEN_ROOT:PCASH_TOKEN_NAME+"_0000000000000000",
 
@@ -350,14 +350,14 @@ async function rpc_query(url,reqdata){
     reqdata.rpc_name = rpc_name //请求的rpc
 
     url = getNodeUrl(url)
-    // if(url.indexOf('c2.6dgs.opencom')>0)
+    // if(url.indexOf('c2.dtns.opencom')>0)
     // {
-    //     url = url.replace('c2.6dgs.opencom.cn','c2.6dgs.opencom.vip')
+    //     url = url.replace('c2.dtns.opencom.cn','c2.dtns.opencom.vip')
     // }
 
-    // if(url.indexOf('c3.6dgs.opencom')>0)
+    // if(url.indexOf('c3.dtns.opencom')>0)
     // {
-    //     url = url.replace('c3.6dgs.opencom.cn','c3.6dgs.opencom.org.cn')
+    //     url = url.replace('c3.dtns.opencom.cn','c3.dtns.opencom.org.cn')
     // }
     
     // let ret = await http_req.http_post(url,reqdata);

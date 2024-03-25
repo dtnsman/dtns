@@ -31,15 +31,15 @@ window.notice_util.send_sms = async function (nation_code,phone,code,is_template
         opval:JSON.stringify(param),extra_data:"send-sms"});
 
     console.log("send_sms:ret:"+JSON.stringify(sendRet));
-    if(!sendRet || !sendRet.x6dgs_cloud_func_ret || !sendRet.x6dgs_cloud_func_ret.ret) 
+    if(!sendRet || !sendRet.xdtns_cloud_func_ret || !sendRet.xdtns_cloud_func_ret.ret) 
         sendRet = await rpc_query(MSG_API_BASE+'/op',{token_x:MSG_TOKEN_ROOT,token_y:MSG_TOKEN_ROOT,       opcode:"sms",opval:JSON.stringify(param),extra_data:"send-sms"});
 
     console.log("send_sms:ret:"+JSON.stringify(sendRet));
-    if(!sendRet || !sendRet.x6dgs_cloud_func_ret || !sendRet.x6dgs_cloud_func_ret.ret) sendRet = 
+    if(!sendRet || !sendRet.xdtns_cloud_func_ret || !sendRet.xdtns_cloud_func_ret.ret) sendRet = 
         await rpc_query(MSG_API_BASE+'/op',{token_x:MSG_TOKEN_ROOT,token_y:MSG_TOKEN_ROOT,       opcode:"sms",opval:JSON.stringify(param),extra_data:"send-sms"});
 
     console.log("send_sms:ret:"+JSON.stringify(sendRet));
-    if(sendRet &&sendRet.x6dgs_cloud_func_ret && sendRet.x6dgs_cloud_func_ret.ret) return true;
+    if(sendRet &&sendRet.xdtns_cloud_func_ret && sendRet.xdtns_cloud_func_ret.ret) return true;
     return false;
 }
 /**
@@ -54,7 +54,7 @@ window.notice_util.send_email = async function (email,subject,content) {
     let sendRet = await rpc_query(MSG_API_BASE+'/op',{token_x:MSG_TOKEN_ROOT,token_y:MSG_TOKEN_ROOT,opcode:"mail",
         opval:JSON.stringify(param),extra_data:"send-mail"});
     console.log("send_email:ret:"+JSON.stringify(sendRet));
-    if(sendRet &&sendRet.x6dgs_cloud_func_ret && sendRet.x6dgs_cloud_func_ret.ret) return true;
+    if(sendRet &&sendRet.xdtns_cloud_func_ret && sendRet.xdtns_cloud_func_ret.ret) return true;
     return false;
 }
 

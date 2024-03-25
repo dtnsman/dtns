@@ -1365,7 +1365,7 @@ async function send_bind_code(req, res) {
 
     user_redis.set(ll_config.redis_key+":sms_code:bind:"+phone,code,10*60)
 
-    let emailFlag = await huawei_notice_util.send_email(email,'【请查收安全邮箱验证码】您在6DGS云绑定安全邮箱','【请查收安全邮箱验证码】您在6DGS云绑定安全邮箱，安全验证码为：'+email_code)
+    let emailFlag = await huawei_notice_util.send_email(email,'【请查收安全邮箱验证码】您在dtns云绑定安全邮箱','【请查收安全邮箱验证码】您在dtns云绑定安全邮箱，安全验证码为：'+email_code)
     if(!emailFlag) return res.json({ret: false, msg: "send email failed"});
 
     user_redis.set(ll_config.redis_key+":sms_code:bind:"+email,email_code,10*60)

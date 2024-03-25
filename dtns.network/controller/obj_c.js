@@ -11,7 +11,7 @@
 // const {USER_API_BASE,USER_TOKEN_ROOT,USER_TOKEN_NAME,OBJ_API_BASE,OBJ_TOKEN_ROOT,OBJ_TOKEN_NAME,VIP_API_BASE,VIP_TOKEN_ROOT,VIP_TOKEN_NAME } = require('../rpc_api_config')
 window.obj_c = {}
 /**
- * 新建一个gnode节点商品（考虑所有的6dgs所有的链产品，都基于此购买----参数差异大？？）。
+ * 新建一个gnode节点商品（考虑所有的dtns所有的链产品，都基于此购买----参数差异大？？）。
  * @type {new_gnode_obj}
  *
  */
@@ -24,7 +24,7 @@ async function new_gnode_obj(req, res)
     let {user_id,s_id,gnode_kind,sort_num, gnode_name, gnode_desc,price,price_y,price_m,price_d,
         deploy_area,sub_area,sub_area_code,deploy_area_code,master_host, who_acl,random,sign} = str_filter.get_req_data(req);
     //gnode_kind=huawei&sort_num=0&gnode_name=G节点（华为云）&gnode_desc=G节点（华为云）-中国华南区&price=720&price_y=720&price_m=60&price_d=2&
-    //         deploy_area=中国&sub_area=华南&sub_area_code=0&deploy_area_code=c0&master_host=c0.6dgs.opencom.cn&who_acl=0random
+    //         deploy_area=中国&sub_area=华南&sub_area_code=0&deploy_area_code=c0&master_host=c0.dtns.opencom.cn&who_acl=0random
 
     if(price!=price*1 || price<0) return res.json({ret: false, msg: "price format error"});
     if(price_y!=price_y*1 || price_y<0) return res.json({ret: false, msg: "price_y format error"});

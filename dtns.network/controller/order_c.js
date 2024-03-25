@@ -610,7 +610,7 @@ async function new_rmb_recharge_order(req, res) {
     // let payRet = await rpc_query(RMB_API_BASE+"/op",{token_x:RMB_TOKEN_ROOT,token_y:rmbUserId,opval:JSON.stringify(payParam),
     //     opcode:'pay',extra_data:forkRet.token_x})
 
-    // if(!payRet || !payRet.x6dgs_cloud_func_ret || !payRet.x6dgs_cloud_func_ret.ret)
+    // if(!payRet || !payRet.xdtns_cloud_func_ret || !payRet.xdtns_cloud_func_ret.ret)
     // {
     //     obj.ret = true;
     //     obj.msg = "create pay-url failed"
@@ -618,7 +618,7 @@ async function new_rmb_recharge_order(req, res) {
     // }
 
 
-    // let weixinPayUrl = payRet.x6dgs_cloud_func_ret.pay_url;
+    // let weixinPayUrl = payRet.xdtns_cloud_func_ret.pay_url;
     // let content = '提醒您，您的订单还未完成支付！支付链接为：'+weixinPayUrl+'，点击链接继续完成订单支付操作!'
     // let queryUserInfo = await s_queryUserInfo(user_id)
     // if(queryUserInfo) {
@@ -659,7 +659,7 @@ async function new_rmb_recharge_order(req, res) {
     obj.ret = true;
     obj.msg = "success"
     obj.pay_url =  payUrlRes.result//weixinPayUrl;
-    obj.go_url = payUrlRes.result// payRet.x6dgs_cloud_func_ret.go_url;
+    obj.go_url = payUrlRes.result// payRet.xdtns_cloud_func_ret.go_url;
 
     return res.json(obj)
 }
