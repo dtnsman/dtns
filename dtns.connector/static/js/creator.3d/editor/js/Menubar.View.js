@@ -63,10 +63,36 @@ function MenubarView( editor ) {
 	options.add( optionRecord );
 
 
-
 	// Fullscreen
 
 	let option = new UIRow();
+	option.setClass( 'option' );
+	option.setTextContent( '玩家视角（关闭/启用）' );
+	option.onClick( function () {
+
+		if(window.g_3d_editor_stop_player_flag){
+			if(typeof window.g_3d_editor_start_player == 'function'){
+				window.g_3d_editor_start_player()
+				if(g_dchatManager && g_dchatManager.viewContext){
+					g_dchatManager.viewContext.$toast('开启玩家视角！')
+				}
+			}
+		}else{
+			if(typeof window.g_3d_editor_stop_player == 'function'){
+				window.g_3d_editor_stop_player()
+				if(g_dchatManager && g_dchatManager.viewContext){
+					g_dchatManager.viewContext.$toast('关闭玩家视角！')
+				}
+			}
+		}
+
+	} );
+	options.add( option );
+
+
+	// Fullscreen
+
+	option = new UIRow();
 	option.setClass( 'option' );
 	option.setTextContent( strings.getKey( 'menubar/view/fullscreen' ) );
 	option.onClick( function () {

@@ -74,6 +74,14 @@ class DTNSManager
         let iCnt = 30 //2023-10-9  避免死循环等待事件的发生
         while(!this.web3apps && rpc_client && (iCnt--)>=0) await rpc_client.sleep(100)
         let web3appInfo = await this.nslookup(dtnsUrl) //先查询，是否存在于cached中
+        if(window.g_dtns_network_static_hosts && window.g_dtns_network_static_hosts[web3name])
+        {
+            web3appInfo = {web3name,network_info:window.g_dtns_network_static_hosts[web3name]}
+        }
+        if(web3name && web3name.indexOf('dev')>=0)
+        {
+            web3appInfo = {web3name,network_info:window.g_dtns_network_static_hosts['dev.dtns']}
+        }
 
         console.log('connect-web3appInfo:',web3appInfo)
         web3name = web3appInfo ? web3appInfo.web3name :null
@@ -118,7 +126,7 @@ class DTNSManager
         let url = dtnsUrl.substring(idx,dtnsUrl.length) //得到urlPath
 
         //查询缓存的user-id和s-id（以便确保融入了user_id和session-id）
-        if(!params.user_id || !params.s_id)
+        if((!params.user_id || !params.s_id) && window.iSessionDb)
         {
             if(!client.user_session)
             {
@@ -189,7 +197,9 @@ class DTNSManager
     nslookupIB3ID(dtnsUrl)
     {
         let ibappPrefixStr = 'dtns://ibapp:' 
-        let url = new URL(dtnsUrl)//利用上这个解析库进行查询。
+        dtnsUrl = dtnsUrl.replace('dtns://web3:',ibappPrefixStr)
+        let dtnsUrlHttp = dtnsUrl.replace(ibappPrefixStr,'http://')
+        let url = new URL(dtnsUrlHttp)//利用上这个解析库进行查询。
         //console.log('url:'+JSON.stringify(url));
         let path = url.pathname
         let params = {}//token_x:context[token_x],token_y:context[token_y],opcode,opval:JSON.stringify(context[opval]),token_key,extra_data:context[extra_data]}
@@ -197,15 +207,23 @@ class DTNSManager
             params[key] =value
         }
         console.log('nslookup-path:',path,params,url)
-        dtnsUrl = url.protocol +path //去掉了参数后的结果
+        dtnsUrl = ibappPrefixStr +url.hostname+path //去掉了参数后的结果
+        
+        let domainName = null
+        let result = {params,dtns_url:dtnsUrl,path,protocol:'dtns',domainName,web3name:url.hostname}
 
-        dtnsUrl = dtnsUrl.replace('dtns://web3:',ibappPrefixStr)
-        let result = {params,dtns_url:dtnsUrl,path,protocol:url.protocol}
-        if(dtnsUrl.lastIndexOf('/') < 'dtns://web3'.length){
-            result.web3name = dtnsUrl.substring(dtnsUrl.lastIndexOf(':')+1,dtnsUrl.length)
-        }else{
-            result.web3name = dtnsUrl.substring(ibappPrefixStr.length,ibappPrefixStr.length+dtnsUrl.substring(ibappPrefixStr.length,dtnsUrl.length).indexOf('/'))
+        if(dtnsUrl.indexOf(ibappPrefixStr)!=0){
+            // let nsRet = await this.nslookup('dtns',dtnsUrl)
+            let tmpUrl = dtnsUrl.replace('dtns://','')
+            let begin = tmpUrl.indexOf('/')
+            begin = begin >= 0 ? begin: tmpUrl.length
+            domainName = tmpUrl.substring(0,begin)
+            if(!domainName || domainName.length<=0) domainName = null;
+            result.web3name = domainName.indexOf('.')>=0 ? domainName.substring(0,domainName.indexOf('.')) :domainName
+            result.domainName = domainName
         }
+
+        console.log('nslookupIB3ID:result:',result)
         return result
     }
     /**
@@ -220,38 +238,24 @@ class DTNSManager
         // if(!client) return null
         // return this.run('dtns://web3:'+dtnsWeb3Name+'/nslookup',{url:dtnsUrl})
         if(!dtnsUrl) return null
-        let ibappPrefixStr = 'dtns://ibapp:' 
-
-        let url = new URL(dtnsUrl)//利用上这个解析库进行查询。
-        //console.log('url:'+JSON.stringify(url));
-        let path = url.pathname
-        let params = {}//token_x:context[token_x],token_y:context[token_y],opcode,opval:JSON.stringify(context[opval]),token_key,extra_data:context[extra_data]}
-        for (const [key, value] of url.searchParams) {
-            params[key] =value
-        }
-        console.log('nslookup-path:',path,params,url)
-        dtnsUrl = url.protocol +path //去掉了参数后的结果
-
-        dtnsUrl = dtnsUrl.replace('dtns://web3:',ibappPrefixStr)
-        let idx = 0, web3name = null , domainName = null
-        if(dtnsUrl.indexOf(ibappPrefixStr)!=0){
-            // let nsRet = await this.nslookup('dtns',dtnsUrl)
-            let tmpUrl = dtnsUrl.replace('dtns://','')
-            let begin = tmpUrl.indexOf('/')
-            begin = begin >= 0 ? begin: tmpUrl.length
-            domainName = tmpUrl.substring(0,begin)
-            if(!domainName || domainName.length<=0) return null;
-            web3name = domainName.indexOf('.')>=0 ? domainName.substring(0,domainName.indexOf('.')) :domainName
-            // if(!web3name  || domainName.length<=0) return null
-            // console.log('domainName:'+domainName+' web3name:'+web3name)
-            // return null
-        }else{ 
-            idx = dtnsUrl.indexOf('/',ibappPrefixStr.length)
-            web3name = dtnsUrl.substring(ibappPrefixStr.length,idx>0?idx:dtnsUrl.length)
-        }
-        console.log('connect-url,idx-web3name',dtnsUrl,idx,web3name,domainName)
+        let dtnsResult = this.nslookupIB3ID(dtnsUrl)
+        if(!dtnsResult) return null
+        dtnsUrl = dtnsResult.dtns_url
+        let {web3name,domainName,params} = dtnsResult
+        console.log('connect-url,web3name',dtnsUrl,web3name,domainName)
         if(!web3name || web3name.length<=0) return null
+
         let dtnsInfo = this.web3nameDTNSMap.get(web3name)
+        if(window.g_dtns_network_static_hosts && g_dtns_network_static_hosts[web3name])
+        {
+            dtnsInfo = {web3name,network_info:g_dtns_network_static_hosts[web3name],params}
+            return dtnsInfo
+        }
+        if(web3name && web3name.indexOf('dev')>=0)
+        {
+            dtnsInfo = {web3name,network_info:window.g_dtns_network_static_hosts['dev.dtns'],params}
+            return dtnsInfo
+        }
         console.log('nslookup-web3name:'+web3name+' dtns-info:',dtnsInfo)
         //检测输入domainName是否正确
         if(!dtnsInfo || dtnsInfo && dtnsUrl.indexOf('.')>0 && web3name +'.'+dtnsInfo.network!= domainName){
@@ -336,8 +340,44 @@ class DTNSManager
         console.log('queryIBAppListStatus:results:',result)
         return result
     }
+    async queryDTNSAllStatic()
+    {
+        if(typeof g_axios =='undefined'){
+            console.log('[Error] g_axios is undefined'  )
+            return null
+        }
+        let static_url = window.g_dtns_ibapps_static_url ? window.g_dtns_ibapps_static_url: 'https://static.yunapi.org/ibapps.json'
+        let result = await g_axios.get(static_url,{params:{a:Math.random()},headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
+        console.log('queryDTNSAllStatic:result:',result)
+        // process.exit(1)
+        if(result && result.data){
+            result = result.data
+        }
+        if(result){
+            this.web3nameDTNSMap = new Map()
+            this.networkInfoMap  = new Map()
+            this.web3apps = result.list
+            for(let key in result.networks)
+            {
+                console.log('networks-key:'+key,result.networks[key])
+                this.networkInfoMap.set(key,result.networks[key])
+            }
+            for(let i=0;i<this.web3apps.length;i++)
+            {
+                console.log('web3name:'+this.web3apps[i].web3name,this.web3apps[i])
+                this.web3nameDTNSMap.set(this.web3apps[i].web3name,this.web3apps[i])
+            }
+            // process.exit(1)
+            return true
+        }
+        return false
+    }
     async queryDTNSAll()
     {
+        let staticRet = await this.queryDTNSAllStatic()
+        console.log('queryDTNSAll-queryDTNSAllStatic-staticRet:',staticRet)
+        if(staticRet) return this.web3apps
+
         let web3appList = await this.queryDTNSNetwork('/chain/relations',{token:this.DTNS_ROOT_TOKEN,opcode:'relw',begin:0,len:10000})
         console.log('queryDTNSAll-web3appList-ret:',web3appList)
         if(!web3appList||!web3appList.list || web3appList.list.length<=0){
@@ -392,7 +432,7 @@ class DTNSManager
         //得到配置信息
         let networkTokenIDInfoRets = await Promise.all(networkInfoQueryM2)
         console.log('networkTokenIDInfoRets:',networkTokenIDInfoRets)
-        let networkTokenInfos = [], networkInfoMap = new Map() 
+        let networkTokenInfos = [], networkInfoMap = new Map() ,networkInfoMapObj = {}
         for(let i=0;i<networkTokenIDInfoRets.length;i++)
         {
             let tokenInfo = networkTokenIDInfoRets[i]
@@ -407,8 +447,10 @@ class DTNSManager
                 tokenInfo = null;
             }
             networkTokenInfos.push(tokenInfo)
-            if(tokenInfo)
-            networkInfoMap.set(tokenInfo.network,tokenInfo)
+            if(tokenInfo){
+                networkInfoMap.set(tokenInfo.network,tokenInfo)
+                networkInfoMapObj[tokenInfo.network] = tokenInfo
+            }
         }
         console.log('networkTokenInfos:',networkTokenInfos)
         let web3nameDTNSMap = new Map()
@@ -423,6 +465,8 @@ class DTNSManager
         this.web3nameDTNSMap = web3nameDTNSMap
         this.networkInfoMap  = networkInfoMap
         this.web3apps = web3apps
+        // let file_util = require('../libs/file_util')
+        // file_util.writeFile('./ibapps.json',JSON.stringify({list:this.web3apps,networks:networkInfoMapObj}))
         return web3apps
     }
 }

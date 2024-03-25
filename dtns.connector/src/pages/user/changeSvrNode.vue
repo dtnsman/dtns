@@ -2,13 +2,13 @@
     <!--个人信息组件-->
     <div class="box" style="width:100%; height:100%;position:fixed; background-color:#fff;overflow-x: hidden;overflow-y: scroll;">
       <div class="topbar">
-        <van-nav-bar title="修改服务器（节点）" fixed="true"  right-text="远程调试"  @click-right="devtools" left-arrow @click-left="back" />
+        <van-nav-bar :title="changeIb3hubNodeStr" fixed="true"  :right-text="remoteTestStr"  @click-right="devtools" left-arrow @click-left="back" />
       </div>
       <div class="logo">
         <div style="text-align:center;padding-top: 80px;">
-            <span>切换不同的服务器节点，可能须重新注册或登录！</span><br/>
+            <span>{{ changeNodeNeedToDoStr }}</span><br/>
             <img v-image-preview :src="url" alt="" width="200" height="200"/><br/>
-            <input text="text" placeholder="输入服务器节点名称" v-model="changetext" class="input" list="web3namesList"/>
+            <input text="text" :placeholder="changeNodeInputTipsStr" v-model="changetext" class="input" list="web3namesList"/>
             <datalist id="web3namesList">
                 <option v-for="(item,index) in web3names" :value="item.web3name"></option>
             </datalist><br/>
@@ -17,16 +17,16 @@
       <van-divider />
       <div class="change">
         <div style="text-align:center;">
-          <span>历史纪录：</span><span v-for="(item,index) in history" style="padding: 3px;margin-right: 10px;" @click="clickLabel(item.web3name)"><font color=green v-if="item.alive_status">{{ item.web3name }}</font><font v-else>{{ item.web3name }}</font></span>
+          <span>{{historyRecordsStr}}：</span><span v-for="(item,index) in history" style="padding: 3px;margin-right: 10px;" @click="clickLabel(item.web3name)"><font color=green v-if="item.alive_status">{{ item.web3name }}</font><font v-else>{{ item.web3name }}</font></span>
           <br/>
-          <span>所有节点：</span>
+          <span>{{allNodesStr}}：</span>
           <span v-for="(item,index) in web3names" style="padding: 3px;margin-right: 10px;" @click="clickLabel(item.web3name)"><font color=green v-if="item.alive_status">{{ item.web3name }}</font><font v-else>{{ item.web3name }}</font></span>
         </div>
         <button @click="confirm" style="width:85px; height:30px; font-size:13px; line-height:29px; background-color:#15a0e7; margin-top:20px; border-radius:3px;">确认切换</button>
       </div>
       <van-divider />
       <div v-if="goodList" style="padding: 0px;">
-        <center><h3>精选节点</h3></center>
+        <center><h3>{{ pinNodeStr }}</h3></center>
         <section>
           <div v-for="(item,index) in goodList" style="width: 100%;margin: 10px 0 10px 0;position: relative">
             <p style="padding:0 10px 0 10px;width:100%;float: left;line-height: 20px;font-size: 14px;" v-html="item.xmsg" ></p>
@@ -58,6 +58,13 @@ import XMsgViewer from '@/components/Item/XMsgViewer'
                 history:[],
                 url:null,
                 goodList:null,
+                changeIb3hubNodeStr:'修改服务器（节点）',
+                remoteTestStr:'远程调试',
+                changeNodeNeedToDoStr:'切换不同的服务器节点，可能须重新注册或登录！',
+                changeNodeInputTipsStr:'输入服务器节点名称',
+                historyRecordsStr:'历史纪录',
+                allNodesStr:'所有节点',
+                pinNodeStr:'精选节点'
               }
           },
     mounted() {
@@ -356,14 +363,47 @@ import XMsgViewer from '@/components/Item/XMsgViewer'
           this.goodList = dtnsGoodList.concat(nowGoodList)
           console.log('this.goodList',this.goodList)
         } 
+        ,
+      translate()
+        {
+          // changeIb3hubNodeStr:'修改服务器（节点）',
+          //       remoteTestStr:'远程调试',
+          //       changeNodeNeedToDoStr:'切换不同的服务器节点，可能须重新注册或登录！',
+          //       changeNodeInputTipsStr:'输入服务器节点名称',
+          //       historyRecordsStr:'历史纪录',
+          //       allNodesStr:'所有节点',
+          //       pinNodeStr:'精选节点'
+
+            this.changeIb3hubNodeStr = g_dtnsStrings.getString('/index/node/change')
+            this.remoteTestStr = g_dtnsStrings.getString('/index/node/devtools')
+            this.changeNodeNeedToDoStr = g_dtnsStrings.getString('/index/node/change/todo')
+            this.changeNodeInputTipsStr = g_dtnsStrings.getString('/index/node/change/tips')
+            this.historyRecordsStr       = g_dtnsStrings.getString('/index/node/history')
+            this.allNodesStr       = g_dtnsStrings.getString('/index/node/all')
+            this.pinNodeStr       = g_dtnsStrings.getString('/index/node/pin')
+        }
     },
-    async created(){//进入页面就执行
+    async created(){
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
         //   let nodeItemName = localStorage.getItem('now_roomid')
-          this.changetext = rpc_client.roomid//nodeItemName && nodeItemName.length>=1 ? nodeItemName: rtc_client.roomid
-          this.showQRCode()
-          await this.queryAllIB3()
-          await this.queryGoodIB3Nodes()
-        },
+        this.changetext = rpc_client.roomid//nodeItemName && nodeItemName.length>=1 ? nodeItemName: rtc_client.roomid
+        this.showQRCode()
+        await this.queryAllIB3()
+        await this.queryGoodIB3Nodes()
+        
+       
+    },
+    beforeDestroy () {
+        console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
+    }
   };
   </script>
   
@@ -431,6 +471,11 @@ import XMsgViewer from '@/components/Item/XMsgViewer'
     margin-bottom: 40px;
   }
   
+  .change {
+    width:100%;
+    height:auto;
+  }
+
   .change >>> .van-cell {
     border: 1px solid #eee;
     width: 300px;
@@ -446,6 +491,11 @@ import XMsgViewer from '@/components/Item/XMsgViewer'
     width: 100px;
     height: 40px;
   }
+
+  .change span {
+    display:inline-block;
+  }
+  
   .img{
     position:relative;
     width:200px;

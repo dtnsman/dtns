@@ -264,7 +264,7 @@
                   <svg t="1591241385919" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4302" width="25" height="25"><path d="M796.88716 473.749416h-239.066148V227.511284a39.844358 39.844358 0 0 0-79.688716 0v246.238132H228.308171a39.844358 39.844358 0 0 0 0 79.688716H478.132296V796.88716a39.844358 39.844358 0 0 0 79.688716 0v-243.050584h239.066148a39.844358 39.844358 0 0 0 0-79.688716z" p-id="4303" fill="#989898"></path><path d="M512 0A512 512 0 1 0 1024 512 512.398444 512.398444 0 0 0 512 0z m0 944.311284A432.311284 432.311284 0 1 1 944.311284 512 433.108171 433.108171 0 0 1 512 944.311284z" p-id="4304" fill="#989898"></path></svg>
                 </span>
                 <div v-show="sendOut" style="text-align:center;">
-                <button @mouseleave="text" style="width:45px; color:#fff; border-radius:4px;  font-size:13px; height:28px;  background-color:#12adf5; border:none;">发送</button>
+                <button @mouseleave="text" style="width:45px; color:#fff; border-radius:4px;  font-size:13px; height:28px;  background-color:#12adf5; border:none;">{{ sendMsgBtnStr }}</button>
                 </div>
             </div>
           </footer>
@@ -274,7 +274,7 @@
               <van-uploader :after-read="SendPictures" accept="image/*">
               <div style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178689127" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3668" width="24" height="24"><path d="M912.59709 0H111.40291a107.948556 107.948556 0 0 0-107.948556 107.948556v808.102888a107.948556 107.948556 0 0 0 107.948556 107.948556h801.19418a107.948556 107.948556 0 0 0 107.948556-107.948556V107.948556a107.948556 107.948556 0 0 0-107.948556-107.948556zM111.40291 43.179422h801.19418a64.769133 64.769133 0 0 1 64.769134 64.769134v518.153067c-9.067679 21.589711-67.359899 159.547965-166.240776 172.71769-69.302973 9.499473-145.946447-43.179422-227.98735-158.46848-86.358845-121.550074-182.433059-183.080751-282.609319-183.080751h-4.749736c-111.834704 2.158971-200.784314 80.313725-249.145267 134.072106V107.948556a64.769133 64.769133 0 0 1 64.769134-64.769134z m801.19418 937.641156H111.40291a64.769133 64.769133 0 0 1-64.769134-64.769134V659.565676c19.214843-26.555345 119.175206-156.741303 250.008855-159.332069h3.670251c86.358845 0 169.047438 55.485558 247.633987 165.161291C632.578537 783.274721 715.914822 841.998735 795.364959 841.998735a178.331014 178.331014 0 0 0 21.589711-1.51128c73.620915-10.147164 126.947502-69.734767 160.411554-121.981868v196.682269a64.769133 64.769133 0 0 1-64.769134 65.632722z" p-id="3669"></path><path d="M734.697871 368.320472a133.424415 133.424415 0 1 0-132.560827-133.424415 132.992621 132.992621 0 0 0 132.560827 133.424415z m0-223.669407a90.244993 90.244993 0 1 1-89.381405 90.244992 89.813198 89.813198 0 0 1 89.381405-90.244992z" p-id="3670"></path></svg>
-                <p style="font-size:12px;">照片</p>
+                <p style="font-size:12px;">{{ pictureStr }}</p>
               </div>
               </van-uploader>
             </van-col>
@@ -282,7 +282,7 @@
               <!-- <van-uploader :after-read="changeVideo" accept="video/*"> -->
               <div @click="gotoRTCChat" style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178597653" class="icon" viewBox="0 0 1588 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3391" width="24" height="24"><path d="M1569.185185 18.962963a23.703704 23.703704 0 0 0-33.185185 0l-440.888889 251.259259v-142.222222A128 128 0 0 0 967.111111 0H128A128 128 0 0 0 0 128v768a128 128 0 0 0 128 128h839.111111a128 128 0 0 0 128-128v-142.222222l440.888889 256h33.185185c9.481481-9.481481 18.962963-18.962963 18.962963-28.444445V47.407407a33.185185 33.185185 0 0 0-18.962963-28.444444zM1028.740741 896a61.62963 61.62963 0 0 1-61.62963 61.62963H128a61.62963 61.62963 0 0 1-61.62963-61.62963V128a61.62963 61.62963 0 0 1 61.62963-61.62963h839.111111a61.62963 61.62963 0 0 1 61.62963 61.62963z m493.037037 28.444444l-426.666667-246.518518v-331.851852l426.666667-241.777778z" p-id="3392"></path></svg>
-                <p style="font-size:12px;">视频聊天</p>
+                <p style="font-size:12px;">{{ videoChatStr }}</p>
               </div>
               <!-- </van-uploader> -->
             </van-col>
@@ -298,7 +298,7 @@
               <van-uploader  :after-read="handFile" accept="/*">
               <div style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178890729" class="icon" viewBox="0 0 1230 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4471" width="24" height="24"><path d="M1106.151108 1024H124.78528A125.822798 125.822798 0 0 1 0.00234 897.657273V126.342727A125.562833 125.562833 0 0 1 124.78528 0h548.005077a124.78294 124.78294 0 0 1 120.363544 94.367098h311.95735a125.562833 125.562833 0 0 1 124.782939 126.342727v675.907591a125.562833 125.562833 0 0 1-123.743082 127.382584zM51.995231 800.170602v97.486671a73.829906 73.829906 0 0 0 72.790049 74.349835h981.365828a73.829906 73.829906 0 0 0 72.790049-74.349835v-675.90759a73.569942 73.569942 0 0 0-72.790049-74.349835H746.620263v-24.436659A73.829906 73.829906 0 0 0 672.790357 51.992892H124.78528A73.569942 73.569942 0 0 0 51.995231 126.342727z" p-id="4472"></path></svg>
-                <p style="font-size:12px;">文件</p>
+                <p style="font-size:12px;">{{ sendFileStr }}</p>
               </div>
               </van-uploader>
             </van-col>
@@ -307,7 +307,7 @@
               <div style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178731442" class="icon" viewBox="0 0 1128 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3839" width="24" height="24"><path d="M1009.48616 159.186891h-195.354693L724.977852 11.058274a23.03711 23.03711 0 0 0-19.811915-11.057813H425.034679a23.03711 23.03711 0 0 0-19.811914 11.057813L316.069149 158.95652H118.871488C53.446095 159.186891 0 219.083377 0 293.0325v596.89152c0 73.949123 53.446095 134.07598 118.871488 134.07598h890.614672c65.655763 0 118.871488-60.126857 118.871488-134.07598V293.0325c0.460742-73.949123-53.215724-133.845609-118.871488-133.845609zM1082.74417 889.92402c0 48.608302-32.712696 88.00176-72.797268 88.00176H118.871488C78.786916 977.92578 46.07422 938.532322 46.07422 889.92402V293.0325c0-48.377931 32.712696-87.771389 72.797268-87.771389h210.328814a23.03711 23.03711 0 0 0 19.811914-11.288184L437.70509 46.074681h253.40821l89.153616 147.898246a23.03711 23.03711 0 0 0 19.581543 11.057813h207.33399c40.084571 0 72.797268 39.393458 72.797268 87.771389z" p-id="3840"></path><path d="M564.178824 340.258575a240.046686 240.046686 0 0 0-234.748151 244.193366A239.816315 239.816315 0 0 0 564.178824 829.336421a239.816315 239.816315 0 0 0 234.748151-244.88448 240.046686 240.046686 0 0 0-234.748151-244.193366z m0 442.082141a193.742095 193.742095 0 0 1-188.673931-197.888775 193.972466 193.972466 0 0 1 188.673931-198.119146 193.972466 193.972466 0 0 1 188.673931 198.119146A193.742095 193.742095 0 0 1 564.178824 783.262201z" p-id="3841"></path></svg>
                 <!-- <p style="font-size:12px;">拍摄</p> -->
-                <p style="font-size:12px;">头榜</p>
+                <p style="font-size:12px;">{{ viewChatDWebStr }}</p>
               </div>
               </div>
             </van-col>
@@ -328,14 +328,14 @@
             <van-col span="6">
               <div @click="Geography" style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178854006" class="icon" viewBox="0 0 1085 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4261" width="24" height="24"><path d="M953.949191 1024H130.753654A130.983854 130.983854 0 0 1 0 893.246346c0-69.060028 92.080038-134.897255 167.815869-177.254072 48.11182-26.703211 194.28888-84.253234 230.200094-98.06524a95.993439 95.993439 0 0 0-8.977804-89.778037 281.534715 281.534715 0 1 1 268.64351 1.611401 92.080038 92.080038 0 0 0-2.992601 87.015635c35.220614 14.042206 185.771476 73.66403 235.955097 98.755841 58.470824 29.005212 194.058679 104.280643 194.058679 176.793672a130.983854 130.983854 0 0 1-130.753653 131.674454zM525.546815 46.3402a235.724896 235.724896 0 0 0-109.805445 444.055982 23.020009 23.020009 0 0 1 8.057003 6.906002c2.302001 3.222801 55.017823 78.958632 9.208004 151.471662a21.178409 21.178409 0 0 1-11.049604 8.977804c-1.841601 0-180.937274 70.211029-231.811495 98.52564C101.288041 806.000511 46.040019 857.795532 46.040019 893.246346a84.713635 84.713635 0 0 0 84.713635 84.713635h823.195537a84.713635 84.713635 0 0 0 84.713634-84.713635c0-29.695812-71.822429-87.245836-168.506469-135.587855-53.866822-26.933411-237.566497-99.216241-239.408098-99.906841a23.020009 23.020009 0 0 1-10.819404-8.517403 139.501257 139.501257 0 0 1 1.6114-148.939461 23.020009 23.020009 0 0 1 8.747604-7.596604A235.494696 235.494696 0 0 0 525.546815 46.3402z" p-id="4262"></path></svg>
-                <p style="font-size:12px;">联系人</p>
+                <p style="font-size:12px;">{{ sendContactStr }}</p>
               </div>
             </van-col>
             <van-col span="6">
               <div  @click="openForm">
               <div style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178731442" class="icon" viewBox="0 0 1128 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3839" width="24" height="24"><path d="M1009.48616 159.186891h-195.354693L724.977852 11.058274a23.03711 23.03711 0 0 0-19.811915-11.057813H425.034679a23.03711 23.03711 0 0 0-19.811914 11.057813L316.069149 158.95652H118.871488C53.446095 159.186891 0 219.083377 0 293.0325v596.89152c0 73.949123 53.446095 134.07598 118.871488 134.07598h890.614672c65.655763 0 118.871488-60.126857 118.871488-134.07598V293.0325c0.460742-73.949123-53.215724-133.845609-118.871488-133.845609zM1082.74417 889.92402c0 48.608302-32.712696 88.00176-72.797268 88.00176H118.871488C78.786916 977.92578 46.07422 938.532322 46.07422 889.92402V293.0325c0-48.377931 32.712696-87.771389 72.797268-87.771389h210.328814a23.03711 23.03711 0 0 0 19.811914-11.288184L437.70509 46.074681h253.40821l89.153616 147.898246a23.03711 23.03711 0 0 0 19.581543 11.057813h207.33399c40.084571 0 72.797268 39.393458 72.797268 87.771389z" p-id="3840"></path><path d="M564.178824 340.258575a240.046686 240.046686 0 0 0-234.748151 244.193366A239.816315 239.816315 0 0 0 564.178824 829.336421a239.816315 239.816315 0 0 0 234.748151-244.88448 240.046686 240.046686 0 0 0-234.748151-244.193366z m0 442.082141a193.742095 193.742095 0 0 1-188.673931-197.888775 193.972466 193.972466 0 0 1 188.673931-198.119146 193.972466 193.972466 0 0 1 188.673931 198.119146A193.742095 193.742095 0 0 1 564.178824 783.262201z" p-id="3841"></path></svg>
-                <p style="font-size:12px;">表单</p>
+                <p style="font-size:12px;">{{ intoFormEngineStr }}</p>
               </div>
               </div>
             </van-col>
@@ -343,7 +343,7 @@
               <div  @click="openFORK">
               <div style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178731442" class="icon" viewBox="0 0 1128 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3839" width="24" height="24"><path d="M1009.48616 159.186891h-195.354693L724.977852 11.058274a23.03711 23.03711 0 0 0-19.811915-11.057813H425.034679a23.03711 23.03711 0 0 0-19.811914 11.057813L316.069149 158.95652H118.871488C53.446095 159.186891 0 219.083377 0 293.0325v596.89152c0 73.949123 53.446095 134.07598 118.871488 134.07598h890.614672c65.655763 0 118.871488-60.126857 118.871488-134.07598V293.0325c0.460742-73.949123-53.215724-133.845609-118.871488-133.845609zM1082.74417 889.92402c0 48.608302-32.712696 88.00176-72.797268 88.00176H118.871488C78.786916 977.92578 46.07422 938.532322 46.07422 889.92402V293.0325c0-48.377931 32.712696-87.771389 72.797268-87.771389h210.328814a23.03711 23.03711 0 0 0 19.811914-11.288184L437.70509 46.074681h253.40821l89.153616 147.898246a23.03711 23.03711 0 0 0 19.581543 11.057813h207.33399c40.084571 0 72.797268 39.393458 72.797268 87.771389z" p-id="3840"></path><path d="M564.178824 340.258575a240.046686 240.046686 0 0 0-234.748151 244.193366A239.816315 239.816315 0 0 0 564.178824 829.336421a239.816315 239.816315 0 0 0 234.748151-244.88448 240.046686 240.046686 0 0 0-234.748151-244.193366z m0 442.082141a193.742095 193.742095 0 0 1-188.673931-197.888775 193.972466 193.972466 0 0 1 188.673931-198.119146 193.972466 193.972466 0 0 1 188.673931 198.119146A193.742095 193.742095 0 0 1 564.178824 783.262201z" p-id="3841"></path></svg>
-                <p style="font-size:12px;">福刻FORK</p>
+                <p style="font-size:12px;">{{ intoForklistStr }}</p>
               </div>
               </div>
             </van-col>
@@ -351,7 +351,7 @@
               <div  @click="shareChat">
               <div style="width:60px; height:60px; border-radius:5px; background-color:#f5f5f5;">
                 <svg style="width:24px; height:24px; margin-top:9px;" t="1589178854006" class="icon" viewBox="0 0 1085 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4261" width="24" height="24"><path d="M953.949191 1024H130.753654A130.983854 130.983854 0 0 1 0 893.246346c0-69.060028 92.080038-134.897255 167.815869-177.254072 48.11182-26.703211 194.28888-84.253234 230.200094-98.06524a95.993439 95.993439 0 0 0-8.977804-89.778037 281.534715 281.534715 0 1 1 268.64351 1.611401 92.080038 92.080038 0 0 0-2.992601 87.015635c35.220614 14.042206 185.771476 73.66403 235.955097 98.755841 58.470824 29.005212 194.058679 104.280643 194.058679 176.793672a130.983854 130.983854 0 0 1-130.753653 131.674454zM525.546815 46.3402a235.724896 235.724896 0 0 0-109.805445 444.055982 23.020009 23.020009 0 0 1 8.057003 6.906002c2.302001 3.222801 55.017823 78.958632 9.208004 151.471662a21.178409 21.178409 0 0 1-11.049604 8.977804c-1.841601 0-180.937274 70.211029-231.811495 98.52564C101.288041 806.000511 46.040019 857.795532 46.040019 893.246346a84.713635 84.713635 0 0 0 84.713635 84.713635h823.195537a84.713635 84.713635 0 0 0 84.713634-84.713635c0-29.695812-71.822429-87.245836-168.506469-135.587855-53.866822-26.933411-237.566497-99.216241-239.408098-99.906841a23.020009 23.020009 0 0 1-10.819404-8.517403 139.501257 139.501257 0 0 1 1.6114-148.939461 23.020009 23.020009 0 0 1 8.747604-7.596604A235.494696 235.494696 0 0 0 525.546815 46.3402z" p-id="4262"></path></svg>
-                <p style="font-size:12px;">推头榜</p>
+                <p style="font-size:12px;">{{ sendChat2DWebStr }}</p>
               </div>
               </div>
             </van-col>
@@ -361,17 +361,17 @@
         <!-- 撤回消息 -->
         <van-popup get-container="body" v-model="Longpress" style="width:200px; height:140px; border-radius:5px;overflow:hidden;">
           <div style="font-size:15px; text-align:center; padding-top:10px;">
-            撤回消息
+            {{ undoSendMsgStr }}
           </div>
           <div style="font-size:14px; padding-left:15px;padding-top:20px;">
-            是否撤回该消息?
+            {{ undoSendMsgTipsStr }}
           </div>
           <div style="width:100%; position:fixed; bottom:0; height:45px; border-top:1px solid #eee;">
             <div @click="cancels"  style="float:left; width:50%; font-size:15px; border-right:1px solid #eee; height:45px; text-align:center; line-height:40px;">
-              取消
+              {{ cancelStr }}
             </div>
             <div @click="confirms" style="float:left; width:50%; font-size:15px; text-align:center; line-height:40px;">
-              确定
+              {{ okStr }}
             </div>
           </div>
         </van-popup>
@@ -385,14 +385,14 @@
                 VIP{{chat_vip_level}}
               </div>
               <div style="font-size:14px; margin-top:30px; padding:0 15px 0 15px;word-wrap:break-word; word-break:break-all; overflow: hidden;">
-                你的会员等级为VIP{{user_vip_level}}本群访问权限需要VIP{{chat_vip_level}}以上（或需要福刻访问权限：{{forkids}})，请您开通会员
+                {{yourVipTipsStr}}{{user_vip_level}}{{visitGroupVipStr}}{{chat_vip_level}}{{forkOkTipsStr}}{{forkids}})，{{ pleaseBuyVipTipsStr }}
               </div>
               <div style="width:100%; height:42px;position:fixed; bottom:23px; float:left; font-size:15px;">
                   <div @click="Determine" style="width:50%; float:left;height:40px; text-align:center; line-height:42px;color:#111;">
-                    <button style="background-color:#12adf5; color:#fff; border:none; width:110px; border-radius:4px;">充值会员</button>
+                    <button style="background-color:#12adf5; color:#fff; border:none; width:110px; border-radius:4px;">{{ buyVipNowStr }}</button>
                   </div>
                   <div @click="cancel" style="width:50%; float:left; height:40px;text-align:center; line-height:42px; color:#12adf5;">
-                    <button style="background-color:#f5f5f5; color:#000; border:none; width:110px; border-radius:4px;">取消</button>
+                    <button style="background-color:#f5f5f5; color:#000; border:none; width:110px; border-radius:4px;">{{cancelStr}}</button>
                   </div>
               </div>
             </div>
@@ -407,14 +407,14 @@
                 VIP{{user_vip_level}}
               </div>
               <div style="font-size:14px; margin-top:50px; padding:0 15px 0 15px;">
-                你的会员等及为VIP{{user_vip_level}}本群发送消息权限需要VIP{{send_vip_level}}以上，请您开通会员
+                {{yourVipTipsStr}}{{user_vip_level}}{{sendMsgNeedVipTipsStr}}{{send_vip_level}}{{ needSendVipStr }}
               </div>
               <div style="width:100%; height:42px;position:fixed; bottom:23px; float:left; font-size:15px;">
                   <div @click="Determine" style="width:50%; float:left;height:40px; text-align:center; line-height:42px;color:#111;">
-                    <button style="background-color:#12adf5; color:#fff; border:none; width:110px; border-radius:4px;">充值会员</button>
+                    <button style="background-color:#12adf5; color:#fff; border:none; width:110px; border-radius:4px;">{{buyVipNowStr}}</button>
                   </div>
                   <div @click="cancel" style="width:50%; float:left; height:40px;text-align:center; line-height:42px; color:#12adf5;">
-                    <button style="background-color:#f5f5f5; color:#000; border:none; width:110px; border-radius:4px;">取消</button>
+                    <button style="background-color:#f5f5f5; color:#000; border:none; width:110px; border-radius:4px;">{{ cancelStr }}</button>
                   </div>
               </div>
             </div>
@@ -618,6 +618,29 @@ export default {
       publicKeyNoticeMap:new Map(),
       chatnoticeJSONData:chatNoticeJson,
       jsonDataNotice:chatEccNoticeJson,
+      sendMsgBtnStr:'发送',
+      chatTitleStr:'聊天',
+      ibchatStr:'智体IB',
+      mechatStr:'我',
+      pictureStr:'照片',
+      videoChatStr:'视频聊天',
+      sendFileStr:'文件',
+      viewChatDWebStr:'头榜',
+      sendContactStr:'联系人',
+      intoFormEngineStr:'表单',
+      intoForklistStr:'福刻FORK',
+      sendChat2DWebStr:'推头榜',
+      undoSendMsgStr:'撤回消息',
+      undoSendMsgTipsStr:'是否撤回该消息?',
+      cancelStr:'取消',
+      okStr:'确定',
+      yourVipTipsStr:'你的会员等级为VIP',
+      visitGroupVipStr:'本群访问权限需要VIP',
+      forkOkTipsStr:'以上（或需要福刻访问权限：',
+      pleaseBuyVipTipsStr:'请您开通会员',
+      buyVipNowStr:'充值会员',
+      sendMsgNeedVipTipsStr:'本群发送消息权限需要VIP',
+      needSendVipStr:'以上，请您开通会员',
     };
     
   },
@@ -1378,14 +1401,14 @@ export default {
           this.add = false
           let UserInfo = null;
           if(this.ibapp_chat) {
-            UserInfo = obj.user_id == 'ib' ? {user_name:'智体IB',logo:this.iblogo} : 
-              {user_name:'我',logo:this.quserlogo}
+            UserInfo = obj.user_id == 'ib' ? {user_name:this.ibchatStr,logo:this.iblogo} : 
+              {user_name:this.mechatStr,logo:this.quserlogo}
           }else {
             UserInfo = await This.$api.network.s_queryUserInfo(obj.user_id)//JSON.parse(localStorage.getItem('userInfo'))//'userinfo_cache_'+obj.user_id))
           }
           if(!UserInfo){
-            UserInfo = obj.user_id == 'ib' ? {user_name:'智体IB',logo:this.iblogo} : 
-              {user_name:'我',logo:this.quserlogo}
+            UserInfo = obj.user_id == 'ib' ? {user_name:this.ibchatStr,logo:this.iblogo} : 
+              {user_name:this.mechatStr,logo:this.quserlogo}
           }
           UserInfo = UserInfo ? UserInfo :{logo:null}
           obj.url = UserInfo.logo//await imageDb.getDataByKey(UserInfo.logo)
@@ -2116,6 +2139,179 @@ export default {
         // this.$router.push('/folder')
         this.$router.push({name:"folder",params:{noCache:true}});
       }
+      else if(txt.startsWith('start'))
+      {
+        let cmds = txt.split(' ')
+        if(cmds[0]=='start')
+        {
+          localStorage.setItem('app-dev-roomid',cmds[1])
+          if(typeof g_start_dtns_network=='function')
+          {
+            g_start_dtns_network()
+            this.$toast('启动ib3.hub节点成功！')
+          }
+        }
+      }
+      else if(txt == 'install')//txt.startsWith('install'))
+      {
+        // let cmds = txt.split(' ')
+        let roomid ='svr'  //''+cmds[1]
+        let installed = localStorage.getItem('dtns-app-installed')
+        if(installed) return this.$toast('已经安装过了，不能再安装！')
+
+        let binData = await new Promise((resolve)=>{
+          const a = document.createElement('input')
+          a.setAttribute('type', 'file')      
+          a.addEventListener('change', async function selectedFileChanged() {
+              console.log('data:' + this.files)
+              if (this.files.length == 0) return alert('请选择文件')
+              console.log('dtns-data-files:' + JSON.stringify(this.files[0].name))
+
+              let fileReader = new FileReader();
+              fileReader.onload =async e => {
+                  let result = new Uint8Array(e.target.result)
+                  resolve(result)
+              }
+              fileReader.readAsArrayBuffer(this.files[0]);
+          })
+          a.click()
+        })
+        // if(!dtnsDataJson || !dtnsDataJson.zip_data) return this.$toast('加载的dtns-data文件数据为空！')
+        // let zip_data =rpc_client.dataURLtoBinary( dtnsDataJson.zip_data )
+        let zip = new JSZip();
+        let fileZip = await zip.loadAsync(binData)//zip_data)
+        let zipResMap = new Map()
+        for (let zfile in fileZip.files) {
+            let file =fileZip.files[zfile] ;
+            console.log('jszip-unzip-dtns-data-file:',file)
+            zipResMap.set(file.name,file) 
+            // let fileData = await zipResMap.get('index.json').async('uint8array')
+            if(file.name && file.name.startsWith('file_temp/'))
+            {
+              let dst_name = file.name.substring('file_temp/'.length,file.name.length)
+              let data =await file.async('uint8array')
+              ifileDb.addData({key:dst_name,data})
+              console.log('add-dtns-files:',dst_name,data)
+            }else if(file.name && file.name.endsWith('.db')){
+              let token_name = file.name.split('.')[0]
+              let save_name = token_name+'-'+Date.now()+'.db'
+              let data =await file.async('uint8array')
+              ifileDb.addData({key:save_name,data})
+              //roomid+'_'+TOKEN_NAME+'_last_db'
+              localStorage.setItem(roomid+'_'+token_name+'_last_db',save_name)
+              if(token_name == 'dtns')
+              {
+                localStorage.setItem('dtns.network_'+token_name+'_last_db',save_name)
+              }
+              console.log('add-dtns-dbs:',save_name,data)
+            }
+        }
+        localStorage.setItem('dtns-app-installed',roomid)
+      }
+      else if(txt=='unstall')
+      {
+        localStorage.removeItem('dtns-app-installed')
+        return this.$toast('卸载成功！')
+      }
+      else if(txt.startsWith('manager'))
+      {
+        let cmds = txt.split(' ')
+        localStorage.setItem('manager_uid-svr',cmds[1])
+        // localStorage.setItem('app-dev-manager',cmds[1])//这里须index.html启动时设置INIT_CONSOLE_USER
+        console.log('manager:set:',cmds[1])
+        return this.$toast('设置管理员成功！')
+      }
+      else if(txt == 'save')
+      {
+        // if( window.ib3_hub_node_instance_iframe ){
+        //   window.ib3_hub_node_instance_iframe.contentWindow.save()
+        // }else{
+        //   this.$toast('未启动任何节点！')
+        // }
+        this.sayPoplang(';/chat/console/db/save')//以api命令的方式执行之
+      }
+      else if(txt.startsWith('download'))
+      {
+        let cmds = txt.split(' ')
+        let res = await g_axios_download_file(cmds[1])
+        console.log('res-download:',res)
+        if(!res) this.$toast('无法下载文件！')
+        else this.$toast('下载文件成功！')
+      }
+      else if(txt.startsWith('ihub'))
+      {
+        let roomid ='svr' 
+        let installed = localStorage.getItem('dtns-app-installed')
+        if(installed) return this.$toast('已经安装过了，不能再安装！')
+        let cmds = txt.split(' ')
+        let unzipFunc =async function(res)
+        {
+          let zip = new JSZip();
+            let fileZip = await zip.loadAsync(res)//zip_data)
+            let zipResMap = new Map()
+            for (let zfile in fileZip.files) {
+                let file =fileZip.files[zfile] ;
+                console.log('jszip-unzip-dtns-data-file:',file)
+                zipResMap.set(file.name,file) 
+                // let fileData = await zipResMap.get('index.json').async('uint8array')
+                if(file.name && file.name.startsWith('file_temp/'))
+                {
+                  let dst_name = file.name.substring('file_temp/'.length,file.name.length)
+                  let data =await file.async('uint8array')
+                  ifileDb.addData({key:dst_name,data})
+                  console.log('add-dtns-files:',dst_name,data)
+                }else if(file.name && file.name.endsWith('.db')){
+                  let token_name = file.name.split('.')[0]
+                  let save_name = token_name+'-'+Date.now()+'.db'
+                  let data =await file.async('uint8array')
+                  ifileDb.addData({key:save_name,data})
+                  //roomid+'_'+TOKEN_NAME+'_last_db'
+                  localStorage.setItem(roomid+'_'+token_name+'_last_db',save_name)
+                  if(token_name == 'dtns')
+                  {
+                    localStorage.setItem('dtns.network_'+token_name+'_last_db',save_name)
+                  }
+                  console.log('add-dtns-dbs:',save_name,data)
+                }
+            }
+            localStorage.setItem('dtns-app-installed',roomid)
+        }
+
+        if(cmds[1] && cmds[1].startsWith('http'))
+        {
+          let res = await g_axios_download_file(cmds[1])
+          console.log('res-download:',res)
+          if(res){
+            unzipFunc(res)
+          }else{
+            this.$toast('无法下载文件！')
+          }
+        }
+        else if(cmds[1] && cmds[1].startsWith('dtns://'))
+        {
+          let This = this
+          let params = {user_id:localStorage.user_id,s_id:localStorage.s_id,file_kind:'file'}
+          let file_url = cmds[1]
+          let cachedFileItem = await ifileDb.getDataByKey(file_url)
+          if(!cachedFileItem){
+            console.log('ihub-dtns-download-files-begin',file_url)
+            g_downManager.download(file_url,params,async function(data){
+              console.log('ihub-dtns-download-files-ended:',data)
+              if(!data ||!data.data) return This.$toast('下载文件失败-2！')
+              let filedata = data.data
+              unzipFunc(filedata)
+            })
+          }
+          else{
+            let result = cachedFileItem.data//{fileInfo:cachedFileItem.data.fileInfo}
+            if(!result.filedata) return this.$toast('读取文件缓存失败！')
+            unzipFunc(result.filedata)
+          }
+        }else
+        {
+          this.$toast('无法下载文件！URL错误：'+cmds[1])
+        }
+      }
       else if(['change','切换','ch','qh'].indexOf(txt)>=0)
       {
         this.$router.push('/changeSvrNode')
@@ -2139,8 +2335,8 @@ export default {
         this.websocketonmessage(Object.assign({}, res.msg_info),true,true)
       }else{
         //进行智体查询
-        let ibchatWeb3Name = typeof g_ibchat_roomid !='undefined' ? g_ibchat_roomid : 'ld'
-        ibchatWeb3Name = ibchatWeb3Name ? ibchatWeb3Name :'ld'
+        let ibchatWeb3Name = typeof g_ibchat_roomid !='undefined' ? g_ibchat_roomid : rpc_client.roomid//'ld'
+        ibchatWeb3Name = ibchatWeb3Name ? ibchatWeb3Name  : rpc_client.roomid// :'ld'
         let sessionInfo =await iSessionDb.getDataByKey('session:'+ibchatWeb3Name)
         if(!sessionInfo || !sessionInfo.data){
           res = ibres
@@ -2731,6 +2927,8 @@ export default {
       {
         if(ress && ress.ret) await imDb.addData({key:this.$route.params.token_y,data:ress})
       }
+      if(!ress || !ress.ret) return false
+
       this.chat_vip_level = ress.vip_level
       this.send_vip_level = ress.send_vip_level
       this.forkids = ress.forkids ? ress.forkids: this.forkids
@@ -3141,7 +3339,23 @@ export default {
         localStorage.setItem('newDWebFlag','1')
         setTimeout(()=>this.$router.push('/dweb'),1000)
       },
+      startIB()
+      {
+        this.poplang = new PopRuntime({}) //避免rpc_client未初始化，导致poplang未能有效初始化
+        this.ibapp_chat = ['ib','IB','ai','AI'].indexOf(this.$route.params.token_y)>=0 //(''+this.chatid).toLowerCase() == 'ib' || (''+this.chatid).toLowerCase() == 'ai'
+        // console.log('ibapp_chat:',this.chatid,this.$route.params.token_y,(this.chatid in ['ib','IB','ai','AI']))
+        // // this.ibapp_chat = this.$route.params.token_y in  ['ib','IB','ai','AI'] === true
+        console.log('ibapp_chat:',this.ibapp_chat)
+        if(this.ibapp_chat){
+          console.log('may be dtns.ai.engine')
+          this.chatText = this.ibchatStr//'智体IB'
 
+          //每次进入，都重新测试一次
+          if(typeof g_connectIBChatSvr == 'function') g_connectIBChatSvr()
+          return true
+        }
+        return false
+      },
       async start(){
         await this.Administration()//查看群信息 2023-12-19  single-contact-chat点击联系人聊天
          //重新获得全屏宽度，以便zoom计算MsgItem的宽度缩放比
@@ -3163,18 +3377,6 @@ export default {
         this.darkMode = localStorage.getItem('dark_mode') ? parseInt(localStorage.getItem('dark_mode')):0
         console.log('chat-created--------websock:',websock)
         let that = this
-        this.ibapp_chat = ['ib','IB','ai','AI'].indexOf(this.chatid)>=0 //(''+this.chatid).toLowerCase() == 'ib' || (''+this.chatid).toLowerCase() == 'ai'
-        // console.log('ibapp_chat:',this.chatid,this.$route.params.token_y,(this.chatid in ['ib','IB','ai','AI']))
-        // // this.ibapp_chat = this.$route.params.token_y in  ['ib','IB','ai','AI'] === true
-        console.log('ibapp_chat:',this.ibapp_chat)
-        if(this.ibapp_chat){
-          console.log('may be dtns.ai.engine')
-          this.chatText = '智体IB'
-
-          //每次进入，都重新测试一次
-          if(typeof g_connectIBChatSvr == 'function') g_connectIBChatSvr()
-          return ;
-        }
         await this.news();
         exitFlag = false;
         const_chatid = this.$route.params.token_y
@@ -3368,7 +3570,7 @@ export default {
         }
       },
       async start2(){
-        this.poplang = new PopRuntime({}) //避免rpc_client未初始化，导致poplang未能有效初始化
+        // this.poplang = new PopRuntime({}) //避免rpc_client未初始化，导致poplang未能有效初始化
         //2023-10-7新增poplang版本的切换ib3
         // let initFlag = g_dchatManager.initAppRuntime(this.poplang)
         // console.log('initFlag:',initFlag)
@@ -3388,11 +3590,70 @@ export default {
           this.g_img_q(rpc_client.img_q)
         }
       }
+      ,
+    translate()
+    {
+      // sendMsgBtnStr:'发送',
+      // chatTitleStr:'聊天',
+      // ibchatStr:'智体IB',
+      // mechatStr:'我',
+      // pictureStr:'照片',
+      // videoChatStr:'视频聊天',
+      // sendFileStr:'文件',
+      // viewChatDWebStr:'头榜',
+      // sendContactStr:'联系人',
+      // intoFormEngineStr:'表单',
+      // intoForklistStr:'福刻FORK',
+      // sendChat2DWebStr:'推头榜',
+      // undoSendMsgStr:'撤回消息',
+      // undoSendMsgTipsStr:'是否撤回该消息?',
+      // cancelStr:'取消',
+      // okStr:'确定',
+      // yourVipTipsStr:'你的会员等级为VIP',
+      // visitGroupVipStr:'本群访问权限需要VIP',
+      // forkOkTipsStr:'以上（或需要福刻访问权限：',
+      // pleaseBuyVipTipsStr:'请您开通会员',
+      // buyVipNowStr:'充值会员',
+      // sendMsgNeedVipTipsStr:'本群发送消息权限需要VIP',
+      // needSendVipStr:'以上，请您开通会员',
+
+        this.sendMsgBtnStr = g_dtnsStrings.getString('/index/msg/send')
+        this.chatTitleStr=g_dtnsStrings.getString('/index/chat/title')
+        this.chatText = this.chatTitleStr
+        this.ibchatStr=g_dtnsStrings.getString('/index/chat/ibchat')
+        this.mechatStr=g_dtnsStrings.getString('/index/chat/mechat')
+        this.pictureStr = g_dtnsStrings.getString('/index/chat/picture/send')
+        this.videoChatStr = g_dtnsStrings.getString('/index/chat/videochat')
+        this.sendFileStr = g_dtnsStrings.getString('/index/chat/file/send')
+        this.viewChatDWebStr = g_dtnsStrings.getString('/index/chat/dweb/view')
+        this.sendContactStr = g_dtnsStrings.getString('/index/chat/contact/send')
+        this.intoFormEngineStr = g_dtnsStrings.getString('/index/chat/formengine/into')
+        this.intoForklistStr=g_dtnsStrings.getString('/index/chat/forklist/into')
+        this.sendChat2DWebStr = g_dtnsStrings.getString('/index/chat/dweb/send')
+        this.undoSendMsgStr = g_dtnsStrings.getString('/index/chat/undo')
+        this.undoSendMsgTipsStr = g_dtnsStrings.getString('/index/chat/undo/tips')
+        this.cancelStr = g_dtnsStrings.getString('/index/cancel')
+        this.okStr = g_dtnsStrings.getString('/index/ok')
+        this.yourVipTipsStr = g_dtnsStrings.getString('/index/chat/vip/your')
+        this.visitGroupVipStr = g_dtnsStrings.getString('/index/chat/vip/visit')
+        this.forkOkTipsStr = g_dtnsStrings.getString('/index/chat/fork/tips')
+        this.pleaseBuyVipTipsStr = g_dtnsStrings.getString('/index/chat/vip/buy/please')
+        this.buyVipNowStr = g_dtnsStrings.getString('/index/vip/buy/now')
+        this.sendMsgNeedVipTipsStr = g_dtnsStrings.getString('/index/chat/send/msg/vip/need')
+        this.needSendVipStr = g_dtnsStrings.getString('/index/chat/send/msg/vip/need/tips')
+    }
    
     },
   async created() {
+    if(typeof g_pop_event_bus!='undefined')
+    {
+      g_pop_event_bus.on('update_dtns_loction',this.translate)
+    }
+    this.translate()
+
     this.create_time  = Date.now()
     this.imgStatus = window.rpc_client ? rpc_client.pingpong_flag :false
+    this.startIB()
     this.start()
     // }else{
     //   this.aes_web3key = chatWeb3Key //拿到了，就设置，以便解析数据。
@@ -3408,12 +3669,13 @@ export default {
   },
   activated(){
     console.log('into chat.vue activated:',this.$route.params.token_y)
+    this.translate()
     this.imgStatus = window.rpc_client ? rpc_client.pingpong_flag :false
     this.create_time = Date.now()
+    // this.chatid = this.$route.params.token_y
     if(this.$route.params.token_y!=this.chatid)
     {
       this.stopWSToken()
-      this.chatid = this.$route.params.token_y
       this.chatWeb3Key = null
 
       this.is_identity = false
@@ -3441,7 +3703,7 @@ export default {
       this.p_end = 0 
       this.is_first_page = true 
       this.finished = false
-      listtime:false,
+      this.listtime = false
       this.heightx = true
       this.rollheight = ''
       this.rollheightx=''
@@ -3464,6 +3726,7 @@ export default {
       console.log('this.scrollTop:'+this.scrollTop)
       this.$refs.chatBox.scrollTop = this.scrollTop
     }
+    let flag = this.startIB()
   },
 
    beforeRouteEnter(to, form, next) {
@@ -3504,10 +3767,13 @@ export default {
             
        })
     }
-    
   },
   beforeDestroy () {
     console.log('into beforeDestroy()')
+    if(typeof g_pop_event_bus!='undefined')
+    {
+      g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+    }
     //
     for(let i=0;this.chatRexord&&i<this.chatRexord.length;i++){
       let item = this.chatRexord[i]

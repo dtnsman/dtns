@@ -116,7 +116,7 @@ const fsm_config = {
     //常见函数screenshot--给画面拍照---生成file返回？（嗯，需要生成久化证明文件）
     //常见函数view---返回meta的file文件（使用download方法返回，如果是文本直接显示--可用于前端加载）
     //*支持web3.meta.files--多文件（调用不同文件里的函数---好像可以由单文件构成--引用更多文件）
-    //*支持web3.meta.dns---域名管理（统一全局映射：使用meta.6dgs.cn的web3.meta.dns.global？
+    //*支持web3.meta.dns---域名管理（统一全局映射：使用meta.dtns.cn的web3.meta.dns.global？
     //支持web3.meta.call：{func:func_name,params:[]}
     //*是否支持web3.meta.websocket，还是由底层websocket提供默认支持（以方便游戏等复杂合约的开发）
     //需要考虑电子证书、电子合同、元宇宙互动游戏（渲染、动作、WEB3用户参与）等多个场景。

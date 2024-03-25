@@ -173,6 +173,8 @@
                     // FileOpen.load_json(json)
                     
                 }
+                //2024-3-8 fix the bug end load json-data
+                g_3d_editor.is_handled_json_ok_flag = true
             }
             async function msleep(ms){
                 return new Promise((resolve)=>{

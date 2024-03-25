@@ -857,13 +857,23 @@ class DChatManager{
     nowThis = nowThis ? nowThis : this.viewContext
     let This = nowThis
     let storage = window.localStorage;
-    let dark_mode = localStorage.getItem('dark_mode')
-    storage.clear() //清理掉登录信息
+    storage.removeItem('user_id')
+    storage.removeItem('s_id')
+    storage.removeItem('userInfo')
+    storage.removeItem('user_logo')
+    storage.removeItem('invite_code')
+    storage.removeItem('error')
+    // if(typeof window.g_saveAppItemsData == 'function') window.g_saveAppItemsData()//2024-3-14新增（用于dev-mode的ib3.hub）
+    // let dark_mode = localStorage.getItem('dark_mode')
+    // storage.clear() //清理掉登录信息
+    // if(dark_mode)  localStorage.setItem('dark_mode',dark_mode)
+    // if(typeof window.g_recoverAppItemsData == 'function')  g_recoverAppItemsData()//2024-3-14新增（用于dev-mode的ib3.hub）
+    // storage.clear() //清理掉登录信息
     if(dstWeb3name!=rpc_client.roomid){
       this.switchIMDB(dstWeb3name) //直接重新配置，不清理
       // imDb.clear()  //清理掉配置信息。
     }
-    if(dark_mode)  localStorage.setItem('dark_mode',dark_mode)
+    // if(dark_mode)  localStorage.setItem('dark_mode',dark_mode)
 
     //切换一下rpc_client
     // let oldWeb3name = rpc_client.roomid

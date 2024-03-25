@@ -356,7 +356,7 @@ class DNALinkChainDAO
                 //fix the web3.key bug on 2022/8/5
                 if(txjsonTmp.opcode == this.fsm_config.OP_WEB3_KEY)
                 {
-                    //const token_writer = require("../6dgs/TokenWriter")
+                    //const token_writer = require("../dtns/TokenWriter")
                     let clear_ret = this.engine ?  await this.engine.clearTokenState(info.token) :null;
                     console.log('OP_WEB3_KEY:clear-ret:'+clear_ret)
                 }
@@ -377,7 +377,7 @@ class DNALinkChainDAO
 
             //异步处理----来自children-token，要避免死循环？
             this.send2cloud(newRows);
-            //同步到cloud.6dgs.opencom.cn
+            //同步到cloud.dtns.opencom.cn
             //需要向token_parent同步（此时应订阅到了父节点）
             let token = this.root_config.TOKEN_ROOT
             //只有不是真正的根结点，才可向父结点同步----superdimension
@@ -448,8 +448,8 @@ class DNALinkChainDAO
      * @param rows
      * @returns {Promise<number>}
      * 
-     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=add&extra_data=%7B%22map_key%22%3A%22www.6dgs.cn%22%2C%22map_value%22%3A%22tns_0000000000000000%22%7D
-     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=del&extra_data=%7B%22map_key%22%3A%22www.6dgs.cn5%22%2C%22map_value%22%3A%22tns_12%22%7D
+     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=add&extra_data=%7B%22map_key%22%3A%22www.dtns.cn%22%2C%22map_value%22%3A%22tns_0000000000000000%22%7D
+     * http://127.0.0.1:59868/op?appid=10001&secret_key=d9a45326b6f1a5aefef8d199b580fad1&opcode=map&token_x=tns_0000000000000000&token_y=tns_0000000000000000&opval=del&extra_data=%7B%22map_key%22%3A%22www.dtns.cn5%22%2C%22map_value%22%3A%22tns_12%22%7D
      */
     async saveTXQueue2TokenMaps(rows)
     {

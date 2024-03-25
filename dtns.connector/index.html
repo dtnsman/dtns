@@ -41,6 +41,7 @@
     <script src="static/js/FileSaver.js"></script>
     <script src="static/js/rpc-client.js"></script>
     <script src="static/js/DTNSManager.js"></script>
+    <script src="static/js/DTNSStrings.js"></script>
     <script src="static/js/DownloadManager.js"></script>
     <script src="static/js/DChatManager.js"></script>
     <script src="static/js/DXIBManager.js"></script>
@@ -213,6 +214,20 @@ img{
         return {ret:flag,list:m_onbeforeunload_results,msg:flag ? 'success':'save failed'}
       }
       window.g_update_keys = updateKeys
+
+      //ib3.hub-dev-mode
+      window.g_start_dtns_network = function(roomid,dev_mode=true)
+      {
+          if(window.ib3_hub_node_instance_iframe) return false
+          var iframe = document.createElement('iframe');
+          iframe.src = 'static/js/dtns.network/index.html'
+          iframe.style.cssText = 'width: 0; height: 0;display:none;';
+          document.body.appendChild(iframe);
+          window.ib3_hub_node_instance_iframe = iframe
+          iframe.onload = function() {
+              console.log('ib3_hub_node_instance_iframe loaded!')
+          }
+      }
   </script>
   </body>
   <style>

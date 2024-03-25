@@ -21,6 +21,15 @@ class AddObjectCommand extends Command {
 
 		}
 
+		//2024-3-8新增
+		let {x,y,z} = editor.editor_controlls_instance.center
+		this.object.position.set(x,y,z)
+
+		console.log('editor.editor_controlls_instance.player.position:',editor.editor_controlls_instance.player.position)
+		if(window.g_3d_editor_stop_player_flag && editor.editor_controlls_instance &&editor.editor_controlls_instance.player)//更新玩家摄像机位置（以便启用玩家摄像机时，能直接定位到更新点）
+		editor.editor_controlls_instance.player.position.set(x,editor.editor_controlls_instance.player.position.y,z)
+		setTimeout(()=>editor.editor_controlls_instance.focus(this.object),100)
+
 	}
 
 	execute() {

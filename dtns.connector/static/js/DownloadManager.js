@@ -132,6 +132,11 @@ class DownloadManager{
         //     console.log('download-radio:'+radio,dtnsUrl,downloadManagerInfo)
         // },1000) //1秒统计一下速率
         let tmpParams = Object.assign({},dtnsInfo.params,params)
+
+        //2024-3-23新增（主要用于ihub的dtns://协议的CDN文件网络构建）
+        let iCnt = 60
+        while(iCnt-->0 && !client.pingpong_flag) await client.sleep(300)
+
         client.download(tmpParams,func,downloadManagerInfo,async function(){
             // setTimeout(async ()=>{
                 let stopFlag = await This.stop(dtnsUrl) //依旧保存最后的下载slice结果（如有）

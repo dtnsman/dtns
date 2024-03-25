@@ -2,7 +2,7 @@
   <!--个人信息组件-->
   <div class="box">
     <div class="topbar">
-      <van-nav-bar title="我的二维码" right-text="邀请明细" left-arrow @click-left="back" @click-right="lnvitationList" />
+      <van-nav-bar :title="qrcodeStr" :right-text="inviteListStr" left-arrow @click-left="back" @click-right="lnvitationList" />
     </div>
     <div class="logo">
       <div class="img">
@@ -11,10 +11,10 @@
       </div>
       <div class="InvitationCode">
           <div class="InvitationCode_left">
-            <p style="float:left; font-size:14px; line-height:35px; padding-left:5px;background-color:transparent;">我的邀请码:</p>
+            <p style="float:left; font-size:14px; line-height:35px; padding-left:5px;background-color:transparent;">{{ inviteCodeStr }}:</p>
               <p style="float:left; font-size:14px; color:#25a0e7; line-height:35px; padding-left:5px;background-color:transparent;">{{invite_code}}</p>
           </div>
-        <div class="InvitationCode_right" @click="copy"  :data-clipboard-text="invite_code">复制</div>
+        <div class="InvitationCode_right" @click="copy"  :data-clipboard-text="invite_code">{{ copyStr }}</div>
       </div>
 
     </div>
@@ -26,7 +26,11 @@ export default {
    data() {
             return {
                 url:'',
-                invite_code:''
+                invite_code:'',
+                qrcodeStr:'我的二维码',
+                inviteListStr:'邀请明细',
+                inviteCodeStr:'我的邀请码',
+                copyStr:'复制'
             }
         },
   mounted() {
@@ -48,8 +52,21 @@ export default {
                   clipboard.destroy()  
                 })  
         },///
+    translate()
+    {
+        this.qrcodeStr = g_dtnsStrings.getString('/index/my/qrcode')
+        this.inviteListStr = g_dtnsStrings.getString('/index/my/invite/list')
+        this.inviteCodeStr = g_dtnsStrings.getString('/index/my/invite/code')
+        this.copyStr       = g_dtnsStrings.getString('/index/copy')
+    }
   },
   async created(){//进入页面就执行
+      if(typeof g_pop_event_bus!='undefined')
+      {
+          g_pop_event_bus.on('update_dtns_loction',this.translate)
+      }
+      this.translate()
+
       this.invite_code = localStorage.invite_code
       let random = Math.random()
       // this.url = `${this.$baseUrl}/qrcode/draw?data=`+localStorage.user_id+'&random='+random //通过聊天室id生成二维码
@@ -79,6 +96,13 @@ export default {
         //   console.log('load img error',ex)
         // })
       }
+    },
+    beforeDestroy () {
+        console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
     },
 };
 </script>

@@ -61,3 +61,24 @@ http.interceptors.response.use(response => {
 export default function () {
     return http
 }
+
+window.g_axios_download_file =async function(url)
+{
+    let bindata = await new Promise((resolve)=>{
+        axios({
+            method: "get",
+            url,
+            headers: {
+                "content-type": "application/json; charset=utf-8",
+            },
+            responseType: "arraybuffer",       //设置响应类型为blob，否则二进制流直接转换会出错
+        }).then((res)=>{
+            console.log('g_axios_download_file-axios-res:',res)
+            resolve(res && res.data ?res.data :null)
+        }).catch((error)=>{
+            console.log('g_axios_download_file-axios-error:',error)
+            resolve(null)
+        })
+    })
+    return bindata ?  new Uint8Array( bindata ) :null
+}

@@ -3,7 +3,7 @@
     <van-tabbar v-model="active">
       <van-tabbar-item to="/index/chat/ib" style="text-align:center">
         <img :src="this.img0" class="img" style="display:inline-block"  /><br/>
-        智体IB
+        {{ ibchatStr }}
       </van-tabbar-item>
       <van-tabbar-item to="/dweb" >
         <!-- <div class="dicon_reply" style="display:block;border: 0px;"></div> -->
@@ -11,19 +11,19 @@
         <img v-if="this.active!=1" :src="this.imgbang"  class="img" />
         <img v-if="this.active==1" :src="this.imgbang"  class="imgx" />
         </div>
-        头榜
+        {{ dwebStr }}
       </van-tabbar-item>
       <van-tabbar-item to="/index" :info="total_unread_num" >
         <img :src="this.img1" class="img" v-on:dblclick="indexRefresh"  />
-        消息
+        {{ chatStr }}
       </van-tabbar-item>
       <van-tabbar-item to="Connection">
         <img :src="this.img3"  class="img" />
-        联系
+        {{ contactStr }}
       </van-tabbar-item>
       <van-tabbar-item to="/user">
         <img :src="this.img5"  class="img" />
-        我的
+        {{ meStr }}
       </van-tabbar-item>
     </van-tabbar>
   </div>
@@ -55,6 +55,11 @@ import img10 from '../../assets/images/smile.jpg'
                 img5:img5,
                 img6:img6,
                 imgbang:imgb,
+                ibchatStr:g_dtnsStrings.getString('/index/ibchat'),
+                dwebStr:g_dtnsStrings.getString('/index/dweb'),
+                chatStr:g_dtnsStrings.getString('/index/chat'),
+                contactStr:g_dtnsStrings.getString('/index/contact'),
+                meStr:g_dtnsStrings.getString('/index/me'),
             }
         },
         methods:{
@@ -110,6 +115,17 @@ import img10 from '../../assets/images/smile.jpg'
         created () {
             let routePath = this.$route.path
             this.setBar(routePath)
+            if(typeof g_pop_event_bus!='undefined')
+            {
+              const This = this
+              g_pop_event_bus.on('update_dtns_loction',function(){
+                This.ibchatStr = g_dtnsStrings.getString('/index/ibchat')
+                This.dwebStr = g_dtnsStrings.getString('/index/dweb')
+                This.chatStr = g_dtnsStrings.getString('/index/chat')
+                This.contactStr=g_dtnsStrings.getString('/index/contact')
+                This.meStr=g_dtnsStrings.getString('/index/me')
+              })
+            }
         },
         mounted() {
           // g_dchatManager.setViewContext(this) //2023-10-7新增（用于switchIB3以及切换各个页面）

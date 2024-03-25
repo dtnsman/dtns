@@ -5,7 +5,7 @@
  */
 // const config = require('./config').config;
 
-//const x6gs_config = require('../6dgs.coin/root/root_config')
+//const x6gs_config = require('../dtns.coin/root/root_config')
 //console.log("x6gs_config:"+JSON.stringify(x6gs_config));
 //
 //var arguments = process.argv.splice(2);

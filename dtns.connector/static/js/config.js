@@ -99,7 +99,7 @@ window.g_dtns_network_static_hosts = {
             "turn:groupbuying.opencom.cn:3478"
         ],
         "tns_urls": [
-            "https://groupbuying.opencom.cn:446"
+            "http://tns.yunapi.org"
         ],
         "phones_urls": [
             "https://static.yunapi.org/phones.json"
@@ -117,6 +117,89 @@ window.g_dtns_network_static_hosts = {
             "https://static.yunapi.org/phones.json"
         ],
         "network": "x.dtns"
-    }
-
+    },
+    svr0:{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://127.0.0.1:3100"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "v.dtns"
+    },
+    svrdev:{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://dev.dtns.yunapi.org"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "v.dtns"
+    },
+    svrdev0:{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://dev.dtns.yunapi.org"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "v.dtns"
+    },
+    svrdev1:{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://dev.dtns.yunapi.org"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "v.dtns"
+    },
+    svrdev2:{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://dev.dtns.yunapi.org"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "v.dtns"
+    },
+    "v.dtns":{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://127.0.0.1:3100"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "v.dtns"
+    },
+    "dev.dtns":{
+        "turn_urls": [
+            "turn:static.yunapi.org:3478"
+        ],
+        "tns_urls": [
+            "http://dev.dtns.yunapi.org"
+        ],
+        "phones_urls": [
+            "https://static.yunapi.org/phones.json"
+        ],
+        "network": "dev.dtns"
+    },
 } 

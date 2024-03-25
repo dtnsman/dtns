@@ -106,6 +106,26 @@ function SidebarObject( editor ) {
 
 	container.add( objectNameRow );
 
+
+	// collider ---玩家视角下的是否可碰撞物品
+	const objectColliderRow = new UIRow();
+	const objectCollider = new UIInput().setWidth( '102px' ).setFontSize( '12px' ).setDisabled( true ).setValue(0)
+	const objectColliderRenew = new UIButton( strings.getKey( 'sidebar/geometry/new' ) ).setMarginLeft( '7px' ).onClick( function () {
+
+		console.log('geometryCollider:'+objectCollider.getValue(),editor.selected)
+		objectCollider.setValue( ''+objectCollider.getValue() == '1' ? 0 :1);
+
+		editor.execute( new SetValueCommand( editor, editor.selected, 'collider', objectCollider.getValue() ) );
+		if(typeof window.g_3d_editor_set_collider == 'function')
+			 window.g_3d_editor_set_collider(editor.selected,''+objectCollider.getValue()=='1' ? true:false)
+	} );
+
+	objectColliderRow.add( new UIText( '碰撞' ).setWidth( '90px' ) );
+	objectColliderRow.add( objectCollider );
+	objectColliderRow.add( objectColliderRenew );
+	container.add( objectColliderRow );
+
+
 	// position
 
 	const objectPositionRow = new UIRow();
@@ -703,6 +723,7 @@ function SidebarObject( editor ) {
 
 		objectUUID.setValue( object.uuid );
 		objectName.setValue( object.name );
+		objectCollider.setValue( object.collider == '1' ? '1':'0' );
 
 		objectPositionX.setValue( object.position.x );
 		objectPositionY.setValue( object.position.y );

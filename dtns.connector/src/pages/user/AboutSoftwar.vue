@@ -4,7 +4,7 @@
     <div class="setting">
         <header>
             <van-nav-bar
-            title="关于软件"
+            :title="aboutStr"
             left-arrow
             @click-left="onClickLeft"
             />
@@ -19,7 +19,7 @@
           <div style="margin-top:10px;padding-left:15px; padding-right:15px;">{{name}}</div>
         </div>
         <div style="margin-top:12px;padding-left:1px;padding-right:1px;">
-          <van-cell title="最近更新" :value="time" />
+          <van-cell :title="lastUpdateStr" :value="time" />
         </div>
     </div>
 </template>
@@ -28,7 +28,9 @@
         data(){
             return{
                 name:'',
-                time:''
+                time:'',
+                aboutStr:'关于软件',
+                lastUpdateStr:'最近更新',
             }
         },
         methods:{
@@ -42,12 +44,28 @@
                 this.time = res.update_time
                 console.log(res)
              },
-            
-
+            translate()
+            {
+                // accountSafetyStr:'账号与安全',
+                //    phoneNumberStr:'手机号',
+                //    mailStr:'邮箱',
+                //    modPasswordStr:'修改密码',
+                //    unbindstr:'未绑定'
+                this.aboutStr = g_dtnsStrings.getString('/index/software/about')
+                this.lastUpdateStr = g_dtnsStrings.getString('/index/software/lastupdate')
+            }
         },
         created(){//进入页面就执行
             this.ChatQuery();
+            this.translate()
         },
+        beforeDestroy () {
+            console.log('into beforeDestroy()')
+            if(typeof g_pop_event_bus!='undefined')
+            {
+                g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+            }
+        }
     }
 </script>
 <style lang="stylus" scoped>

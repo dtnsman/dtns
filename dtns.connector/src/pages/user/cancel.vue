@@ -2,7 +2,7 @@
 <!--可复用的相册组件 这里只完成静态页面 不涉及数据-->
     <div class="box">
         <van-nav-bar
-            title="会员"
+            :title="vipStr"
             left-arrow
             @click-left="onClickLeft"
             :fixed="true"
@@ -12,13 +12,13 @@
               <svg t="1586764345866" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2576" width="70" height="70"><path d="M512.409161 0a511.992571 511.992571 0 1 0 511.591008 511.992571A512.394134 512.394134 0 0 0 512.409161 0z" fill="#12ADF5" p-id="2577"></path><path d="M471.851318 803.125602a27.30627 27.30627 0 0 1-8.031256 0 40.15628 40.15628 0 0 1-30.920335-28.912522L332.910589 392.326856H238.944894a40.15628 40.15628 0 0 1 0-80.31256h124.886031a40.15628 40.15628 0 0 1 40.15628 29.715648l86.737565 332.493999 264.228323-346.548698a40.15628 40.15628 0 0 1 63.848485 48.589099l-315.226798 412.003434a40.15628 40.15628 0 0 1-31.723462 14.857824z" fill="#FFFFFF" p-id="2578"></path></svg>
           </div>
           <div style="font-size:18px; margin-top:18px;">VIP{{user_vip}}</div>
-          <div style="font-size:12px; margin-top:23px;" v-if="vip_timeout !==''">到账时间： {{vip_timeout}}</div>
+          <div style="font-size:12px; margin-top:23px;" v-if="vip_timeout !==''">{{timeoutStr}}： {{vip_timeout}}</div>
           <div style="font-size:12px; margin-top:12px;">{{Equity}}</div>
         </div>
-        <div style="font-size:13px; padding-left:15px; margin-top:50px; padding-bottom:10px;">购买或者续费会员 :</div>
+        <div style="font-size:13px; padding-left:15px; margin-top:50px; padding-bottom:10px;">{{ buyOrRenewalVipStr }} :</div>
             <div v-for="(item,index) in list" :key="index"  @click="purchase(item)" style="position:relative;">
                  <div v-if="item.vip_level    !== 0">
-                    <van-cell :title="'VIP' + item.vip_level" is-link :value="item.price + '元'" />
+                    <van-cell :title="'VIP' + item.vip_level" is-link :value="item.price + oneDollarStr" />
                 <!-- <svg v-if ="item.vip_level === 0" style="position:absolute; top:12px; left:15px; z-index:1" t="1586769711814" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4176" width="19" height="19"><path d="M512.409161 0a511.992571 511.992571 0 1 0 511.591008 511.992571A512.394134 512.394134 0 0 0 512.409161 0z" fill="#12ADF5" p-id="4177"></path><path d="M471.851318 803.125602a27.30627 27.30627 0 0 1-8.031256 0 40.15628 40.15628 0 0 1-30.920335-28.912522L332.910589 392.326856H238.944894a40.15628 40.15628 0 0 1 0-80.31256h124.886031a40.15628 40.15628 0 0 1 40.15628 29.715648l86.737565 332.493999 264.228323-346.548698a40.15628 40.15628 0 0 1 63.848485 48.589099l-315.226798 412.003434a40.15628 40.15628 0 0 1-31.723462 14.857824z" fill="#FFFFFF" p-id="4178"></path></svg> -->
                 <svg v-if ="item.vip_level === 1" style="position:absolute; top:12px; left:15px; z-index:1" t="1586765203512" class="icon" viewBox="0 0 1524 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2744" width="20" height="20"><path d="M0 0m479.424575 0l475.736694 0q479.424575 0 479.424575 479.424575l0 4.794246q0 479.424575-479.424575 479.424575l-475.736694 0q-479.424575 0-479.424575-479.424575l0-4.794246q0-479.424575 479.424575-479.424575Z" fill="#12ADF5" p-id="2745"></path><path d="M530.317338 703.278973a25.077593 25.077593 0 0 1-7.375763 0 36.878813 36.878813 0 0 1-28.396686-26.921534l-91.828246-351.455092H316.42022a36.878813 36.878813 0 1 1 0-73.757627h114.69311a36.878813 36.878813 0 0 1 36.878813 27.65911l79.658237 304.987787 241.556229-317.895372A36.878813 36.878813 0 0 1 848.21271 310.51961l-288.761109 378.376626a36.878813 36.878813 0 0 1-29.134263 14.382737zM1006.054032 714.711405h-71.544898l73.757627-357.72449L890.992134 442.545762l16.226678-84.083695 115.061898-84.083695h71.544898z" fill="#FFFFFF" p-id="2746"></path></svg>
                 <svg v-if ="item.vip_level === 2" style="position:absolute; top:12px; left:15px; z-index:1" t="1586765234266" class="icon" viewBox="0 0 1524 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2952" width="20" height="20"><path d="M0 0m479.424575 0l475.736694 0q479.424575 0 479.424575 479.424575l0 4.794246q0 479.424575-479.424575 479.424575l-475.736694 0q-479.424575 0-479.424575-479.424575l0-4.794246q0-479.424575 479.424575-479.424575Z" fill="#12ADF5" p-id="2953"></path><path d="M476.47427 712.498676h-7.375763a36.878813 36.878813 0 0 1-28.396686-26.921533L348.873576 334.12205H262.577152a36.878813 36.878813 0 0 1 0-73.757627h114.69311a36.878813 36.878813 0 0 1 36.878813 27.65911l80.027026 304.987788 242.293804-318.264161a36.878813 36.878813 0 1 1 58.637314 44.992153l-289.129898 378.007838a36.878813 36.878813 0 0 1-29.503051 14.751525zM1032.606777 540.643406l-140.139491 119.487355h205.046203l-13.276373 63.800348h-304.250211l12.538797-63.800348 199.883169-165.95466c51.630339-42.779424 70.069746-67.119441 70.069745-103.998254a57.162161 57.162161 0 0 0-59.743677-62.693983A87.771576 87.771576 0 0 0 912.750634 405.666948h-73.757627a158.578898 158.578898 0 0 1 168.167389-141.614643 116.537051 116.537051 0 0 1 126.125542 123.912813c1.475153 57.530949-36.878813 99.204008-100.679161 152.678288z" fill="#FFFFFF" p-id="2954"></path></svg>
@@ -33,15 +33,15 @@
                  </div>
             </div>
         <div style="height:50px;"></div>
-        <div style="font-size:13px; color:#111; text-align:center; width:100%; height:50px; position:fixed; bottom:0; background-color:#fff; z-index:999;line-height:45px; ">购买会员，享受会员权益</div>
+        <div style="font-size:13px; color:#111; text-align:center; width:100%; height:50px; position:fixed; bottom:0; background-color:#fff; z-index:999;line-height:45px; ">{{ beVipStr }}</div>
         <van-popup v-model="show" closeable  position="bottom" style="height: 30% ;">
             <div style="width:100%; height:100px; backaround-color:#393d49;">
-                <div style="font-size:16px; width:90%; margin:0; padding-top:20px;padding-left:5%;">你确定购买VIP{{vip}}会员，为期1年吗？</div>
+                <div style="font-size:16px; width:90%; margin:0; padding-top:20px;padding-left:5%;">{{buyVipNowStr}}{{vip}}{{ buyVip1YearStr }}</div>
                 <!-- <div style="font-size:14px; padding-left:15px; margin-top:5px;">权益:{{vip_rights}}</div> -->
-                <div style="font-size:16px; width:90%; margin:0 auto; padding-top:12px;">订单金额 : {{price}}元</div>
+                <div style="font-size:16px; width:90%; margin:0 auto; padding-top:12px;">{{orderMoneyStr}} : {{price}}{{ oneDollarStr }}</div>
             </div>
             <div style="margin-top:10px; text-align:center;">
-                <van-button @click="payment" style="width:90%;color:#fff; background-color:#12adf5; margin-top:20px; font-weight:bold; font-size:15px; border-radius:5px;">付款购买</van-button>
+                <van-button @click="payment" style="width:90%;color:#fff; background-color:#12adf5; margin-top:20px; font-weight:bold; font-size:15px; border-radius:5px;">{{ payNowStr }}</van-button>
             </div>
         </van-popup>
         <!-- <van-popup v-model="shows" closeable  position="bottom" style="height: 30% ;"> -->
@@ -69,7 +69,17 @@
                user_vip:0,
                vip_timeout:'',
                Equity:'',
-               cloud_pay_order_id:''
+               cloud_pay_order_id:'',
+               vipStr:'会员',
+               timeoutStr:'到期时间',
+               buyOrRenewalVipStr:'购买或者续费会员',
+               beVipStr:'购买会员，享受会员权益',
+               buyVipNowStr:'你确定购买VIP',
+               buyVip1YearStr:'会员，为期1年吗？',
+               orderMoneyStr:'订单金额',
+               oneDollarStr:'元',
+               payNowStr:'付款购买',
+
             }
         },
     methods:{
@@ -283,6 +293,29 @@
                 },2000)
                 
             }
+        },
+        translate()
+        {
+            // vipStr:'会员',
+            //    timeoutStr:'到期时间',
+            //    buyOrRenewalVipStr:'购买或者续费会员',
+            //    beVipStr:'购买会员，享受会员权益',
+            //    buyVipNowStr:'你确定购买VIP',
+            //    buyVip1YearStr:'会员，为期1年吗？',
+            //orderMoneyStr:'订单金额',
+            //    oneDollarStr:'元',
+            //    payNowStr:'付款购买',
+
+
+            this.vipStr = g_dtnsStrings.getString('/index/vip')
+            this.timeoutStr = g_dtnsStrings.getString('/index/timeout')
+            this.buyOrRenewalVipStr = g_dtnsStrings.getString('/index/vip/buy-or-renewal')
+            this.beVipStr = g_dtnsStrings.getString('/index/vip/tobe')
+            this.buyVipNowStr       = g_dtnsStrings.getString('/index/vip/buy-now')
+            this.buyVip1YearStr     = g_dtnsStrings.getString('/index/vip/buy-1year')
+            this.orderMoneyStr      = g_dtnsStrings.getString('/index/vip/order/money')
+            this.oneDollarStr       = g_dtnsStrings.getString('/index/dollar')
+            this.payNowStr          = g_dtnsStrings.getString('/index/pay')
         }
     },
     created(){//进入页面就执行
@@ -290,8 +323,19 @@
         this.account()
         }catch(ex){}
         this.VIPinformation()
-        
-      },
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
+    },
+    beforeDestroy () {
+        console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
+    },
 }
 </script>
 <style lang="stylus" scoped>

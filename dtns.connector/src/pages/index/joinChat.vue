@@ -3,8 +3,8 @@
 
       <div>
         <van-nav-bar
-        title="邀请好友加入群聊"
-        right-text="确认"
+        :title="inviteFriend2chatStr"
+        :right-text="okStr"
         :fixed="true"
         left-arrow
         @click-left="onClickLeft"
@@ -52,7 +52,9 @@ export default {
       user_id:[],
       logo:[],
       listchat:[],
-      join_uids:[]
+      join_uids:[],
+      inviteFriend2chatStr:'邀请好友加入群聊',
+      okStr:'确认',
     };
   },
   methods: {
@@ -264,9 +266,29 @@ export default {
     }
     this.list = res.list
     },
+    translate()
+    {
+      // inviteFriend2chatStr:'邀请好友加入群聊',
+      // okStr:'确认',
+        this.inviteFriend2chatStr = g_dtnsStrings.getString('/index/chat/invite/friend')
+        this.okStr    =g_dtnsStrings.getString('/index/chat/invite/ok')
+    }
   },
   created () {
-        this.chatlist()
+    if(typeof g_pop_event_bus!='undefined')
+    {
+      g_pop_event_bus.on('update_dtns_loction',this.translate)
+    }
+    this.translate()
+
+    this.chatlist()
+  },
+  beforeDestroy () {
+    console.log('into beforeDestroy()')
+    if(typeof g_pop_event_bus!='undefined')
+    {
+      g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+    }
   },
   mounted() {
   },

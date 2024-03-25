@@ -1,30 +1,30 @@
 <template>
     <div class="box" style="width:100%; height:100%; position:absolute;overflow-y: auto;overflow-x: hidden;">
-      <van-nav-bar title="钱包" left-arrow  @click-left="back" fixed="true"/>
+      <van-nav-bar :title="walletStr" left-arrow  @click-left="back" fixed="true"/>
       <div style="width:100%;padding-top: 46px;">
         <div @click="getbalance" style="width:100%; height:44px; border-bottom:1px solid #f5f5f5;">
           <img src="../../../assets/images/mony.png" alt="" style="width:20px; float:left;margin-top:12px; margin-left:15px;">
-          <div style="float:left; padding-left:8px; font-size:14px; padding-top:13px;">账户余额</div>
+          <div style="float:left; padding-left:8px; font-size:14px; padding-top:13px;">{{ accountNumberStr }}</div>
           <van-icon name="arrow" style="float:right; top:15px; margin-right:15px;" />
           <div style="float:right; font-size:14px; padding-right:5px; padding-top:13px;">{{rmb}}∫</div>
         </div>
         <div @click="getintegral" style="width:100%; height:44px; border-bottom:1px solid #f5f5f5; margin:0; padding:0;">
           <img src="../../../assets/images/zhifen.png" alt="" style="width:20px; float:left; margin-top:12px; margin-left:15px;">
-          <div style="float:left; padding-left:8px; font-size:14px; padding-top:13px;">积分</div>
+          <div style="float:left; padding-left:8px; font-size:14px; padding-top:13px;">{{ integralStr }}</div>
           <van-icon name="arrow" style="float:right; top:15px; margin-right:15px;" />
           <div style="float:right; font-size:14px; padding-top:13px; padding-right:5px;">{{gsb}}GSB</div>
         </div>
         <div style="text-align: center;font-size: 14px;color: aqua;margin-top: 15px;">
-          <span @click="importKeys">导入密钥(JSON)</span>&nbsp; &nbsp;<span @click="exportKeys">导出密钥(JSON)</span>
+          <span @click="importKeys">{{ importKeysStr }}(JSON)</span>&nbsp; &nbsp;<span @click="exportKeys">{{ exportKeysStr }}(JSON)</span>
         </div>
         <div style="text-align: center;width:100%;font-size: 14px;color: black;margin-top: 25px;" @click="send">
-          <h3>我的收款二维码</h3>
-          <span v-if="dtns_id && false">账户：{{ dtns_id }}<br/></span>
+          <h3>{{ myWalletQrcodeStr }}</h3>
+          <span v-if="dtns_id && false">{{accountStr}}：{{ dtns_id }}<br/></span>
           <img :src="code" width="250px" height="250px"/><br/>
-          <span>扫码转账</span>
+          <span>{{ transferByQRCodeStr }}</span>
         </div>
         <div v-if="goodList" style="padding: 0px;width:100%;margin-top: 25px;border-top:solid 5px #f0f0f0;">
-          <center><h3 style="margin-top: 10px;">钱包应用</h3></center>
+          <center><h3 style="margin-top: 10px;">{{ walletAppStr }}</h3></center>
           <section>
             <div v-for="(item,index) in goodList" style="width: 100%;margin: 10px 0 10px 0;position: relative;">
               <p style="padding:0 10px 0 10px;width:100%;float: left;line-height: 20px;font-size: 14px;" v-html="item.xmsg" ></p>
@@ -50,6 +50,15 @@ import XMsgViewer from '@/components/Item/XMsgViewer'
       code:null,
       dtns_id:'',
       goodList:null,
+      walletStr:'钱包',
+      accountNumberStr:'账户余额',
+      accountStr:'账户',
+      integralStr:'积分',
+      importKeysStr:'导入密钥',
+      exportKeysStr:'导出密钥',
+      myWalletQrcodeStr:'我的收款二维码',
+      transferByQRCodeStr:'扫码转账',
+      walletAppStr:'钱包应用'
     }
   },
 
@@ -170,12 +179,38 @@ import XMsgViewer from '@/components/Item/XMsgViewer'
           console.log('nowLabelObj:',nowLabelObj,'nowGoodList:',nowGoodList)
           this.goodList = nowGoodList// dtnsGoodList.concat(nowGoodList)
           console.log('this.goodList',this.goodList)
-        } 
+        },
+    translate()
+    {
+      this.walletStr = g_dtnsStrings.getString('/index/wallet')
+      this.accountNumberStr = g_dtnsStrings.getString('/index/account/number')
+      this.accountStr = g_dtnsStrings.getString('/index/account')
+      this.integralStr       = g_dtnsStrings.getString('/index/integral')
+      this.importKeysStr       = g_dtnsStrings.getString('/index/keys/import')
+      this.exportKeysStr       = g_dtnsStrings.getString('/index/keys/export')
+      this.myWalletQrcodeStr       = g_dtnsStrings.getString('/index/wallet/qrcode')
+      this.transferByQRCodeStr       = g_dtnsStrings.getString('/index/qrcode/send')
+      this.walletAppStr       = g_dtnsStrings.getString('/index/wallet/app')
+    }
 },
  mounted(){
     this.account()
     this.showCode()
     this.queryGoodList()
+  },
+  created(){
+    if(typeof g_pop_event_bus!='undefined')
+    {
+        g_pop_event_bus.on('update_dtns_loction',this.translate)
+    }
+    this.translate()
+  },
+  beforeDestroy () {
+      console.log('into beforeDestroy()')
+      if(typeof g_pop_event_bus!='undefined')
+      {
+          g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+      }
   }
 }
 </script>

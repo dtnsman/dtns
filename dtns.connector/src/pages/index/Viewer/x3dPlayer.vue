@@ -9,6 +9,7 @@
         <DXIBOPBanner v-if="this.dxib" :dxib="dxib" style="width: 150px;height: auto;"></DXIBOPBanner>
         <span @click="copyFile">复制</span>&nbsp; &nbsp;
         <span @click="download">下载</span>&nbsp; &nbsp;
+        <span @click="setPlayer">玩家</span>&nbsp; &nbsp;
         <span v-if="!recording" @click="startRecord">录制</span>
         <span v-if="recording" @click="endRecord">结束</span>
       </label>
@@ -136,6 +137,20 @@
             let encoder = new TextEncoder()
             let uint8Array = encoder.encode(JSON.stringify(this.xverse_json))
             rpc_client.downloadFileByBinary('xverse-'+Date.now()+'.json',uint8Array)
+          }
+        },
+        setPlayer()
+        {
+          if(window.g_3d_editor_stop_player_flag){
+            if(typeof window.g_3d_player_start_player == 'function'){
+              window.g_3d_player_start_player()
+              this.$toast('启用玩家视角！')
+            }
+          }else{
+            if(typeof window.g_3d_player_stop_player == 'function'){
+              window.g_3d_player_stop_player()
+              this.$toast('关闭玩家视角！')
+            }
           }
         },
         startRecord(){

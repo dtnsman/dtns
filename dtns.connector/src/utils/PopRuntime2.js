@@ -1,5 +1,5 @@
 // const a6 = require('../60000')
-// const x6dgs_api_util = require('../pop.lite.dnalink.engine/libs/x6dgs_api_util');
+// const xdtns_api_util = require('../pop.lite.dnalink.engine/libs/xdtns_api_util');
 // const fsm_config = require('../pop.lite.dnalink.engine/fsm_contract/fsm_config');
 /* eslint-disable */ 
 import RPCApiUtil from './RPCApiUtil'

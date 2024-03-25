@@ -79,6 +79,10 @@ class RTCClient{
         while(typeof g_dtnsManager == 'undefined' || !g_dtnsManager.web3apps)
             await this.sleep(100)
         let web3appInfo = await g_dtnsManager.nslookup('dtns://web3:'+g_dtnsManager.getOriginRoomID(this.roomid.startsWith('devtools')?'forklist':this.roomid))
+        if(window.g_dtns_network_static_hosts && window.g_dtns_network_static_hosts[this.roomid])
+        {
+            web3appInfo = {web3name:this.roomid,network_info:window.g_dtns_network_static_hosts[this.roomid]}
+        }
         this.web3appInfo = web3appInfo
         console.log('rpc-client--init--web3appInfo:',web3appInfo,this.roomid)
 
@@ -322,34 +326,38 @@ class RTCClient{
                 callback(data)
             }
         }
-        let that = this
-        let usedTime = new Date().getTime()- data.callid
-        console.log('usedTime:'+usedTime+' channelName:'+peer.channelName)
-        if(that.pingTestCnt > that.pingTestAllCnt) return 
+        try{
+            let that = this
+            let usedTime = new Date().getTime()- data.callid
+            console.log('usedTime:'+usedTime+' channelName:'+peer.channelName)
+            if(that.pingTestCnt > that.pingTestAllCnt) return 
 
-        let timeObj = that.peerMap.get(peer.channelName)
-        console.log('timeObj:'+timeObj,peer,timeObj)//onPeer this.peerMap.set(peer.channelName,peer)
-        if(!timeObj.usedTime || timeObj.usedTime>usedTime ) timeObj.usedTime = usedTime//(usedTime +(timeObj.usedTime?timeObj.usedTime:0))/2 //更新用时
-        
-        that.pingTestCnt ++
-        if(that.pingTestCnt==that.pingTestAllCnt)
-        {
-            let keyPeer = null,minTime = 0;
-            that.peerMap.forEach(function(value, key) {
-                    if(!keyPeer) {
-                        keyPeer = key
-                        minTime = value.usedTime
-                    }else{
-                        if(value.usedTime<minTime)
-                        {
+            let timeObj = that.peerMap.get(peer.channelName)
+            console.log('timeObj:'+timeObj,peer,timeObj)//onPeer this.peerMap.set(peer.channelName,peer)
+            if(!timeObj.usedTime || timeObj.usedTime>usedTime ) timeObj.usedTime = usedTime//(usedTime +(timeObj.usedTime?timeObj.usedTime:0))/2 //更新用时
+            
+            that.pingTestCnt ++
+            if(that.pingTestCnt==that.pingTestAllCnt)
+            {
+                let keyPeer = null,minTime = 0;
+                that.peerMap.forEach(function(value, key) {
+                        if(!keyPeer) {
                             keyPeer = key
                             minTime = value.usedTime
+                        }else{
+                            if(value.usedTime<minTime)
+                            {
+                                keyPeer = key
+                                minTime = value.usedTime
+                            }
                         }
-                    }
-                    console.log('key:'+key+' minTime:'+minTime+' value.usedTime:'+value.usedTime)
-                })
-                that.fastPeer = that.peerMap.get(keyPeer)
-                console.log('minTime:'+minTime+' fastPeer:',that.fastPeer)
+                        console.log('key:'+key+' minTime:'+minTime+' value.usedTime:'+value.usedTime)
+                    })
+                    that.fastPeer = that.peerMap.get(keyPeer)
+                    console.log('minTime:'+minTime+' fastPeer:',that.fastPeer)
+            }
+        }catch(ex){
+            console.log('rpc-client-exception:'+ex,ex)
         }
     }
     getCallSessionData(data)

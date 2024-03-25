@@ -1,5 +1,5 @@
 <template>
-   <MyBox title="订单管理" @back="$router.go(-1)">
+   <MyBox :title="manageOrderStr" @back="$router.go(-1)">
        <!-- <template slot="rightContent">
            <div @click="$router.push(`/shopBroadcast/putawaygoods/${$route.params.chatid}`)">货架</div>
        </template> -->
@@ -7,12 +7,12 @@
        <template slot="content">
           <div class="content">
               <van-tabs v-model="activeName" @click="onClick" title-active-color="#12acf4" color="#12acf4">
-                <van-tab  title="待支付" name="0">
+                <van-tab  :title="payingStr" name="0">
                    <div class="listContent" v-for="(item,j) in orderlist" :key="j">
                      <div class="items">
                          <div class="item" style="border-bottom:1px solid #F5F5F5 ">
                             <div >
-                                <span>下单时间:</span>
+                                <span>{{ orderTimeStr }}:</span>
                                 <span>{{item.create_time_i | formatDate}}</span>
                             </div>
                             <div >
@@ -20,10 +20,10 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span>订单号:{{item.order_id}}</span>
+                                <span>{{ orderNumberStr }}:{{item.order_id}}</span>
                             </div>
                             <div >
-                               <van-button size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">查看订单</van-button>
+                               <van-button size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">{{ viewOrderStr }}</van-button>
                                <!-- <van-button  v-else-if="item.order_status === 1" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">物流信息</van-button>
                                 <van-button  v-else-if="item.order_status === 2" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">确认收货</van-button>
                                 <van-button  v-else-if="item.order_status === 3" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">评价订单</van-button> -->
@@ -45,12 +45,12 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span class="price">合计:￥{{item.total_money}}</span>
+                                <span class="price">{{ totalStr }}:{{dollarEmojiStr}}{{item.total_money}}</span>
                             </div>
                             <div>
                                <div v-if="item.order_status === 0">
-                                    <van-button @click="deleteOrderInfo(item.order_id,item.shop_id)" size="mini" plain class="isPink" style="margin-right:10px;padding:0 5px 0 5px;">取消订单</van-button>
-                                    <van-button @click="shopPay(item.order_id)" size="mini" plain class="isBlue" style=";padding:0 5px 0 5px;">马上付款</van-button>
+                                    <van-button @click="deleteOrderInfo(item.order_id,item.shop_id)" size="mini" plain class="isPink" style="margin-right:10px;padding:0 5px 0 5px;">{{ cancelOrderStr }}</van-button>
+                                    <van-button @click="shopPay(item.order_id)" size="mini" plain class="isBlue" style=";padding:0 5px 0 5px;">{{ payNowStr }}</van-button>
                                </div>
                             </div>
                         </div> 
@@ -58,12 +58,12 @@
                      <!-- <van-empty v-if="orderlist.length === 0" description="没有更多订单" /> -->
                    </div>
                 </van-tab>
-                <van-tab title="待发货" name="1">
+                <van-tab :title="payedStr" name="1">
                     <div class="listContent" v-for="(item,k) in sendlist" :key="k">
                      <div class="items">
                          <div class="item" style="border-bottom:1px solid #F5F5F5 ">
                             <div >
-                                <span>下单时间:</span>
+                                <span>{{ orderTimeStr }}:</span>
                                 <span>{{item.create_time_i | formatDate}}</span>
                             </div>
                             <div >
@@ -71,11 +71,11 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span>订单号:{{item.order_id}}</span>
+                                <span>{{ orderNumberStr }}:{{item.order_id}}</span>
                             </div>
                             <div >
                                <!-- <van-button v-if="item.order_status === 0 || item.order_status === 4" size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.id,item.order_status)">查看订单</van-button> -->
-                               <van-button  color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handlewlOrder(item.order_id,name)">物流信息</van-button>
+                               <van-button  color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handlewlOrder(item.order_id,name)">{{ wuliuStr }}</van-button>
                                 <!-- <van-button  v-else-if="item.order_status === 2" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">确认收货</van-button> -->
                                 <!-- <van-button  v-else-if="item.order_status === 3" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">评价订单</van-button> -->
                             </div>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span class="price">合计:￥{{item.total_money}}</span>
+                                <span class="price">{{ totalStr }}:{{dollarEmojiStr}}{{item.total_money}}</span>
                             </div>
                             <!-- <div>
                                <div v-if="item.order_status === 0">
@@ -109,12 +109,12 @@
                      <!-- <van-empty v-if="sendlist.length === 0" description="没有更多订单" /> -->
                    </div>
                 </van-tab>
-                <van-tab title="待收货" name="2">
+                <van-tab :title="recvingStr" name="2">
                     <div class="listContent" v-for="(item,i) in collectlist" :key="i">
                      <div class="items">
                          <div class="item" style="border-bottom:1px solid #F5F5F5 ">
                             <div >
-                                <span>下单时间:</span>
+                                <span>{{ orderTimeStr }}:</span>
                                 <span>{{item.create_time_i | formatDate}}</span>
                             </div>
                             <div >
@@ -122,10 +122,10 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span>订单号:{{item.order_id}}</span>
+                                <span>{{ orderNumberStr }}:{{item.order_id}}</span>
                             </div>
                             <div >
-                               <van-button size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,name)">查看订单</van-button>
+                               <van-button size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,name)">{{ viewOrderStr }}</van-button>
                                <!-- <van-button  v-else-if="item.order_status === 1" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">物流信息</van-button> -->
                                 <!-- <van-button  color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handevaOrder(item.order_id,item.shop_id)">确认收货</van-button> -->
                                 <!-- <van-button  v-else-if="item.order_status === 3" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">评价订单</van-button> -->
@@ -147,24 +147,24 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span class="price">合计:￥{{item.total_money}}</span>
+                                <span class="price">{{ totalStr }}:{{dollarEmojiStr}}{{item.total_money}}</span>
                             </div>
                             <div>
                                <div>
-                                    <van-button @click="handevaOrder(item.order_id,item.shop_id)" size="mini" plain class="isBlue" style=";padding:0 5px 0 5px;">确认收货</van-button>
+                                    <van-button @click="handevaOrder(item.order_id,item.shop_id)" size="mini" plain class="isBlue" style=";padding:0 5px 0 5px;">{{ confirmRecvStr }}</van-button>
                                </div>
                             </div>
                         </div> 
                      </div>
-                     <van-empty v-if="collectlist.length === 0" description="没有更多订单" />
+                     <van-empty v-if="collectlist.length === 0" :description="noMoreOrdersStr" />
                    </div>
                 </van-tab>
-                <van-tab title="待评价" name="3">
+                <van-tab :title="commentingStr" name="3">
                     <div class="listContent" v-for="(item,index1) in evalist" :key="index1">
                      <div class="items">
                          <div class="item" style="border-bottom:1px solid #F5F5F5 ">
                             <div >
-                                <span>下单时间:</span>
+                                <span>{{orderTimeStr}}:</span>
                                 <span>{{item.create_time_i | formatDate}}</span>
                             </div>
                             <div >
@@ -172,13 +172,13 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span>订单号:{{item.order_id}}</span>
+                                <span>{{ orderNumberStr }}:{{item.order_id}}</span>
                             </div>
                             <div >
                                <!-- <van-button v-if="item.order_status === 0 || item.order_status === 4" size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.id,item.order_status)">查看订单</van-button> -->
                                <!-- <van-button  v-else-if="item.order_status === 1" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">物流信息</van-button> -->
                                 <!-- <van-button  v-else-if="item.order_status === 2" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">确认收货</van-button> -->
-                                <van-button color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,name)">评价订单</van-button>
+                                <van-button color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,name)">{{ commentOrderStr }}</van-button>
                             </div>
                         </div>
                         <div class=" van-hairline--top van-hairline--bottom order-cc" style="padding:10px 0" v-for="goods in item.goods" :key="goods.product_id">
@@ -197,19 +197,19 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span class="price">合计:￥{{item.total_money}}</span>
+                                <span class="price">{{ totalStr }}:{{dollarEmojiStr}}{{item.total_money}}</span>
                             </div>
                         </div> 
                      </div>
-                     <van-empty v-if="evalist.length === 0" description="没有更多订单" />
+                     <van-empty v-if="evalist.length === 0" :description="noMoreOrdersStr" />
                    </div>
                 </van-tab>
-                <van-tab title="已完成" name="4">
+                <van-tab :title="okedOrderStr" name="4">
                     <div class="listContent" v-for="(item,index) in finishlist" :key="index">
                      <div class="items">
                          <div class="item" style="border-bottom:1px solid #F5F5F5 ">
                             <div >
-                                <span>下单时间:</span>
+                                <span>{{ orderTimeStr }}:</span>
                                 <span>{{item.create_time_i | formatDate}}</span>
                             </div>
                             <div >
@@ -217,10 +217,10 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span>订单号:{{item.order_id}}</span>
+                                <span>{{ orderNumberStr }}:{{item.order_id}}</span>
                             </div>
                             <div >
-                               <van-button size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handlefinsOrder(item.order_id,item.order_status)">查看订单</van-button>
+                               <van-button size="mini" :color="item.order_status===4?'#12ACF4':''" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handlefinsOrder(item.order_id,item.order_status)">{{ viewOrderStr }}</van-button>
                                <!-- <van-button  v-else-if="item.order_status === 1" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">物流信息</van-button> -->
                                 <!-- <van-button  v-else-if="item.order_status === 2" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">确认收货</van-button> -->
                                 <!-- <van-button  v-else-if="item.order_status === 3" color="#12ADF5" size="mini" plain style="border:1px solid #ccc;border-radius:5px;padding:0 5px 0 5px;" @click="handleSelectOrder(item.order_id,item.order_status)">评价订单</van-button> -->
@@ -242,14 +242,14 @@
                         </div>
                         <div class="item">
                             <div >
-                                <span class="price">合计:￥{{item.total_money}}</span>
+                                <span class="price">{{ totalStr }}:{{dollarEmojiStr}}{{item.total_money}}</span>
                             </div>
                         </div> 
                      </div>
-                     <van-empty v-if="finishlist.length == 0" description="没有更多订单" />
+                     <van-empty v-if="finishlist.length == 0" :description="noMoreOrdersStr" />
                    </div>
                 </van-tab>
-                <van-empty description="没有更多订单" />
+                <van-empty :description="noMoreOrdersStr" />
             </van-tabs>
           </div>
        </template>
@@ -290,7 +290,23 @@ export default {
          collectlist:[],//待收货
          evalist:[],//待评价
          finishlist:[],//已完成
-
+         manageOrderStr:'管理订单',
+         payingStr:'待支付',
+         orderTimeStr:'下单时间',
+         orderNumberStr:'订单号',
+         viewOrderStr:'查看订单',
+         totalStr:'总计',
+         dollarEmojiStr:'￥',
+         cancelOrderStr:'取消订单',
+         payNowStr:'马上付款',
+         payedStr:'待付款',
+         wuliuStr:'物流信息',
+         recvingStr:'待收货',
+         confirmRecvStr:'确认收货',
+         noMoreOrdersStr:'没有更多订单',
+         commentingStr:'待评价',
+         commentOrderStr:'评价订单',
+         okedOrderStr:'已完成',
         }
     },
     
@@ -440,9 +456,59 @@ export default {
               this.$toast.fail('获取订单失败')
           )
       },
+      translate()
+        {
+        //     manageOrderStr:'管理订单',
+        //  payingStr:'待支付',
+        //  orderTimeStr:'下单时间',
+        //  orderNumberStr:'订单号',
+        //  viewOrderStr:'查看订单',
+        //  totalStr:'总计',
+        //  dollarEmojiStr:'￥',
+        //  cancelOrderStr:'取消订单',
+        //  payNowStr:'马上付款',
+        //  payedStr:'待付款',
+        //  wuliuStr:'物流信息',
+        // recvingStr:'待收货',
+        //  confirmRecvStr:'确认收货',
+        //  noMoreOrdersStr:'没有更多订单',
+        //  commentingStr:'待评价',
+        //  commentOrderStr:'评价订单',
+        //  okedOrderStr:'已完成',
+
+            this.manageOrderStr = g_dtnsStrings.getString('/index/order/manage')
+            this.payingStr = g_dtnsStrings.getString('/index/order/paying')
+            this.orderTimeStr = g_dtnsStrings.getString('/index/order/time')
+            this.orderNumberStr = g_dtnsStrings.getString('/index/order/number')
+            this.viewOrderStr       = g_dtnsStrings.getString('/index/order/view')
+            this.totalStr       = g_dtnsStrings.getString('/index/order/total')
+            this.dollarEmojiStr       = g_dtnsStrings.getString('/index/order/dollar/emoji')
+            this.cancelOrderStr       = g_dtnsStrings.getString('/index/order/cancel')
+            this.payNowStr = g_dtnsStrings.getString('/index/order/pay/now')
+            this.payedStr = g_dtnsStrings.getString('/index/order/payed')
+            this.recvingStr = g_dtnsStrings.getString('/index/order/recving')
+            this.wuliuStr = g_dtnsStrings.getString('/index/order/wuliu')
+            this.confirmRecvStr       = g_dtnsStrings.getString('/index/order/recved/confirm')
+            this.noMoreOrdersStr       = g_dtnsStrings.getString('/index/order/more/no')
+            this.commentingStr       = g_dtnsStrings.getString('/index/order/commenting')
+            this.commentOrderStr       = g_dtnsStrings.getString('/index/order/comment')
+            this.okedOrderStr       = g_dtnsStrings.getString('/index/order/oked')
+        }
     },
     created(){
         this.UserShoppingOrderList();
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
+    },
+    beforeDestroy () {
+        console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
     },
 }
 </script>

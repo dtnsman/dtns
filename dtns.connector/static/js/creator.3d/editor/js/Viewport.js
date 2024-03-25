@@ -290,6 +290,11 @@ function Viewport( editor ) {
 	// otherwise controls.enabled doesn't work.
 
 	const controls = new EditorControls( camera, container.dom );
+	//2024-3-7新增player模式
+	controls.initPlayer(camera)
+	//2024-3-8新增
+	editor.editor_controlls_instance = controls
+
 	controls.addEventListener( 'change', function () {
 
 		signals.cameraChanged.dispatch( camera );
@@ -627,6 +632,8 @@ function Viewport( editor ) {
 		// disable EditorControls when setting a user camera
 
 		controls.enabled = ( viewportCamera === editor.camera );
+		//2024-3-7新增
+		controls.setPlayerControlCamera(editor.viewportCamera)
 
 		render();
 
@@ -705,8 +712,11 @@ function Viewport( editor ) {
 
 		}
 
-		if ( needsUpdate === true ) render();
-
+		//2024-3-7新增
+		controls.updatePlayer(delta)
+		//仅关闭玩家视角时，才进行needsUpdate的判断
+		if ( !window.g_3d_editor_stop_player_flag || needsUpdate === true ) render();
+		
 	}
 
 	//

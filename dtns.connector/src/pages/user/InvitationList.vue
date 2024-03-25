@@ -2,7 +2,7 @@
   <!--个人信息组件-->
   <div class="box">
     <van-nav-bar
-      title="邀请明细"
+      :title="邀请明细"
       left-arrow
       @click-left="onClickLeft"
     />
@@ -22,6 +22,7 @@ export default {
    data() {
             return {
               list:[],
+              inviteListStr:'邀请明细'
             }
         },
   mounted() {
@@ -49,11 +50,27 @@ export default {
       }
       this.list = res.list
       console.log(this.list)
-    }///
+    },///
+    translate()
+    {
+        this.inviteListStr = g_dtnsStrings.getString('/index/my/invite/list')
+    }
   },
   created(){//进入页面就执行
     this.lnvitationList()
+    if(typeof g_pop_event_bus!='undefined')
+    {
+        g_pop_event_bus.on('update_dtns_loction',this.translate)
+    }
+    this.translate()
   },
+  beforeDestroy () {
+      console.log('into beforeDestroy()')
+      if(typeof g_pop_event_bus!='undefined')
+      {
+          g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+      }
+  }
 };
 </script>
 

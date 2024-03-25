@@ -4,7 +4,7 @@
       <div style="margin:0 auto;height:46px;overflow: hidden;text-overflow: ellipsis;width:95%;" align="center">
         <svg v-if="imgStatus == true" style="width:17px;height:17px;top:13px; position:absolute;" t="1590975627508" class="icon" viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5496" width="17" height="17"><path d="M514.752467 0.007392a511.992334 511.992334 0 1 0 509.254407 511.992334A511.992334 511.992334 0 0 0 514.752467 0.007392z m375.095988 528.419896A752.929903 752.929903 0 0 1 659.862593 574.972045a301.171961 301.171961 0 0 1-101.303296-16.427561c-8.213781 128.682565-161.537688 276.530619-183.441103 295.696107a21.903415 21.903415 0 0 1-19.165489 5.475854 30.117196 30.117196 0 0 1-19.165488-8.213781 27.379269 27.379269 0 0 1 2.737927-38.330977c54.758538-52.020611 188.916957-199.868665 161.537688-290.220253-71.1861-62.972319-262.840984-5.475854-331.289157 21.903415a27.379269 27.379269 0 0 1-35.59305-16.427561 24.641342 24.641342 0 0 1 13.689635-35.59305c24.641342-8.213781 224.510007-84.875734 347.716718-38.330977 8.213781-128.682565 147.848054-268.316838 167.013542-287.482327a30.117196 30.117196 0 0 1 38.330977 2.737927 27.379269 27.379269 0 0 1 0 38.330977c-49.282685 49.282685-169.751469 191.654884-150.58598 282.006473 73.924027 60.234392 254.627203 10.951708 320.337449-13.689635a27.379269 27.379269 0 1 1 19.165489 52.020612z" fill="#1afa29" p-id="5497"></path></svg>
         <svg v-if="imgStatus == false" style="width:17px;height:17px;top:13px; position:absolute;" t="1590976113043" class="icon" viewBox="0 0 1026 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5679" width="17" height="17"><path d="M514.752467 0.007392a511.992334 511.992334 0 1 0 509.254407 511.992334A511.992334 511.992334 0 0 0 514.752467 0.007392z m375.095988 528.419896A752.929903 752.929903 0 0 1 659.862593 574.972045a301.171961 301.171961 0 0 1-101.303296-16.427561c-8.213781 128.682565-161.537688 276.530619-183.441103 295.696107a21.903415 21.903415 0 0 1-19.165489 5.475854 30.117196 30.117196 0 0 1-19.165488-8.213781 27.379269 27.379269 0 0 1 2.737927-38.330977c54.758538-52.020611 188.916957-199.868665 161.537688-290.220253-71.1861-62.972319-262.840984-5.475854-331.289157 21.903415a27.379269 27.379269 0 0 1-35.59305-16.427561 24.641342 24.641342 0 0 1 13.689635-35.59305c24.641342-10.951708 224.510007-84.875734 347.716718-38.330977 8.213781-128.682565 147.848054-268.316838 167.013542-287.482327a30.117196 30.117196 0 0 1 38.330977 2.737927 27.379269 27.379269 0 0 1 0 38.330977c-49.282685 49.282685-169.751469 191.654884-150.58598 282.006473 73.924027 60.234392 254.627203 10.951708 320.337449-13.689635a27.379269 27.379269 0 1 1 19.165489 52.020612z" fill="#F00945" p-id="5680"></path></svg>
-        <span style="font-size:16px; line-height:43px;width:95%;overflow:hidden;height: 43px;">{{ title }}</span>
+        <span @click.stop="onRefresh" style="font-size:16px; line-height:43px;width:95%;overflow:hidden;height: 43px;">{{ title }}</span>
       </div>
       <ib3status style="position:absolute; top:12px; left:15px;z-index:999" />
       <div style="position:absolute; top:14px; right:15px;z-index:99">
@@ -27,7 +27,7 @@
   
   
       <div class="content-tip no-text-select" v-show="noNew">
-        <span>这会儿还没有新头榜内容，等会再来刷刷看吧(｡･ω･｡)！</span>
+        <span>{{ pleaseWaitNewsStr }}</span>
       </div>
       <div class="top-tip" v-if="hasTopTip">
         <a class="to-top-tip">
@@ -43,13 +43,13 @@
             <a class="avatar">
               <!-- border-around-1px-->
               <div class="avatar-wrapper">
-                <img class="avatar-img" v-lzlogo="item.url" @click="intoUserSubXMSG(item)"> 
+                <img class="avatar-img" v-lzlogo="item.url" @click="intoUserSubXMSG(item,true)"> 
                 <!-- <img class="avatar-img" :src="item.mblog.user.profile_image_url"> -->
                 <!-- <img @click="chat(item.user_id)" v-lazy="item.url" alt="" style="width:40px; height:40px; border-radius:6px; float:left; margin-left:15px;margin-top:5px;"></img> -->
                 <!-- <i class="iconfont_dweb" :class="calculateVerifiedClass(item.mblog.user.verified_type)"></i> -->
               </div>
             </a>
-            <div class="user-info" @click="intoUserSubXMSG(item)">
+            <div class="user-info" @click="intoUserSubXMSG(item,true)">
               <!-- :href="item.mblog.user.profile_url"  -->
               <a class="user-name txt-l txt-cut">{{item.user_name}}</a>
               <div class="publish-data txt-xs">
@@ -118,7 +118,7 @@
       </transition>
       <!-- <loading v-show="bottomIsLoading"></loading> -->
       <div class="content-tip no-text-select" v-show="noMore" @click="updateContent()">
-        <span>没有更多头榜内容了QAQ，点我刷新看看吧！</span>
+        <span>{{ pleaseRefreshDwebNowStr }}</span>
         <a class="iconfont_dweb icon-refresh"></a>
       </div>
       </van-list>
@@ -187,6 +187,10 @@
           title:'头榜',
           textNews:'刷新成功',
           nullDivHeight:0,
+          dwebTitleStr:'头榜',
+          refreshSuccessStr:'刷新成功',
+          pleaseWaitNewsStr:'这会儿还没有新头榜内容，等会再来刷刷看吧(｡･ω･｡)！',
+          pleaseRefreshDwebNowStr:'没有更多头榜内容了QAQ，点我刷新看看吧！',
         }
       },
       components: {
@@ -203,9 +207,20 @@
       },
       beforeDestroy () {
         console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+          g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
+
         if(typeof clearImageLazyData =='function')  clearImageLazyData()
       },
       async created() {
+        if(typeof g_pop_event_bus!='undefined')
+        {
+          g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
+
         if(this.intoSubXMSGFunc())
         {
           console.log('created:intoSubXMSGFunc()')
@@ -244,6 +259,7 @@
         next();
       },
       activated(){
+        this.translate()
         // console.log('$refs',this.$refs)
         let scrollEle = this.$refs.scrollEle
         console.log('this.scrollTop:'+this.scrollTop,scrollEle)
@@ -270,7 +286,7 @@
           this.now_user_info = null
           this.now_xmsg_info = null
           this.now_label_flag = false
-          this.title = '头榜'
+          this.title = this.dwebTitleStr;// '头榜'
           this.updateContent()
         }else{
           //document.documentElement
@@ -297,7 +313,7 @@
           This.now_xmsg_info = null
           This.now_chat_info = null
           This.now_label_flag = false
-          This.title = '头榜'
+          This.title = this.dwebTitleStr//'头榜'
           This.updateContent()
         },
         GetDateTimeFormat(time_i){
@@ -440,7 +456,7 @@
           this.now_xmsg_info = item
           this.now_user_info = null
           this.now_chat_info = null
-          this.title = item ? '头榜-'+(this.now_label_flag ?'[标签]':'') + item.xmsg.replace('<p>','').replace('</p>','') : '头榜'
+          this.title = item ? this.dwebTitleStr+'-'+(this.now_label_flag ?'[标签]':'') + item.xmsg.replace('<p>','').replace('</p>','') : this.dwebTitleStr//'头榜'
           this.updateContent()
         },
         intoSubXMSGFunc()
@@ -460,12 +476,17 @@
           }
           return false
         },
-        intoUserSubXMSG(item)
+        intoUserSubXMSG(item,userClicked=false)
         {
+          //配置项是否进入user-subxmsg
+          if(userClicked && !window.g_dweb_click_user_logo_into_sub_xmsg_flag)
+          {
+            return this.$router.push('/index/GroupInformation/GroupOwner/'+item.user_id)
+          }
           this.now_xmsg_info = null
           this.now_chat_info = null
           this.now_user_info = item
-          this.title = item ? '头榜-'+item.user_name+(item.label_type=='relf'?'-收藏':(item.label_type=='relp' ? '-稿箱':'')) : '头榜'
+          this.title = item ? this.dwebTitleStr+'-'+item.user_name+(item.label_type=='relf'?'-收藏':(item.label_type=='relp' ? '-稿箱':'')) : this.dwebTitleStr
           this.updateContent()
         },
         intoUserSubXMSGFunc()
@@ -500,7 +521,7 @@
             this.now_xmsg_info = null
             this.now_user_info = null
             this.now_chat_info = intoChatInfo
-            this.title = '头榜-'+intoChatInfo.chatname+'[群]'
+            this.title = this.dwebTitleStr+'-'+intoChatInfo.chatname+'[群]'
             this.updateContent()
             return true;
           }
@@ -697,13 +718,27 @@
             imDb.addData({key:'from.dtns.xverse.xmsg',data:item.origin_xmsg})
           }
           this.$router.push('/poster/sharetext')
+        },
+        translate()
+        {
+          // dwebTitleStr:'头榜',
+          // refreshSuccessStr:'刷新成功',
+          // pleaseWaitNewsStr:'这会儿还没有新头榜内容，等会再来刷刷看吧(｡･ω･｡)！',
+          // pleaseRefreshDwebNowStr:'没有更多头榜内容了QAQ，点我刷新看看吧！',
+
+            this.dwebTitleStr = g_dtnsStrings.getString('/index/dweb/title')
+            this.title = this.dwebTitleStr
+            this.refreshSuccessStr=g_dtnsStrings.getString('/index/dweb/refresh-success')
+            this.textNews = this.refreshSuccessStr
+            this.pleaseWaitNewsStr = g_dtnsStrings.getString('/index/dweb/news/wait')
+            this.pleaseRefreshDwebNowStr = g_dtnsStrings.getString('/index/dweb/news/refresh/now')
         }
       },
       computed: {
         switchPicViewer() {
           return this.$store.state.switchPicViewer;
         }
-      }
+      },
     }
   </script>
   

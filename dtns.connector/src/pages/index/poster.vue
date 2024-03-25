@@ -18,7 +18,7 @@
             <button style="margin-left: 15px; padding: 5px; color:blueviolet;" @click="mark">收藏至我的</button>
         </div>
         <div v-if="share_xmsg || posterType == 'xmsg'" style="text-align: center;width: 100%;height: 20px;line-height: 20px;font-size: 15px;position: fixed;z-index: inherit;990;bottom:0px">
-            <span @click="mypostViewOP">我的稿箱</span>
+            <span @click="mypostViewOP">{{ myPostStr }}</span>
         </div>
     </div>
 </template>
@@ -30,6 +30,7 @@ import dtnsConfigJson from './datajson/dtnsConfig.json'
 import dwebXMsgJson from './datajson/dwebXMsg.json'
 import dwebXMsgLabelsJson from './datajson/dwebXMsgLabels.json'
 import dwebXMsgMiniJson from './datajson/dwebXMsgMini.json'
+import dwebXMsgMiniEnJson from './datajson/dwebXMsgMini_en.json'
 import web3appJson from './datajson/web3app.json'
 import web3appKeyJson from './datajson/web3appKey.json'
 import web3appSettingJson from './datajson/web3appSetting.json'
@@ -56,6 +57,7 @@ export default {
         DWEBXMsgJson: JSON.parse( JSON.stringify( dwebXMsgJson ) ),
         DWEBXMsgLabelsJson:JSON.parse( JSON.stringify(dwebXMsgLabelsJson)),
         DWEBXMsgJsonMini:JSON.parse( JSON.stringify( dwebXMsgMiniJson ) ),
+        DWEBXMsgJsonMiniEn:JSON.parse( JSON.stringify( dwebXMsgMiniEnJson ) ),
         xlabels:[],
         labelsJson:null,
         share_xmsg_is_label:false,
@@ -64,9 +66,18 @@ export default {
         share_xmsg_is_xverse:false,
         share_xmsg_is_amap_location:false,
         share_xmsg_is_news:false,
+        sendDwebXmsgStr:'发布头榜',
+        okPostStr:'确认',
+        myPostStr:'我的稿箱',
         }
     },
     async created(){
+        if(typeof g_pop_event_bus!='undefined')
+        {
+        g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
+
         let posterType = localStorage.getItem('poster_type')
         this.posterType = posterType
         let posterValue = localStorage.getItem('poster_value')
@@ -129,7 +140,7 @@ export default {
             case 'xpaint':
             case 'xverse':
             case 'xmsg':
-                this.title = !posterValue || posterValue=='normal' ?  '发布头榜' :
+                this.title = !posterValue || posterValue=='normal' ?  this.sendDwebXmsgStr :
                     (posterValue == 'retw' ? '转发头榜' : (posterValue == 'reply' ? '评论头榜' : posterValue == 'rels' ?'购买头榜':'发表头榜'))
                 this.xtype = posterValue
                 if(posterValue == 'retw') this.formValue = {xmsg:'转发了'}
@@ -162,7 +173,7 @@ export default {
                     this.formValue = {label_type:from_label_type}
                 }
                 //统一使用mini，因为富文本会转义html（形成<p></p>以及图片url的&amp;链接问题  2024-1-8
-                this.formJson = this.DWEBXMsgJsonMini// posterValue == 'reply' || device.type=='mobile' ? this.DWEBXMsgJsonMini : this.DWEBXMsgJson
+                this.formJson = localStorage.getItem('dtns-location')=='en'? this.DWEBXMsgJsonMiniEn: this.DWEBXMsgJsonMini// posterValue == 'reply' || device.type=='mobile' ? this.DWEBXMsgJsonMini : this.DWEBXMsgJson
                 this.labelsJson = this.formJson //this.DWEBXMsgLabelsJson
                 let qparams = {user_id:localStorage.user_id,s_id:localStorage.s_id,begin:0,len:1000000,label_type:'list'}
                 let labelsRet = await this.$api.network.listXMSG(qparams)
@@ -988,7 +999,25 @@ export default {
               console.log(err, '校验失败')
             })
         },
-    }
+        translate()
+        {
+        // sendDwebXmsgStr
+        //okPostStr:'确认',
+        // myPostStr:'我的稿箱',
+
+            this.sendDwebXmsgStr = g_dtnsStrings.getString('/index/poster/dweb/send')
+            this.okPostStr = g_dtnsStrings.getString('/index/poster/dweb/ok')
+            this.okTips = this.okPostStr
+            this.myPostStr = g_dtnsStrings.getString('/index/poster/dweb/mypost')
+        }
+    },
+    beforeDestroy () {
+        console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
+    },
 }
 </script>
 <style scoped>

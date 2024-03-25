@@ -8099,6 +8099,10 @@ class Object3D extends EventDispatcher {
 		object.type = this.type;
 
 		if ( this.name !== '' ) object.name = this.name;
+
+		if ( this.collider && ''+this.collider=='1' ) object.collider = '1'
+		else object.collider = '0'
+		
 		if ( this.castShadow === true ) object.castShadow = true;
 		if ( this.receiveShadow === true ) object.receiveShadow = true;
 		if ( this.visible === false ) object.visible = false;
@@ -8310,6 +8314,7 @@ class Object3D extends EventDispatcher {
 	copy( source, recursive = true ) {
 
 		this.name = source.name;
+		this.collider = source.collider;
 
 		this.up.copy( source.up );
 
@@ -43301,6 +43306,9 @@ class ObjectLoader extends Loader {
 		object.uuid = data.uuid;
 
 		if ( data.name !== undefined ) object.name = data.name;
+		//2024-3-7新增
+		if ( data.collider && ''+data.collider=='1' ) object.collider = '1'
+		else object.collider = '0'
 
 		if ( data.matrix !== undefined ) {
 

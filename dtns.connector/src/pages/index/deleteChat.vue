@@ -3,8 +3,8 @@
 
       <div>
         <van-nav-bar
-        title="删除群成员"
-        right-text="确认"
+        :title="removeFriendFromChatStr"
+        :right-text="okStr"
         :fixed="true"
         left-arrow
         @click-left="onClickLeft"
@@ -53,6 +53,8 @@ export default {
       logo:[],
       listchat:[],
       join_uids:'',
+      removeFriendFromChatStr:'删除群成员',
+      okStr:'确认'
     };
   },
   methods: {
@@ -107,6 +109,13 @@ export default {
 	   res.list[i].url = `${this.$baseUrl}/image/view?user_id=`+res.list[i].user_id+'&s_id='+res.list[i].s_id+'&filename='+ res.list[i].logo+'&img_kind='+'open'+'&img_p='+'min300'
     }
     },
+    translate()
+    {
+      // removeFriendFromChatStr:'删除群成员',
+      // okStr:'确认'
+        this.removeFriendFromChatStr = g_dtnsStrings.getString('/index/chat/friend/remove')
+        this.okStr    =g_dtnsStrings.getString('/index/chat/invite/ok')
+    }
   },
   created () {
         this.chatlist()

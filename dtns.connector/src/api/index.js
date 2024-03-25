@@ -360,6 +360,7 @@ g_pop_event_bus.on('monitor-agent',function(data){
         g_dchatManager.viewContext.$router.push('/captcha')
     }
 })
+window.g_dtnsStrings = new DTNSStrings()
 function process_notify_callback(data)
 {
     console.log('process_notify_callback:',data)

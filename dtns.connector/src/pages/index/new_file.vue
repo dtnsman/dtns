@@ -9,9 +9,9 @@
 <template>
 <div class="box" style="width:100%; height:100%; background-color:#fff;">
     <header class="topbar">
-      <van-nav-bar title="聊天管理" :fixed="true" left-arrow @click-left="onClickLeft" @click-right="onClickRight(chatid)">
+      <van-nav-bar :title="manageChatStr" :fixed="true" left-arrow @click-left="onClickLeft" @click-right="onClickRight(chatid)">
         <template #right>
-          <div style="font-size:15px;" v-if="is_owner == true">转让</div>
+          <div style="font-size:15px;" v-if="is_owner == true">{{ transferChatStr }}</div>
         </template>
       </van-nav-bar>
     </header>
@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div style="text-align: center;">
-                  <p style="padding-top:2px; margin:0;">邀请</p>
+                  <p style="padding-top:2px; margin:0;">{{ inviteStr }}</p>
               </div>
             </van-col>
           <van-col v-show="show" span="4" style="text-align:center; font-size:12px; color:#555; padding:1rem 0 0 0;" @click="deleteChat">
@@ -44,64 +44,64 @@
                   </div>
                 </div>
               </div>
-              <p style="padding-top:2px;margin:0;">删除</p>
+              <p style="padding-top:2px;margin:0;">{{ delStr }}</p>
           </van-col>
       </van-row>   
         </div>
       
       <van-divider :style="{color:'red', height:'5px'}" />
-      <van-cell title="群名称" :value="chatName" is-link style="font-size:14px;" @click="nickname(chatid)" />
+      <van-cell :title="chatNameStr" :value="chatName" is-link style="font-size:14px;" @click="nickname(chatid)" />
       <div v-show="show" style="width:100%; margin:0; padding:0;position:relative;">
-        <van-cell title="群头像" is-link style="font-size:14px;" @click="chatPortrait(chatid)" />
+        <van-cell :title="chatLogoStr" is-link style="font-size:14px;" @click="chatPortrait(chatid)" />
         <div style="position:absolute;top:5px; right:38px;">
           <img :src="img" alt="" width="32px;" height="32px;" style="border-radius:5px;" >
         </div>
       </div>
       <div style="width:100%; margin:0; padding:0;position:relative;">
-        <van-cell title="群背景" is-link style="font-size:14px;" @click="GroupBackground(chatid)" />
+        <van-cell :title="chatBgStr" is-link style="font-size:14px;" @click="GroupBackground(chatid)" />
         <div style="position:absolute;top:5px; right:38px;">
           <img :src="backgroup_img" alt="" :width="bgw" :height="bgh" style="border-radius:5px;" >
         </div>
       </div>
       <div v-show="show" style="width:100%; margin:0; padding:0; position:relative;">
-        <van-cell title="福刻访问权限" is-link :value="forkids" @click="poster(chatid)" style="font-size:14px;"  />
+        <van-cell :title="forkVisitPmStr" is-link :value="forkids" @click="poster(chatid)" style="font-size:14px;"  />
       </div>
       <div v-show="show" style="width:100%; margin:0; padding:0; position:relative;">
-        <van-cell title="头榜访问权限" is-link :value="xmsgids" @click="poster_xmsgids(chatid)" style="font-size:14px;"  />
+        <van-cell :title="dwebVisitPmStr" is-link :value="xmsgids" @click="poster_xmsgids(chatid)" style="font-size:14px;"  />
       </div>
       <div v-show="show" style="width:100%; margin:0; padding:0; position:relative;">
-        <van-cell title="VIP访问权限" is-link :value="vip" @click="RevisionMember(chatid)" style="font-size:14px;"  />
+        <van-cell :title="vipVisitPmStr" is-link :value="vip" @click="RevisionMember(chatid)" style="font-size:14px;"  />
         <div style="position:absolute;top:11px; right:70px;" v-show="vip1">
           <svg t="1586487023024" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1495" width="14" height="20"><path d="M512.409161 0a511.992571 511.992571 0 1 0 511.591008 511.992571A512.394134 512.394134 0 0 0 512.409161 0z" fill="#12ADF5" p-id="1496"></path><path d="M471.851318 803.125602a27.30627 27.30627 0 0 1-8.031256 0 40.15628 40.15628 0 0 1-30.920335-28.912522L332.910589 392.326856H238.944894a40.15628 40.15628 0 0 1 0-80.31256h124.886031a40.15628 40.15628 0 0 1 40.15628 29.715648l86.737565 332.493999 264.228323-346.548698a40.15628 40.15628 0 0 1 63.848485 48.589099l-315.226798 412.003434a40.15628 40.15628 0 0 1-31.723462 14.857824z" fill="#FFFFFF" p-id="1497"></path></svg>
         </div>
       </div>
       <div v-show="show" style="width:100%; margin:0; padding:0; position:relative;">
-        <van-cell title="消息权限" is-link :value="news" @click="ChatLevel(chatid)" style="font-size:14px;"  />
+        <van-cell :title="msgPmStr" is-link :value="news" @click="ChatLevel(chatid)" style="font-size:14px;"  />
         <div style="position:absolute;top:11px; right:70px;" v-show="news1">
           <svg t="1586487023024" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1495" width="14" height="20"><path d="M512.409161 0a511.992571 511.992571 0 1 0 511.591008 511.992571A512.394134 512.394134 0 0 0 512.409161 0z" fill="#12ADF5" p-id="1496"></path><path d="M471.851318 803.125602a27.30627 27.30627 0 0 1-8.031256 0 40.15628 40.15628 0 0 1-30.920335-28.912522L332.910589 392.326856H238.944894a40.15628 40.15628 0 0 1 0-80.31256h124.886031a40.15628 40.15628 0 0 1 40.15628 29.715648l86.737565 332.493999 264.228323-346.548698a40.15628 40.15628 0 0 1 63.848485 48.589099l-315.226798 412.003434a40.15628 40.15628 0 0 1-31.723462 14.857824z" fill="#FFFFFF" p-id="1497"></path></svg>
         </div>
       </div>
       <div v-show="show" style="width:100%; margin:0; padding:0; position:relative;">
-        <van-cell title="邀请权限" is-link :value="Invitation" @click="LaRank(chatid)" style="font-size:14px;"  />
+        <van-cell :title="invitePmStr" is-link :value="Invitation" @click="LaRank(chatid)" style="font-size:14px;"  />
         <div style="position:absolute;top:11px; right:70px;" v-show="Invitation1">
           <svg t="1586487023024" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1495" width="14" height="20"><path d="M512.409161 0a511.992571 511.992571 0 1 0 511.591008 511.992571A512.394134 512.394134 0 0 0 512.409161 0z" fill="#12ADF5" p-id="1496"></path><path d="M471.851318 803.125602a27.30627 27.30627 0 0 1-8.031256 0 40.15628 40.15628 0 0 1-30.920335-28.912522L332.910589 392.326856H238.944894a40.15628 40.15628 0 0 1 0-80.31256h124.886031a40.15628 40.15628 0 0 1 40.15628 29.715648l86.737565 332.493999 264.228323-346.548698a40.15628 40.15628 0 0 1 63.848485 48.589099l-315.226798 412.003434a40.15628 40.15628 0 0 1-31.723462 14.857824z" fill="#FFFFFF" p-id="1497"></path></svg>
         </div>
       </div>
-      <van-cell v-show="show" title="管理员" is-link :value="Administrators" @click="Administratorss(chatid)" style="font-size:14px;"  />
+      <van-cell v-show="show" :title="managerStr" is-link :value="Administrators" @click="Administratorss(chatid)" style="font-size:14px;"  />
       <div v-show="show" style="width:100%; margin:0; padding:0;position:relative;">
-        <van-cell title="群主" is-link :value="GroupOwner" @click="GroupOwners(GroupOwner_id)" style="font-size:14px;"  />
+        <van-cell :title="creatorStr" is-link :value="GroupOwner" @click="GroupOwners(GroupOwner_id)" style="font-size:14px;"  />
         <div style="position:absolute;top:5px; right:38px;">
           <img :src="GroupOwner_img" alt="" width="32px;" height="32px;" style="border-radius:5px;" >
         </div>
       </div>
       <div style="width:100%; margin:0; padding:0;position:relative;margin-bottom:2px;">
-        <van-cell title="群分享" is-link style="font-size:14px;" @click="GroupSharing(chatid)" />
+        <van-cell :title="shareChatStr" is-link style="font-size:14px;" @click="GroupSharing(chatid)" />
         <div style="position:absolute;top:5px; right:38px;">
           <img :src="url" alt="" width="32px;" height="32px;" style="border-radius:5px;" >
         </div>
       </div>
        <div>
-        <van-cell title="开启阅后即焚" is-link style="font-size:14px;" @click="clickBurnTime" />
+        <van-cell :title="readAndFireStr" is-link style="font-size:14px;" @click="clickBurnTime" />
         <div style="position:absolute;top:5px; right:38px;">
           <!-- <img :src="url" alt="" width="32px;" height="32px;" style="border-radius:5px;" > -->
         </div>
@@ -113,7 +113,7 @@
         </div>
       </div> -->
       <div @click="SignOut" style="font-size:14px; color:red; height:50px; position:fixed; bottom:0; text-align:center; border-top:5px solid #f5f5f5; width:100%; line-height:45px; z-index:999; background-color:#fff;">
-        退出群聊
+        {{ exitChatStr }}
       </div>
     </div>
     <van-popup v-model="showx" position="bottom" @close="clikcBurnTime">
@@ -208,7 +208,24 @@ export default{
             name: 604800,
             label: '一周'
           }
-          ]
+          ],
+          manageChatStr:'聊天管理',
+          transferChatStr:'转让',
+          inviteStr:'邀请',
+          delStr:'删除',
+          chatNameStr:'群名称',
+          chatLogoStr:'群头像',
+          chatBgStr:'群背景',
+          forkVisitPmStr:'福刻访问权限',
+          dwebVisitPmStr:'头榜访问权限',
+          vipVisitPmStr:'VIP访问权限',
+          msgPmStr:'消息权限',
+          invitePmStr:'邀请权限',
+          managerStr:'管理员',
+          creatorStr:'群主',
+          shareChatStr:'群分享',
+          readAndFireStr:'开启阅后即焚',
+          exitChatStr:'退出群聊',
         }
     },
     components:{
@@ -698,14 +715,66 @@ export default{
       //  let burnTime = localStorage.getItem('burnTime')
       //  console.log(burnTime)
       //  this.burn = burnTime
-     }
+     },
+    translate()
+    {
+      // manageChatStr:'聊天管理',
+      //     transferChatStr:'转让',
+      //     inviteStr:'邀请',
+      //     delStr:'删除',
+      //     chatNameStr:'群名称',
+      //     chatLogoStr:'群头像',
+      //     chatBgStr:'群背景',
+      //     forkVisitPmStr:'福刻访问权限',
+      //     dwebVisitPmStr:'头榜访问权限',
+      //     vipVisitPmStr:'VIP访问权限',
+      //     msgPmStr:'消息权限',
+      //     invitePmStr:'邀请权限',
+      //     managerStr:'管理员',
+      //     creatorStr:'群主',
+      //     shareChatStr:'群分享',
+      //     readAndFireStr:'开启阅后即焚',
+      //     exitChatStr:'退出群聊',
+
+        this.manageChatStr = g_dtnsStrings.getString('/index/chat/manage')
+        this.transferChatStr=g_dtnsStrings.getString('/index/chat/transfer')
+        this.inviteStr = g_dtnsStrings.getString('/index/chat/invite')
+        this.delStr=g_dtnsStrings.getString('/index/chat/del')
+        this.chatNameStr=g_dtnsStrings.getString('/index/chat/name')
+        this.chatLogoStr = g_dtnsStrings.getString('/index/chat/logo')
+        this.chatBgStr = g_dtnsStrings.getString('/index/chat/bg')
+        this.forkVisitPmStr = g_dtnsStrings.getString('/index/chat/fork/visit-pm')
+        this.dwebVisitPmStr = g_dtnsStrings.getString('/index/chat/dweb/visit-pm')
+        this.vipVisitPmStr = g_dtnsStrings.getString('/index/chat/vip/visit-pm')
+        this.msgPmStr = g_dtnsStrings.getString('/index/chat/msg/pm')
+        this.invitePmStr=g_dtnsStrings.getString('/index/chat/invite/pm')
+        this.managerStr = g_dtnsStrings.getString('/index/chat/manager')
+        this.creatorStr = g_dtnsStrings.getString('/index/chat/creator')
+        this.shareChatStr = g_dtnsStrings.getString('/index/chat/share')
+        this.readAndFireStr = g_dtnsStrings.getString('/index/chat/read/burn')
+        this.exitChatStr = g_dtnsStrings.getString('/index/chat/quit')
+    }
     },
     mounted(){
       this.Administration();
       this.join();
       this.joins();
       this.account()
+    },
+  async created() {
+    if(typeof g_pop_event_bus!='undefined')
+    {
+      g_pop_event_bus.on('update_dtns_loction',this.translate)
     }
+    this.translate()
+  },
+  beforeDestroy () {
+    console.log('into beforeDestroy()')
+    if(typeof g_pop_event_bus!='undefined')
+    {
+      g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+    }
+  },
 }
 </script>
 

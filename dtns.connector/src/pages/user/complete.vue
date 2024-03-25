@@ -2,15 +2,15 @@
 <!--可复用的相册组件 这里只完成静态页面 不涉及数据-->
     <div class="box">
         <van-nav-bar
-            title="账号与安全"
+            :title="accountSafetyStr"
             left-arrow
             @click-left="onClickLeft"
             />
         <div>
-            <van-cell title="手机号" is-link :value="phone" />
-            <van-cell to="/user/complete/BindMailbox" title="邮箱" is-link :value="emails" />
+            <van-cell :title="phoneNumberStr" is-link :value="phone" />
+            <van-cell to="/user/complete/BindMailbox" :title="mailStr" is-link :value="emails" />
             <van-divider />
-            <van-cell title="修改密码" is-link  to="/checking" />
+            <van-cell :title="modPasswordStr" is-link  to="/checking" />
         </div>
         <!-- <van-popup v-model="show" style="width:70%; height:160px; border-radius:5px;">
             <div style="text-align:center; font-size:14px; font-weight:bold; margin-top:15px;">
@@ -41,13 +41,38 @@
             return {
                show:false,
                emails:'',
-               phone:''
+               phone:'',
+               accountSafetyStr:'账号与安全',
+               phoneNumberStr:'手机号',
+               mailStr:'邮箱',
+               modPasswordStr:'修改密码',
+               unbindstr:'未绑定'
             }
         },
     methods:{
         onClickLeft(){//返回上一层
             this.$router.push('/user');
         },
+        translate()
+        {
+            // accountSafetyStr:'账号与安全',
+            //    phoneNumberStr:'手机号',
+            //    mailStr:'邮箱',
+            //    modPasswordStr:'修改密码',
+            //    unbindstr:'未绑定'
+            this.accountSafetyStr = g_dtnsStrings.getString('/index/account/safety')
+            this.phoneNumberStr = g_dtnsStrings.getString('/index/account/phone/number')
+            this.mailStr = g_dtnsStrings.getString('/index/account/mail')
+            this.modPasswordStr = g_dtnsStrings.getString('/index/account/pwd/mod')
+            this.unbindstr      = g_dtnsStrings.getString('/index/account/unbind')
+        }
+    },
+    beforeDestroy () {
+        console.log('into beforeDestroy()')
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+        }
     },
     created(){//进入页面就执行
         let data = JSON.parse(localStorage.getItem('userInfo'));//查找个人用户信息
@@ -58,8 +83,13 @@
             this.emails = data.emails
         }else
         {
-            this.emails = '未绑定'
+            this.emails = this.unbindstr;// '未绑定'
         }
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
       },
 }
 </script>

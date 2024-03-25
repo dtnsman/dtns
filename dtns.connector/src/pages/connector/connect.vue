@@ -1,34 +1,46 @@
 <template>
     <div class="box">
-        <van-nav-bar right-text="重新登录" @click-right="refresh" />
+        <van-nav-bar :left-text="locStr" @click-left="showLocationFlag=true" :right-text="loginBackinStr" @click-right="refresh" />
       <div style="position:fixed;overflow-x:hidden;overflow-y:scroll;top:50px;bottom:0px;left:0;right:0;">
         <div class="logo" style="text-align: center; padding-left:15px; margin-top:20px; font-size:24px;">
           <img :src="imgUrl" width="117px" height="85px" style="border:2px solid #e0e0e0;margin-bottom: 18px;"><br/>
-          连接DTNS.network
+          {{connectToStr}}DTNS.network
         </div>
         <div v-if="loadding" style="text-align: center;width: 100%;font-size:15px;">加载中Loading...</div>
         <div v-if="!loadding">
-          <div style="text-align: left; padding-left:15px; margin-top:20px; font-size:13px;" @click.stop="setSalt">隐私：{{ salt }}<span v-if="!salt">设置隐私通道（务必记住）</span></div>
-          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;">设备：{{ deviceInfo }}</div>
-          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;">公钥：{{ public_key }}</div>
-          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;">签名：{{ sign }}</div>
-          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;-moz-user-select: text;-webkit-user-select: text;user-select: text;">汇总：<br/>{{ copyData }}</div>
+          <div style="text-align: left; padding-left:15px; margin-top:20px; font-size:13px;" @click.stop="showInputBox(setSalt)">{{saltTipsStr}}：{{ salt }}<span v-if="!salt">{{ setSaltTipsStr }}</span></div>
+          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;">{{deviceStr}}：{{ deviceInfo }}</div>
+          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;">{{pubKeyStr}}：{{ public_key }}</div>
+          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;">{{signStr}}：{{ sign }}</div>
+          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;-moz-user-select: text;-webkit-user-select: text;user-select: text;">{{sumaryStr}}：<br/>{{ copyData }}</div>
+          <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;-moz-user-select: text;-webkit-user-select: text;user-select: text;" @click="showInputBox(loginByPrivateKey)">{{click2inputSecretKeyStr}}</div>
           <!-- <div style="text-align: left; padding-left:15px; margin-top:20px; font-size:16px;">发送：{{ phones }}（任意发送1个手机号码即可）</div> -->
           <div style="text-align: left; padding-left:15px; margin-top:10px; font-size:13px;" v-show="notPhone || true">
-            请使用手机扫一扫复制内容，发送至手机号码：{{ phone }}
+            {{scanByPhoneTipsStr}}：{{ phone }}
             <div style="text-align:center;width:100%; height:213px;margin:0 auto;background-color:#fff;">
             <img :src="url" alt="" height="165px" width="165px" style="margin-top:15px;" @click="copy"><br/>
-            注意：点击图片可复制短信内容
+            {{ click2copyStr }}
           </div>
           </div>
 
           <div style="text-align:center;">
-            <van-button type="primary" @click="connect" style="width:95%; border-radius:5px; font-size:16px; background-color:#15a0e7; margin-top:15px; border:none;">连接DTNS（发送汇总）</van-button><br/>
-            <van-button type="primary" @click="ok" style="width:95%; border-radius:5px; font-size:16px; background-color:#15a0e7; margin-top:15px; border:none;" v-show="true">确认已发送（短信）</van-button><br/>
-            <van-button  @click="change" style="width:95%; border-radius:5px; font-size:16px;  margin-top:15px; border:none;">切换</van-button>
+            <van-button type="primary" @click="connect" style="width:95%; border-radius:5px; font-size:16px; background-color:#15a0e7; margin-top:15px; border:none;">{{ sendSumaryBtnStr }}</van-button><br/>
+            <van-button type="primary" @click="ok" style="width:95%; border-radius:5px; font-size:16px; background-color:#15a0e7; margin-top:15px; border:none;" v-show="true">{{ checkSendedStr }}</van-button><br/>
+            <van-button  @click="change" style="width:95%; border-radius:5px; font-size:16px;  margin-top:15px; border:none;">{{ changeStr }}</van-button>
           </div>
         </div>
       </div>
+      <van-popup v-model="showInputBoxFlag" style="height:110px;width:350px;border-radius:5px;overflow-y: auto;overflow-x: hidden;padding: 5px;">
+            <h3>{{pleaseTips}}</h3>
+            <input type="text" v-model="boxInputVal" style="width: 100%;"/><br/>
+            <span @click="showInputBoxFlag=false,boxInputVal=null">{{ cancelStr }}</span>&nbsp; &nbsp; <span @click="okInput">{{ okStr }}</span>
+      </van-popup>
+      <van-popup v-model="showLocationFlag" style="height:400px;width:300px;border-radius:5px;overflow-y: auto;overflow-x: hidden;padding: 5px;">
+            <h3>{{locStr}}</h3>
+            <div v-for="(item,index) in locs" :key="index" @click="setLoc(item)" style="width:100%;line-height: 35px;height: 35px;border-bottom: 0.5px solid #909090;">
+                <span>{{ item.key }}（{{ item.location }}）</span>
+            </div>
+        </van-popup>
     </div>
   </template>
   
@@ -53,6 +65,30 @@ import imgUrl from "../../../static/images/connect-mini.jpg"
         invite_code:this.$route.params.incode,
         loadding:true,
         salt:null,
+        showInputBoxFlag:false,
+        boxInputVal:'',
+        showLocationFlag:false,
+        locs:[],
+        locStr:'zh（中文简体）',
+        pleaseTips:'请输入',
+        loginBackinStr:'重新登录',
+        connectToStr:'连接',
+        saltTipsStr:'隐私',
+        setSaltTipsStr:'设置隐私通道（务必记住）',
+        deviceStr:'设备',
+        pubKeyStr:'公钥',
+        signStr:'签名',
+        sumaryStr:'汇总',
+        scanByPhoneTipsStr:'请使用手机扫一扫复制内容，发送至手机号码',
+        click2copyStr:'注意：点击图片可复制短信内容',
+        sendSumaryBtnStr:'连接DTNS（发送汇总）',
+        checkSendedStr:'确认已发送（短信）',
+        changeStr:'切换',
+        click2inputSecretKeyStr:'直接以密钥登录',
+        pleaseInputPrivateKeyStr:'请输入密钥',
+        pleaseInputSaltTipsStr:'请输入隐私通道',
+        okStr:'确定',
+        cancelStr:'取消',
       };
     },
     async mounted() {
@@ -88,7 +124,8 @@ import imgUrl from "../../../static/images/connect-mini.jpg"
       setSalt()
       {
         let old = this.salt
-        this.salt = prompt("请输入隐私通道(salt)：",this.salt ? this.salt:'');
+        // this.salt = prompt("请输入隐私通道(salt)：",this.salt ? this.salt:'');
+        this.salt = this.boxInputVal
         this.salt = !this.salt ? null : this.salt.substring(0,10)//限制为10个字符
         if(this.salt!=old)
         {
@@ -129,6 +166,38 @@ import imgUrl from "../../../static/images/connect-mini.jpg"
         }else{
           this.$toast.success("登录失败，原因：会话session不存在",1000);
         }
+      },
+      showInputBox(nowFunc)
+      {
+        if(nowFunc == this.loginByPrivateKey)
+        {
+          this.pleaseTips = this.pleaseInputPrivateKeyStr
+        }else if(nowFunc == this.setSalt)
+        {
+          this.pleaseTips = this.pleaseInputSaltTipsStr
+        }
+        this.boxInputVal = ''
+        this.showInputBoxFlag=true
+        this.boxInputOkFunc = nowFunc
+      },
+      okInput()
+      {
+        this.showInputBoxFlag = false
+        this.boxInputOkFunc()
+      },
+      loginByPrivateKey()
+      {
+        // let private_key = prompt(this.pleaseInputPrivateKeyStr+'：')
+        let private_key = this.boxInputVal
+        private_key = private_key ? private_key.trim() :''
+        if(private_key.length<=10) return this.$toast(this.pleaseInputPrivateKeyStr)
+        let public_key = key_util.getPublicKey(private_key)
+        this.private_key = private_key
+        this.public_key  = public_key
+        console.log('loginByPrivateKey-ok-wallet:',this.private_key,this.public_key)
+        // window.g_mywallet = {private_key:this.private_key,public_key:this.public_key,
+        //       web3name:rpc_client.roomid}
+        this.ok()
       },
       async ok(xflag = false){
         let This = this
@@ -206,7 +275,8 @@ import imgUrl from "../../../static/images/connect-mini.jpg"
                   },500)
                   flag = false
                 } else {
-                  This.$toast("登录失败！原因：DTNS.network数据未同步",20000);
+                  //DTNS.network数据未同步
+                  This.$toast("登录失败！原因："+(res && res.msg ? res.msg:'未知网络原因'),20000);
                 }
               });
           // })
@@ -288,8 +358,74 @@ import imgUrl from "../../../static/images/connect-mini.jpg"
         let clickEvent = document.createEvent("MouseEvents");
         clickEvent.initEvent("click", true, true);
         a.dispatchEvent(clickEvent);
-      }
-    }
+      },
+      setLoc(item){
+            if(!item) return false
+            localStorage.setItem('dtns-location',item.key)
+            this.$toast('切换成功！所选区域为：'+item.key+'（'+item.location+'）')
+            if(typeof g_pop_event_bus !=undefined){
+                g_pop_event_bus.emit('update_dtns_loction',item)
+            }
+            this.showLocationFlag = false
+        },
+        translate()
+        {
+        //   loginBackinStr:'重新登录',
+        // connectToStr:'连接',
+        // saltTipsStr:'隐私',
+        // setSaltTipsStr:'设置隐私通道（务必记住）',
+        // deviceStr:'设备',
+        // pubKeyStr:'公钥',
+        // signStr:'签名',
+        // sumaryStr:'汇总',
+        // scanByPhoneTipsStr:'请使用手机扫一扫复制内容，发送至手机号码',
+        // click2copyStr:'注意：点击图片可复制短信内容',
+        // sendSumaryBtnStr:'连接DTNS（发送汇总）',
+        // checkSendedStr:'确认已发送（短信）',
+        // changeStr:'切换',
+        // click2inputSecretKeyStr:'直接以密钥登录',
+        // pleaseInputPrivateKeyStr:'请输入密钥',
+        //pleaseInputSaltTipsStr:'请输入隐私通道',
+        // okStr:'确定',
+        // cancelStr:'取消',
+
+
+            this.loginBackinStr = g_dtnsStrings.getString('/index/login/backin')
+            this.connectToStr = g_dtnsStrings.getString('/index/connect/to')
+            this.saltTipsStr = g_dtnsStrings.getString('/index/connect/salt')
+            this.setSaltTipsStr = g_dtnsStrings.getString('/index/connect/salt/tips')
+            this.deviceStr       = g_dtnsStrings.getString('/index/connect/device')
+            this.pubKeyStr     = g_dtnsStrings.getString('/index/connect/pubkey')
+            this.signStr      = g_dtnsStrings.getString('/index/connect/sign')
+            this.sumaryStr       = g_dtnsStrings.getString('/index/connect/sumary')
+            this.scanByPhoneTipsStr          = g_dtnsStrings.getString('/index/connect/scan/tips')
+            this.click2copyStr     = g_dtnsStrings.getString('/index/connect/click2copy')
+            this.sendSumaryBtnStr      = g_dtnsStrings.getString('/index/connect/sumary/send')
+            this.checkSendedStr       = g_dtnsStrings.getString('/index/connect/check')
+            this.changeStr          = g_dtnsStrings.getString('/index/connect/change')
+            this.click2inputSecretKeyStr=g_dtnsStrings.getString('/index/connect/login-private-key')
+            this.pleaseInputPrivateKeyStr=g_dtnsStrings.getString('/index/connect/input-private-key/please')
+            this.pleaseInputSaltTipsStr=g_dtnsStrings.getString('/index/connect/input-salt/please')
+            this.okStr              = g_dtnsStrings.getString('/index/ok')
+            this.cancelStr          = g_dtnsStrings.getString('/index/cancel')
+            this.locStr     = g_dtnsStrings.getString('/index/locations/change')  
+        }
+      },
+      created(){//进入页面就执行
+        this.locs = g_dtnsStrings.getLocations()
+        if(typeof g_pop_event_bus!='undefined')
+        {
+            g_pop_event_bus.on('update_dtns_loction',this.translate)
+        }
+        this.translate()
+      },
+      beforeDestroy () {
+          console.log('into beforeDestroy()')
+          if(typeof g_pop_event_bus!='undefined')
+          {
+              g_pop_event_bus.removeListener('update_dtns_loction',this.translate)
+          }
+      },
   };
   </script>
   <style lang="stylus" scoped>

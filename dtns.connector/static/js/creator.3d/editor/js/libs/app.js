@@ -152,6 +152,7 @@ var APP = {
 			camera.aspect = this.width / this.height;
 			camera.updateProjectionMatrix();
 			This.camera = camera
+			This.initPlayer(camera)
 		};
 
 		this.startRecord = window.g_3d_player_start_record = function()
@@ -273,7 +274,7 @@ var APP = {
 		}
 
 		var time, startTime, prevTime;
-
+		const clock = new THREE.Clock();//2023-3-7新增
 		function animate() {
 
 			time = performance.now();
@@ -288,10 +289,14 @@ var APP = {
 
 			}
 
+			//2024-3-7新增
+			const delta = clock.getDelta();
+			This.updatePlayer(delta)
+			///----------------render之前调用
+
 			renderer.render( scene, camera );
 
 			prevTime = time;
-
 		}
 
 		this.play = function () {
@@ -528,10 +533,476 @@ var APP = {
 			document.removeEventListener( 'touchend', onTouchEnd );
 	
 		}
-	
 
+		let that  = this
+		this.initPlayer = function(c)
+		{
+			let camera = c, renderer //, scene = This.scene
+			if(typeof g_3d_editor_stop_player_flag == 'undefined')
+			window.g_3d_editor_stop_player_flag = false
+			// let controls
+			let that = this
+			let clock = new THREE.Clock()
+
+			let player, activeCamera
+			let speed = 6 //移动速度
+			let turnSpeed = 2
+			let move = {
+				forward: 0,
+				turn: 0
+			}
+
+			let colliders = [] //碰撞物
+			let debugMaterial = new THREE.MeshBasicMaterial({
+				color:0xff0000,
+				wireframe: true
+			})
+
+			let arrowHelper1, arrowHelper2
+			let joystick //移动设备控制器
+
+			function init() {
+				// createScene()
+				// createObjects()
+				createColliders()
+				createPlayer()
+				createCamera()
+				// createLights()
+				//createLightHelpers()
+				//createControls()
+				createEvents()
+				createJoyStick()
+				// render()
+			}
+
+			function createJoyStick() {
+			
+				This.x3dplayerJoyStick_instance = new window.x3dplayerJoyStick({
+					onMove: function(forward, turn) {
+						turn = -turn
+						if(Math.abs(forward) < 0.3) forward = 0
+						if(Math.abs(turn) < 0.1) turn = 0
+						move.forward = forward
+						move.turn = turn
+					}
+				})
+				if(window.g_3d_editor_stop_player_flag){
+					This.x3dplayerJoyStick_instance.circleElement.style.opacity = 0
+				}
+			}
+
+			function createEvents() {
+				document.addEventListener('keydown', onKeyDown)
+				document.addEventListener('keyup', onKeyUp)
+			}
+			function removeEvents()
+			{
+				document.removeEventListener('keydown', onKeyDown)
+				document.removeEventListener('keyup', onKeyUp)
+				// console.log('removeEvents:',window.g_x3dplayerJoyStick_instance)
+				// This.dom.removeChild(window.g_x3dplayerJoyStick_instance.circleElement)
+				// document.removeEventListener('touchmove',window.g_x3dplayerJoyStick_instance.onTouchMoved)
+				// document.removeEventListener('touchend',window.g_x3dplayerJoyStick_instance.onTouchEnded)
+				// document.removeEventListener('mousemove',window.g_x3dplayerJoyStick_instance.onTouchMoved)
+				// document.removeEventListener('mouseup',window.g_x3dplayerJoyStick_instance.onTouchEnded)
+			}
+
+			function createColliders() {
+				colliders = []
+				const children = scene.children;
+				console.log('createColliders-scene:',scene)
+
+				for ( let i = 0, l = children.length; i < l; i ++ ) {
+					if(children[ i ].collider == '1' ) colliders.push( children[ i ] )
+				}
+				console.log('createColliders-colliders:',colliders)
+
+				// const loader = new THREE.GLTFLoader()
+				// loader.load(
+				// 	'model/collider.glb',
+				// 	gltf => {
+				// 	gltf.scene.traverse(child => {
+				// 		if(child.name.includes('collider')) {
+				// 		colliders.push(child)
+				// 		}
+				// 	})
+				// 	colliders.forEach(item=> {
+				// 		item.visible = false
+				// 		scene.add(item)
+				// 	})
+				// 	}
+				// )
+			}
+
+			function onKeyDown(event) {
+				if(window.g_3d_editor_stop_player_flag) return 
+				switch ( event.code ) {
+					case 'ArrowUp':
+					case 'KeyW':
+					move.forward = 1
+					break
+
+					case 'ArrowLeft':
+					case 'KeyA':
+					move.turn = turnSpeed
+					break
+
+					case 'ArrowDown':
+					case 'KeyS':
+					move.forward = -1
+					break
+
+					case 'ArrowRight':
+					case 'KeyD':
+					move.turn = -turnSpeed
+					break
+					case 'Space':
+					break
+				}
+			}
+
+			function onKeyUp(event) {
+				switch ( event.code ) {
+
+					case 'ArrowUp':
+					case 'KeyW':
+					move.forward = 0
+					break
+
+					case 'ArrowLeft':
+					case 'KeyA':
+					move.turn = 0
+					break
+
+					case 'ArrowDown':
+					case 'KeyS':
+					move.forward = 0
+					break
+
+					case 'ArrowRight':
+					case 'KeyD':
+					move.turn = 0
+					break
+
+				}
+			}
+
+			function createPlayer() {
+				const geometry = new THREE.BoxGeometry(1, 2, 1)
+				const material = new THREE.MeshBasicMaterial({
+					color: 0xff0000,
+					wireframe: true
+				})
+				player = new THREE.Mesh(geometry, material)
+				player.name = 'player'
+				geometry.translate(0, 1, 0)
+				player.position.set(-5, 0, 5)
+				//scene.add(player)
+			}
+
+			function createCamera() {
+				const back = new THREE.Object3D()
+				back.position.set(0, 2, 1)
+				back.parent = player
+				//player.add(back)
+				activeCamera = back
+
+				//2024-3-8新增（与发布的作品的入口摄像机位置一致）
+				// if(camera && !window.g_3d_editor_stop_player_flag)
+				if(camera)
+				{
+					let {x,y,z} = camera.position
+					player.position.set(x,player.position.y,z)
+				}
+			}
+			function onResize() {
+				const w = window.innerWidth
+				const h = window.innerHeight
+				camera.aspect = w / h
+				camera.updateProjectionMatrix()
+				renderer.setSize(w, h)
+			}
+
+			function render() {
+				const dt = clock.getDelta()
+				update(dt)
+				renderer.render(scene, camera)
+				window.requestAnimationFrame(render)
+			}
+
+			function update(dt) {
+				updatePlayer(dt)
+				updateCamera(dt)
+			}
+
+			function updatePlayer(dt) {
+				const pos = player.position.clone()
+				pos.y += 2
+				let dir = new THREE.Vector3()
+				
+				player.getWorldDirection(dir)
+				dir.negate()
+
+				if (move.forward < 0) dir.negate()
+				let raycaster = new THREE.Raycaster(pos, dir)
+				let blocked = false
+
+				if(colliders.length > 0) {
+					const intersect = raycaster.intersectObjects(colliders)
+					if (intersect.length > 0) {
+					if (intersect[0].distance < 1) {
+						blocked = true
+					}
+					}
+				}
+
+				// if(colliders.length > 0) {
+				//   //左方向碰撞监测
+				//   dir.set(-1, 0, 0)
+				//   dir.applyMatrix4(player.matrix)
+				//   dir.normalize()
+				//   raycaster = new THREE.Raycaster(pos, dir)
+
+				//   let intersect = raycaster.intersectObjects(colliders)
+				//   if(intersect.length > 0) {
+				//     if(intersect[0].distance < 2) {
+				//       player.translateX(2 - intersect[0].distance)
+				//     }
+				//   }
+
+				//   //右方向碰撞监测
+				//   dir.set(1, 0, 0)
+				//   dir.applyMatrix4(player.matrix)
+				//   dir.normalize()
+				//   raycaster = new THREE.Raycaster(pos, dir)
+
+				//   intersect = raycaster.intersectObjects(colliders)
+				//   if(intersect.length > 0) {
+				//     if(intersect[0].distance < 2) {
+				//       player.translateX(intersect[0].distance - 2)
+				//     }
+				//   }
+				// }
+				
+				if(!blocked) {
+					if(move.forward !== 0) { 
+					if (move.forward > 0) {
+						player.translateZ(-dt * speed)
+					} else {
+						player.translateZ(dt * speed * 0.5)
+					}
+					}
+				}
+
+				if(move.turn !== 0) {
+					player.rotateY(move.turn * dt)
+				}
+			}
+
+			function updateCamera(dt) {
+				//更新摄像机
+				camera.position.lerp(
+					activeCamera.getWorldPosition(
+					new THREE.Vector3()
+					), 
+					0.08
+				)
+				const pos = player.position.clone()
+				pos.y += 2 
+				camera.lookAt(pos)
+			}
+
+			that.setPlayerControlCamera = function(c){
+				camera = c
+			}
+			that.updatePlayer = function(dt)
+			{
+				if(window.g_3d_editor_stop_player_flag)
+				{
+					removeEvents()
+					return false
+				} 
+				updatePlayer(dt)
+				updateCamera(dt)
+			}
+			that.stopPlayer = function()
+			{
+				window.g_3d_editor_stop_player_flag = true
+				removeEvents()
+				This.x3dplayerJoyStick_instance.circleElement.style.opacity = 0
+			}
+			window.g_3d_player_stop_player = that.stopPlayer
+			that.startPlayer = function()
+			{
+				if(camera)
+				{
+					let {x,y,z} = camera.position
+					player.position.set(x,player.position.y,z)
+				}
+				window.g_3d_editor_stop_player_flag = false
+				createEvents()
+				createColliders()
+				This.x3dplayerJoyStick_instance.circleElement.style.opacity = 1
+			}
+			window.g_3d_player_start_player = that.startPlayer
+
+			// ( function () {
+				const touchEnabled = !!('ontouchstart' in window);
+				class x3dplayerJoyStick {
+				
+					constructor(options) {
+						this.createDom()
+						this.maxRadius = options.maxRadius || 40
+						this.maxRadiusSquared = this.maxRadius * this.maxRadius
+						this.onMove = options.onMove
+						this.game = options.game
+						this.origin = {
+						left: this.domElement.offsetLeft,
+						top: this.domElement.offsetTop
+						}
+						console.log(this.origin)
+						this.rotationDamping = options.rotationDamping || 0.06
+						this.moveDamping = options.moveDamping || 0.01
+						this.createEvent()
+					}
+			
+					createEvent() {
+						const joystick = this
+						if(touchEnabled) {
+							window.x3dplayerJoyStick_touchstart = function(e) {
+								console.log('touchstart...')
+								// e.preventDefault()
+								joystick.tap(e)
+								// e.stopPropagation()
+							}
+							this.domElement.addEventListener('touchstart', window.x3dplayerJoyStick_touchstart)
+						} else {
+							window.x3dplayerJoyStick_mousedown = function(e) {
+								// e.preventDefault()
+								console.log('mousedown...')
+								joystick.tap(e)
+								// e.stopPropagation()
+							}
+							this.domElement.addEventListener('mousedown',window.x3dplayerJoyStick_mousedown )
+						}
+					}
+			
+					getMousePosition(e) {
+						const clientX = e.targetTouches ? e.targetTouches[0].pageX : e.clientX
+							const clientY = e.targetTouches ? e.targetTouches[0].pageY : e.clientY
+							return {
+						x:clientX, 
+						y:clientY
+						}
+					}
+			
+					tap(e) {
+						this.offset = this.getMousePosition(e)
+						const joystick = this
+						this.onTouchMoved = function(e) {
+						// e.preventDefault()
+						joystick.move(e)
+						}
+						this.onTouchEnded = function(e) {
+						// e.preventDefault()
+						joystick.up(e)
+						}
+						if(touchEnabled) {
+						document.addEventListener('touchmove', this.onTouchMoved)
+						document.addEventListener('touchend', this.onTouchEnded)
+						} else {
+						document.addEventListener('mousemove', this.onTouchMoved)
+						document.addEventListener('mouseup', this.onTouchEnded)
+						}
+					}
+			
+					move(e) {
+						if(window.g_3d_editor_stop_player_flag) return 
+							const mouse = this.getMousePosition(e)
+			
+							let left = mouse.x - this.offset.x
+							let top = mouse.y - this.offset.y
+			
+							const sqMag = left * left + top * top
+			
+							if (sqMag > this.maxRadiusSquared){
+								const magnitude = Math.sqrt(sqMag)
+								left /= magnitude
+								top /= magnitude
+								left *= this.maxRadius
+								top *= this.maxRadius
+							}
+			
+							this.domElement.style.top = `${ top + this.domElement.clientHeight / 2 }px`
+							this.domElement.style.left = `${ left + this.domElement.clientWidth / 2 }px`
+							
+							const forward = -(top - this.origin.top + this.domElement.clientHeight / 2) / this.maxRadius
+							const turn = (left - this.origin.left + this.domElement.clientWidth / 2) / this.maxRadius
+			
+						if(this.onMove) {
+						this.onMove(forward, turn)
+						}
+			
+					}
+			
+					up() {
+							if (touchEnabled){
+						document.removeEventListener('touchmove', this.onTouchMoved)
+						document.removeEventListener('touchend', this.onTouchEned)
+							}else{
+								document.removeEventListener('mousemove', this.onTouchMoved)
+						document.removeEventListener('mouseup', this.onTouchEned)
+							}
+							this.domElement.style.top = `${this.origin.top}px`
+							this.domElement.style.left = `${this.origin.left}px`
+						if(this.onMove) {
+						this.onMove(0, 0)
+						}
+						}
+					
+					createDom() {
+						const circle = document.createElement('div')
+						circle.style.cssText = `
+						position: absolute;
+						bottom: 35px;
+						width: 80px;
+						height: 80px;
+						background: rgba(126, 126, 126, 0.2);
+						border: #444 solid medium;
+						border-radius: 50%;
+						left: 50%;
+						transform: translateX(-50%);
+						`
+						const thumb = document.createElement('div')
+						thumb.style.cssText = `
+						position: absolute;
+						left: 18px;
+						top: 17px;
+						width: 40px;
+						height: 40px;
+						border-radius: 50%;
+						background: #fff;
+						`
+						circle.appendChild(thumb)
+						// document.body.appendChild(circle)
+						const container = This.dom//document.querySelector('#vrgallery_container')
+						container.appendChild(circle)
+						this.domElement = thumb
+						thumb.addEventListener('dblclick',function(){
+							console.log('JoyStick-dblclick is clicked!')
+							window.history.go(-1)
+						})
+						this.circleElement = circle
+						window.x3dplayer_joystickCicle = circle
+					} 
+				}
+			
+				window.x3dplayerJoyStick = x3dplayerJoyStick;
+			// } )();
+
+			init()
+		}
 	}
-
 };
 
 export { APP };
