@@ -1,0 +1,28 @@
+<!-- <script src="../libs/bignumber.min.js"></script> -->
+<script src="../libs/bn.js"></script>
+<script src="../libs/secp256k1.js"></script>
+<script src="../libs/bs58.bundle.js"></script>
+<!-- <script src="../static/key_util.js"></script> -->
+<script src="../static/dnalink_protocol.js"></script>
+<script src="./rmb_test.js"></script>
+<script>
+async function testTokenUtil()
+{
+    let protocol = rmb_protocol_config
+    let token_util = new TokenUtil(protocol)
+    token_util.test()
+}
+testTokenUtil()
+/**
+UDIDSTR:GRo3nQjdGXwFTV2XnuDpA7wA1ra2jmVCWaS1XuBeiPJA len:44
+ret=true
+ token_id:rmb_GRo3nQjdGXwFTV2X length:20
+ 【注】与node.js是一样的。
+ * */
+/**node.js test()
+ * 
+ret=true
+ token_id:valuetest_29YTGwYEmQHXxW7V length:26
+ */
+</script>
+

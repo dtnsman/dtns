@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <script src="../libs/bn.js" type="text/javascript"></script>
+<!-- <script src="../libs/jquery.js" type="text/javascript"></script> -->
+<script src="../libs/secp256k1.js" type="text/javascript"></script>
+    </head>
+    <body>
+    <script>
+        const privateKeyBuf = window.crypto.getRandomValues(new Uint8Array(32))
+const privateKey = Secp256k1.uint256(privateKeyBuf, 16)
+
+// Generating public key
+const publicKey = Secp256k1.generatePublicKeyFromPrivateKeyData(privateKey)
+const pubX = Secp256k1.uint256(publicKey.x, 16)
+const pubY = Secp256k1.uint256(publicKey.y, 16)
+
+// Signing a digest
+const digest = Secp256k1.uint256("483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8", 16)
+const sig = Secp256k1.ecsign(privateKey, digest)
+const sigR = Secp256k1.uint256(sig.r,16)
+const sigS = Secp256k1.uint256(sig.s,16)
+console.log('sig:'+JSON.stringify(sig))
+console.log('sig:',sig)
+console.log('sig-r-len:'+sig.r.length+' s-len:'+sig.s.length)
+
+// Verifying signature
+const isValidSig = Secp256k1.ecverify(pubX, pubY, sigR, sigS, digest)
+console.log(isValidSig === true? 'true--Signature must be valid':'false')
+
+//由v、signR、signS、hash-digest恢复公钥（由公钥是否相等，亦可判断ecverify）----浏览器端dnalink.engine的判断方法。
+let rkey = Secp256k1.ecrecover(sig.v,sigR,sigS,digest)//recId, sigr, sigs, message) 
+
+console.log('rkey:',rkey) //恢复的密钥
+console.log('public-key:',publicKey)//公钥
+
+ 
+try{
+    let TXINFO = {txid:'txid_'+newWeb3ID(),token_x:reqdata.token_x,token_y:reqdata.token_y,
+        opcode:reqdata.opcode,opval:reqdata.opval,extra_data:reqdata.extra_data,
+        timestamp_i:parseInt(new Date().getTime()/1000)}
+    let TXJSON = this.toTXJSONString(TXINFO);//序列化。
+    console.log('TXJSON:'+TXJSON)
+    let hash =''+sha256(TXJSON);// (''+sha256(TXJSON)).toUpperCase();//得到hash值
+    console.log('hash:'+hash+' len:'+hash.length+' keys-secp256k1:'+(Object.keys(Secp256k1)))
+    //console.log('hex-len:'+('483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8').length)
+    const digest = Secp256k1.uint256(hash, 16)
+    let prikey = Secp256k1.uint256(bs58.decode(private_key),16)//
+    console.log('hash:'+hash+' digest:'+digest+' this.private_key:'+this.private_key+' private_key:'+private_key+' prikey:'+prikey)
+
+    let sign = Secp256k1.ecsign(prikey, digest)//key_util.signMsg(hash,'4bmmY1VEj8FjAVLGYhrt4AtvMisXRj2YDNNYHryjogPV');
+    console.log('sign:'+JSON.stringify(sign))
+    reqdata.web3_sign= bs58.encode( new Uint8Array((sign.r+sign.s).match(/.{1,2}/g).map(byte => parseInt(byte, 16))))
+    reqdata.timestamp_i = TXINFO.timestamp_i //req_time = TXINFO.timestamp_i
+    reqdata.txid = TXINFO.txid
+    console.log("rpc_query-url:"+url+" reqdata:"+JSON.stringify(reqdata))
+    }catch(ex){console.log('ex:'+ex)}
+    </script>
+    </body>
+</html>

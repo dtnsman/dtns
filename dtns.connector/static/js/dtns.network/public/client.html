@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <script src="../public/rmb_test.js"></script>
+        <script src="../libs/bn.js"></script>
+        <script src="../libs/secp256k1.js"></script>
+        <script src="../libs/bs58.bundle.js"></script>
+        <script src="../libs/bignumber.min.js"></script>
+        <script src="../libs/icache-db.js"></script>
+        <script src="../libs/ifile-db.js"></script>
+        <script src="../libs/md5.js"></script>
+        <!-- <script src="../libs/rpc-client.js"></script> -->
+        <script src="../libs/simple-signal-client.min.js"></script>
+        <script src="../libs/socket.io.min.js"></script>
+        <!-- <script src="http://lx.opencom.cn/js/sql-wasm.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script> -->
+        <script src="../static/sql-wasm.js"></script>
+        <!-- <script src="../libs/sql-wasm.wasm"></script> -->
+        <script src="../static/pop_runtime2.js"></script>
+        <script src="../static/SQLDB.js"></script>
+        <script src="../static/str_filter.js"></script>
+        <script src="../static/key_util.js"></script>
+
+        <script src="../static/dnalink_api_util.js"></script>
+        <script src="../static/dnalink_dao_chain.js"></script>
+        <script src="../static/dnalink_dao_wallet.js"></script>
+        <script src="../static/dnalink_engine.js"></script>
+        <script src="../static/dnalink_protocol.js"></script>
+        <script src="../static/dnalink_rpc.js"></script>
+        <script src="../static/dnalink_rtc_client.js"></script>
+        <script src="../static/dnalink_rtc_service.js"></script>
+        <script src="../static/dnalink_super_file.js"></script>
+        <script src="../static/dnalink_super_meta.js"></script>
+        <script src="../static/dnalink_super_websocket.js"></script>
+
+        <script src="../static/dnalink_rpc_main.js"></script>
+    </head>
+    <body>
+        <center><h1>《真实模拟》-client</h1></center>
+        <!-- <br/> -->
+        <span>房间号：</span><input id="roomid"  value=""><br/><br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;开启&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button onclick="save()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;保存&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>
+    <script>
+        // window.onbeforeunload = function(){
+            
+        // }
+        async function test(roomid='room2',ms=3000)
+        {
+            let client = new RTCClient(roomid)
+            //client.sendData()
+            //while(!client.client._pc) await str_filter.sleep(300)
+            while( client.countPeerCnt()>0)//<2) //client.client.peers().length<2)
+            {
+                //console.log('req:'+client.client.peers())
+                await client.sleep(1000)
+            }
+
+            if(0&&true)
+            {
+                // await str_filter.sleep(5000)
+                // client.testQuery(function(data){
+                //     console.log('testQuery-data:',data)
+                // })
+                // // await str_filter.sleep(10000)
+                // return 
+                await client.sleep(5000)
+                
+                client.download(function(data){
+                    console.log('download-data-len:'+data.data.length+' begin_str:'+data.begin_str)
+                    if(data.begin_str!='file'){
+                        data.data = Buffer.from(data.data,'base64')
+                    }
+                    let stream = require('fs').createWriteStream('C:\\Users\\LMC\\Downloads\\download--'+new Date().getTime()+'--'+data.fileInfo.originalname)
+                    stream.write(data.data)
+                    stream.end()
+                })
+                return 
+                let fileInfo = {fieldname:"file",encoding:'fromfile_binary',originalname:'SecureCRT-2021-4-7.zip',
+                                        mimetype:'zip',filename:'SecureCRT-2021-4-7.zip',path:'file-path',size:29252796,
+                                        data:'D:\\工作软件\\SecureCRT-2021-4-7.zip'}
+                client.sendFile(fileInfo,function(data){
+                    console.log('sendFile-callback-data:'+JSON.stringify(data))
+                })
+                return 
+            }
+            // else
+            {
+                let obj = {callid:new Date().getTime()+'.'+parseInt(Math.random()*1000000000),url:'/op',
+                data:{appid:10001,secret_key:'39f01b58558ba38d831744a0d353d7a3',
+                opcode:'fork',
+                token_x:'rmb_0000000000000000',token_y:'rmb_0000000000000000',opval:60*60*24,extra_data:'fork-new-rmb-token'}}
+                obj.data.opcode ='fork'// 'assert'
+                obj.url= '80::/op'//'80::/chain/token'//'/chain/token'//'80::/chain/token'
+                obj.data.rpc_name='80'
+                obj.data.token = obj.data.token_x
+                obj.data.begin =0
+                obj.data.len =100;//that.pingTestCnt>that.pingTestAllCnt ?  100000:200// 200//
+
+                let peerNow =  client.clientPeer ;// client.fastPeer
+                console.log('peers()-:'+client.client.peers())
+                
+
+                setInterval(()=>{
+                    //if(!peerNow) 
+                    client.client.peers().forEach(peer => {peerNow=peer})
+                    client.sendData(peerNow,obj.url,obj.data,null,function(data){
+                        console.log('send-data-callback:'+data.length,data)
+                    })
+                },ms)
+            }
+        }
+        const roomMap = new Map()
+        function start(){
+            let roomid = document.getElementById('roomid').value
+            console.log('start roomid:',roomid)
+            if(roomMap.has(roomid) || !roomid) return 
+            roomMap.set(roomid,roomid)
+            console.log('start roomid now:',roomid)
+
+            test(roomid)
+        }
+        function save()
+        {
+            if(typeof window.onbeforeunload == 'function'){
+                window.onbeforeunload()
+                alert('保存成功')
+            }else{
+                console.log('保存函数不存在')
+            }
+        }
+        
+    </script>
+    </body>
+</html>

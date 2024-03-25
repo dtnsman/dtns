@@ -1,0 +1,48 @@
+<script src="../libs/bn.js"></script>
+<script src="../libs/secp256k1.js"></script>
+<script src="../libs/bs58.bundle.js"></script>
+<script src="../static/key_util.js"></script>
+
+<script>
+
+console.log('--------------------testBrowser')
+testBrowser()
+
+async function testNewKeys()
+{
+    let private_key = key_util.newPrivateKey();
+    console.log("private_key:"+private_key+" length:"+private_key.length+" typeof="+(typeof private_key))
+
+    pub_key = key_util.getPublicKey(private_key);
+    console.log("pub_key:"+pub_key+" length:"+pub_key.length+" typeof="+(typeof pub_key))
+    console.log("invalidateKeys:"+key_util.invalidateKeys(private_key,pub_key))
+    console.log("invalidateKeys:"+key_util.invalidateKeys("",""))
+    try{
+        console.log("invalidateKeys:"+key_util.invalidateKeys("1","2"))
+    }catch(err){
+        console.log("invalidateKeys-err:"+err);
+    }
+
+    var msg_text = "hello妹子你好啊，这是非常不错的字符啊"
+    var msg_hash = await key_util.hashVal(msg_text);
+    /*
+    var msg_hash0 = hashVal(msg_text,"md5");
+    console.log("msg_test:"+msg_text+"\nmsg_text.length:"+msg_text.length);
+    console.log("msg_hash:"+msg_hash+" length:"+msg_hash.length)
+    console.log("msg_hash0:"+msg_hash0+" length:"+msg_hash0.length)
+
+    msg_hash_bs58 = bs58Encode(Buffer.from(msg_hash));
+    msg_hash_str = bs58Decode(msg_hash_bs58);
+    console.log("msg_hash_bs58:"+msg_hash_bs58+" length="+msg_hash_bs58.length+" typeof="+(typeof msg_hash_bs58))
+    console.log("msg_hash_str:"+msg_hash_str+" length="+msg_hash_str.length+" typeof="+(typeof msg_hash_str))
+    */
+
+    sign = key_util.signMsg(msg_hash,private_key)
+    console.log("sign:"+sign+" length:"+sign.length)
+
+    bverify = key_util.verifySignMsg(msg_hash,sign,pub_key);
+    console.log("bverify:"+bverify+" msg_hash:"+msg_hash+" sign:"+sign+" pub_key:"+pub_key)
+}
+console.log('--------------------testNewKeys---------------')
+testNewKeys()
+</script>

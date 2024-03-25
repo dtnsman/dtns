@@ -1,0 +1,155 @@
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;"><script type="module" src="llm_chat.18e63736.js"></script><script>window.g_redmlc_host="localhost:5500/lib";</script><select id="chatui-select" style="display:none"> </select><link href="llm_chat.5275ce93.css" rel="stylesheet" type="text/css"><div class="chatui"> <div class="chatui-chat" id="chatui-chat" height="100"> </div> <div class="chatui-inputarea"> <input id="chatui-input" type="text" class="chatui-input" placeholder="Enter your message..."> <button id="chatui-send-btn" class="chatui-send-btn">Send</button> </div> </div><div class="chatui-extra-control"> <button id="chatui-reset-btn" class="chatui-reset-btn">Reset</button> <label id="chatui-info-label"></label> </div><script type="module" src="llm_chat.54531fa5.js"></script><script>async function t(t,e=6e4){let l=async function(t){return new Promise(e=>setTimeout(()=>e(),t))};for(;"undefined"==typeof g_llmChatUI;)console.log("g_llmChatUI is undefined"),await l(50);g_llmChatUI.chatLoaded||await g_llmChatUI.asyncInitChat(),console.log("g_llmChatUI:",g_llmChatUI);let a=Date.now();for(;g_llmChatUI.requestInProgress;){let o=Date.now()-a;if(console.log("waited-time:"+o),o>e){console.log("usedTime >waitTime , no longer wait, failed"),console.log("exit-prompt:",t);let e={prompt:t,ret:!1,msg:"usedTime >waitTime , no longer wait, failed"};return console.log("timeout-res:",e),e}await l(50)}await g_llmChatUI.asyncGenerate(t);let o={ret:!0,msg:"success",lastOutput:g_llmChatUI.lastOutput,lastRuntimeStats:g_llmChatUI.lastRuntimeStats,prompt:t,lastUsedTime:g_llmChatUI.lastUsedTime};return console.log("prompt:",t),console.log("result:",o),console.log("usedTime:",o.lastUsedTime),o}async function e(t){if(console.log("ibchatPromptFilter-prompt:",t),"start"==t){g_llmChatUI.appendMessage("right",t),g_llmChatUI.appendMessage("left","您输入了start命令，我将执行dnalink.node-start指令"),g_llmChatUI.uiChatInput.value="";let e=t.split(" ")[1];return e=e||"ld","function"==typeof lxStart?lxStart(e,e):console.log("lxStart is not function"),!0}return"save"==t&&(g_llmChatUI.appendMessage("right",t),g_llmChatUI.appendMessage("left","您输入了save命令，我将执行save-dbbak命令"),g_llmChatUI.uiChatInput.value="","function"==typeof m_onbeforeunload_save?m_onbeforeunload_save():console.log("m_onbeforeunload_save is not function"),!0)}window.g_ibchatTalk=t,window.g_ibchatPromptFilter=e,window.g_updateIBChatResponseMsg=function(t,e){console.log("lastPrompt:",g_llmChatUI.lastPrompt,"update-response-step:",t,"msg:",e)},async function(){await t("hi",300)}();</script>
+<script src="../public/rmb_test.js"></script>
+<!-- <script src="../libs/bn.js"></script>
+<script src="../libs/secp256k1.js"></script> -->
+<script src="../libs/bs58.bundle.js"></script>
+<script src="../libs/bignumber.min.js"></script>
+<script src="../libs/eccryptojs.js"></script>
+<script src="../libs/icache-db.js"></script>
+<script src="../libs/ifile-db.js"></script>
+<script src="../libs/md5.js"></script>
+<!-- <script src="../libs/rpc-client.js"></script> -->
+<script src="../libs/simple-signal-client.min.js"></script>
+<script src="../libs/socket.io.min.js"></script>
+<script src="../libs/crypto-js/crypto-js.js"></script>
+<script src="../libs/axios.min.js"></script>
+<script src="../libs/jszip.min.js"></script>
+<script src="../libs/FileSaver.js"></script>
+<!-- <script src="http://lx.opencom.cn/js/sql-wasm.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script> -->
+<script src="../static/sql-wasm.js"></script>
+<!-- <script src="../libs/sql-wasm.wasm"></script> -->
+<script src="../static/pop_runtime2.js"></script>
+<script src="../static/SQLDB.js"></script>
+<script src="../static/str_filter.js"></script>
+<script src="../static/key_util_eccryptojs.js"></script>
+<script src="../libs/sign_util.js"></script>
+<!-- <script src="../static/key_util.js"></script> -->
+
+<script src="../static/lx/lianxian_gsb_59872.js"></script>
+<script src="../static/lx/lianxian_msg_59876.js"></script>
+<script src="../static/lx/lianxian_obj_59875.js"></script>
+<script src="../static/lx/lianxian_order_59871.js"></script>
+<script src="../static/lx/lianxian_rmb_59874.js"></script>
+<script src="../static/lx/lianxian_score_59873.js"></script>
+<script src="../static/lx/lianxian_user_59877.js"></script>
+<script src="../static/lx/lianxian_vip_59870.js"></script>
+<script src="../static/dtns/dtns-score.js"></script>
+
+<script src="../static/dnalink_api_util.js"></script>
+<script src="../static/dnalink_dao_chain.js"></script>
+<script src="../static/dnalink_dao_wallet.js"></script>
+<script src="../static/dnalink_engine.js"></script>
+<script src="../static/dnalink_protocol.js"></script>
+<script src="../static/dnalink_rpc.js"></script>
+<script src="../static/dnalink_rtc_client.js"></script>
+<script src="../static/dnalink_rtc_service.js"></script>
+<script src="../static/dnalink_super_file.js"></script>
+<script src="../static/dnalink_super_meta.js"></script>
+<script src="../static/dnalink_super_websocket.js"></script>
+<!-- <script src="../static/dnalink_rpc_main.js"></script> -->
+<script src="../static/lx_all.js"></script>
+<script src="../static/dtns_all.js"></script>
+
+<script src="../js/config.js"></script>
+<script src="../static/DTNSManager.js"></script>
+<script src="../js/RPCClient.js"></script>
+<script src="../js/RPCHost.js"></script>
+<script src="../js/rpc_api_config.js"></script>
+<script src="../js/rpc_api_util.js"></script>
+
+<script src="../middleware/common_interceptor.js"></script>
+
+<script src="../clibs/notice_util.js"></script>
+<script src="../controller/mc_logos.js"></script>
+<script src="../controller/fengjing_imgs.js"></script>
+<script src="../controller/address_c.js"></script>
+<script src="../controller/cashout_c.js"></script>
+<script src="../controller/classify_c.js"></script>
+<script src="../controller/console_c.js"></script>
+<script src="../controller/customer_c.js"></script>
+<script src="../controller/fapiao_c.js"></script>
+<script src="../controller/feedback_c.js"></script>
+<script src="../controller/file_c.js"></script>
+<script src="../controller/groupchat_c.js"></script>
+<script src="../controller/ibchat_c.js"></script>
+<!-- <script src="../controller/groupchat_live_c.js"></script> -->
+<script src="../controller/gsbshop_c.js"></script>
+<script src="../controller/manager_c.js"></script>
+<script src="../controller/menu_c.js"></script>
+<script src="../controller/obj_c.js"></script>
+<script src="../controller/order_c.js"></script>
+<script src="../controller/post_c.js"></script>
+<script src="../controller/product_c.js"></script>
+<!-- <script src="../controller/pusher_c.js"></script> -->
+<!-- <script src="../controller/qrcode_c.js"></script> -->
+<script src="../controller/shop_c.js"></script>
+<script src="../controller/shopping_c.js"></script>
+<script src="../controller/srcshop_c.js"></script>
+<script src="../controller/store_c.js"></script>
+<script src="../controller/user_c.js"></script>
+<!-- <script src="../controller/user_weixin_c.js"></script> -->
+
+<script src="../controller/forklist_c.js"></script>
+<script src="../controller/fork_order_c.js"></script>
+<script src="../controller/forklist_pay_c.js"></script>
+
+<script src="../routes/index.js"></script>
+<script src="../js/app.js"></script>
+<script>
+// window.onbeforeunload = function(){
+    
+// }
+window.g_axios = axios
+async function queryUrls()
+{
+    let tnsUrls = await
+    axios.get('https://static.yunapi.org/tns-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), )
+    window.g_tns_urls = tnsUrls ? tnsUrls.data :null
+
+    let turnUrls = await
+    axios.get('https://static.yunapi.org/turn-urls.json')//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+    window.g_turn_urls = turnUrls ? turnUrls.data:null
+    console.log('g_tns_urls:',g_tns_urls,'g_turn_urls:',g_turn_urls)
+}
+queryUrls()
+const roomMap = new Map()
+function start(){
+    let roomid = document.getElementById('roomid').value
+    console.log('start roomid:',roomid)
+    if(roomMap.has(roomid) || !roomid) return 
+    roomMap.set(roomid,roomid)
+    console.log('start roomid now:',roomid)
+    
+    lxStart(roomid,roomid)//+'-cell')
+}
+// setTimeout(()=>{
+//     lxStart('ld','ld')
+// },10000)
+window.g_redmlc_host = "localhost:5500/source/dtns.ibchat/llm_chat/"
+
+function updateIBChatResponseMsg2(step,msg)
+{
+    console.log('updateIBChatResponseMsg2-lastPrompt:',g_llmChatUI.lastPrompt,'update-response-step:',step,'msg:',msg)
+    window.g_ibchatTalkResponse = {lastPrompt:g_llmChatUI.lastPrompt,
+        lastStep:step,lastMsg:msg,now_time:Date.now()}
+}
+window.g_updateIBChatResponseMsg = updateIBChatResponseMsg2
+
+
+function save(alertFlag = false)
+{
+    window.m_onbeforeunload_results = []
+    let flag = false
+    if(typeof m_onbeforeunload == 'function'){
+        m_onbeforeunload()
+        if(alertFlag) alert('保存成功')
+        console.log('保存成功')
+        flag = true
+    }else{
+        console.log('保存函数不存在')
+    }
+    return {ret:flag,list:m_onbeforeunload_results,msg:flag ? 'success':'save failed'}
+}
+window.m_onbeforeunload_save = save
+</script>

@@ -1,0 +1,32 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <center><h1>《连线-cell-server：manager管理》</h1></center>
+        <br/>
+        <span>房间号：</span><input id="roomid"  value="lx"><br/><br/>
+        <span>管理员：</span><input id="manager_uid"  value=""><br/><br/>
+        <button onclick="save()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;保存&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>
+    <script>
+        // window.onbeforeunload = function(){
+            
+        // }
+        const roomMap = new Map()
+        function save()
+        {
+            let roomid = document.getElementById('roomid').value
+            let manager_uid = document.getElementById('manager_uid').value
+            if(!roomid) {
+                alert('roomid格式不正确')
+                return 
+            }
+            if(!manager_uid || manager_uid.length<=17) {
+                alert('manager-uid:'+manager_uid+'格式不正确')
+                return 
+            }
+            localStorage.setItem('manager_uid-'+roomid,manager_uid)
+            alert('manager-uid:'+manager_uid+'设置成功')
+        }
+    </script>
+    </body>
+</html>

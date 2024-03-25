@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <script src="./public/rmb_test.js"></script>
+        <!-- <script src="./libs/bn.js"></script>
+        <script src="./libs/secp256k1.js"></script> -->
+        <script src="./libs/bs58.bundle.js"></script>
+        <script src="./libs/bignumber.min.js"></script>
+        <script src="./libs/eccryptojs.js"></script>
+        <script src="./libs/icache-db.js"></script>
+        <script src="./libs/ifile-db.js"></script>
+        <script src="./static/SQLDB.js"></script>
+        <script src="./static/str_filter.js"></script>
+        <script src="./static/key_util_eccryptojs.js"></script>
+    </head>
+    <body>
+        <center><h1>《DTNS.network数据备份和恢复工具》</h1></center>
+        <br/>
+        <span>检索KEY：</span><input id="roomid"  value="dtns"><button onclick="search()">查询</button><br/><br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;恢复&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button onclick="save()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;保存&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button onclick="saveD()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;直接保存&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>
+        <ul>
+
+        </ul>
+    <script>
+        if(typeof window.ifileDb == 'undefined')
+        {
+            const ifileDb = new IFileIndexDB()
+            ifileDb.openDB()
+            window.ifileDb = ifileDb
+        }
+
+        async function search()
+        {
+            let roomid = document.getElementById('roomid').value
+            roomid = roomid.trim()
+            console.log('begin-search:',roomid)
+            let keys = await ifileDb.getAllKeys()
+            console.log('keys:',keys)
+
+            let list = []
+
+            for(let i=0;keys && i<keys.length;i++)
+            {
+                let key = keys[i]
+                //判断是否重复，不重复则继续  
+                //得到的是{key,data:wallet-key-info}
+                if(key && key.indexOf(roomid)>=0)
+                {
+                    list.push(keys[i])
+                }
+            }
+            console.log('list:',list)
+        }
+
+        function downloadFile(url,name='默认文件名'){
+            var a = document.createElement("a")//创建a标签触发点击下载
+            a.setAttribute("href",url)//附上
+            a.setAttribute("download",name)
+            a.setAttribute("target","_blank")
+            let clickEvent = document.createEvent("MouseEvents");
+            clickEvent.initEvent("click", true, true);
+            a.dispatchEvent(clickEvent);
+        }
+        function downloadFileByBinary(name,data){
+            var mime = name.substring(name.lastIndexOf('.')+1)//后缀名
+            let myBlob = new Blob([data], { type: mime });
+            var myUrl = URL.createObjectURL(myBlob)
+            downloadFile(myUrl,name)
+        }
+        async function backloadDB(name='dtns-cell',autoFlag = true)
+        {
+            console.log('backloadDB:',name)
+            let bakname = localStorage.getItem(name+'_dtns_last_db')
+
+            while(!ifileDb.db)  await str_filter.sleep(100)
+            await str_filter.sleep(300)
+
+            let data = await ifileDb.getDataByKey(bakname)
+            console.log('bakname:'+bakname+' db:',data)
+            if(data && data.data)
+            {
+                downloadFileByBinary(bakname+'.db',data.data)
+            }else{
+                console.log('save failed')
+                if(autoFlag)
+                backloadDB('dtns.network',false)
+            }
+        }
+        async function save(){
+            let roomid = document.getElementById('roomid').value
+            roomid = roomid.trim()
+            console.log('start roomid:',roomid)
+            console.log('start roomid now:',roomid)
+
+            //let bakname = localStorage.getItem('dtns-cell_dtns_last_db')
+            backloadDB(roomid)
+            // let bakName = dbname+'.'+new Date().getTime()+'.bak'
+            // let flag = ifileDb.addData({key:bakName,data:data})
+        }
+        async function saveD(){
+            let roomid = document.getElementById('roomid').value
+            roomid = roomid.trim()
+            console.log('start roomid:',roomid)
+            console.log('start roomid now:',roomid)
+
+            while(!ifileDb.db)  await str_filter.sleep(100)
+            await str_filter.sleep(300)
+
+            let bakname = roomid
+            let data = await ifileDb.getDataByKey(bakname)
+            console.log('bakname:'+bakname+' db:',data)
+            if(data && data.data)
+            {
+                downloadFileByBinary(bakname+'.db',data.data)
+            }else{
+                console.log('save failed')
+            }
+        }
+        async function start(alertFlag = false)
+        {
+            while(!ifileDb.db)  await str_filter.sleep(100)
+            await str_filter.sleep(300)
+
+            const a = document.createElement('input')
+            a.setAttribute('type', 'file')
+            a.addEventListener('change', async function selectedFileChanged() {
+                console.log('data:' + this.files)
+                if (this.files.length == 0) return alert('请选择文件')
+                console.log('upload-files:' + JSON.stringify(this.files[0].name))
+				let filename = this.files[0].name
+                
+                const reader = new FileReader()
+                reader.onload = async function fileReadCompleted() {
+                    console.log('result:' ,reader.result)
+                    if(reader.result && reader.result.byteLength>0)
+                    {
+                        let bakName = filename //'dtns-cell_dtns.db.'+Date.now()+'.bak.recover'//添加了.recover标志
+                        ifileDb.addData({key:bakName,data:new Uint8Array(reader.result)})
+                        //localStorage.setItem('dtns-cell_dtns_last_db',bakName)
+                        console.log('load data success')
+                    }else{
+                        console.log('load data failed')
+                    }
+                }
+
+                reader.readAsArrayBuffer(this.files[0]);
+            })
+            let clickEvent = document.createEvent("MouseEvents");
+            clickEvent.initEvent("click", true, true);
+            a.dispatchEvent(clickEvent);
+        }
+    </script>
+    </body>
+</html>

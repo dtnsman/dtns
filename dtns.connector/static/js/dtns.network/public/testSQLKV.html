@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <script src="../static/sql-wasm.js"></script>
+        <script src="../static/str_filter.js"></script>
+        <script src="../static/SQLDB.js"></script>
+    </head>
+    <body>
+        <script>
+            async function test(){
+                let db = new SQLDB();
+                await db.initDB({type:'buffer',buffer:[],dbtype:'sqljs'},null,//{type:'file',filepath:'rmb_test.db',dbtype:'sqlite3'},//filepath:'db1.1.data',dbtype:'sqlite3'
+                    {type:'sql',path:'leveldb_cache1',vtype:'json'})//'map'
+                while(!db.db) await str_filter.sleep(100)
+
+                let beginTime = new Date().getTime()
+                for(let i=0;i<100000;i++)
+                {
+                    await db.put(''+i, ''+Math.random())
+                    // localStorage.setItem(''+i,''+Math.random())
+                }
+                let end0 = new Date().getTime()//-beginTime
+
+                for(let i=0;i<100000;i++)
+                {
+                    let d = await db.get(''+i)
+                    // let d = localStorage.getItem(''+i)
+                    //console.log('i:'+i+' data:'+JSON.stringify(d))
+                }
+                let end1 = new Date().getTime()
+                console.log('time0:'+(end0 - beginTime))
+                console.log('time1:'+(new Date().getTime()-end0))
+                // await db.map2DB()
+                console.log('time2:'+(new Date().getTime()-end1))
+                let buff = db.export()
+                console.log('time3:'+(new Date().getTime()-end1))
+                
+                console.log('buff.len:'+buff.length)
+                
+                
+            }
+            test()
+            /**【注解】采用sql的情况下的速度还可以，1ms有10个写入，20个读取---1s可写入1万条以及读取2万条--适合controller的session持久化保存
+             * （对比：map最快，采用localStorage其次---但是这个会带来不确定性）
+             * time0:11616
+testSQLKV.html:31 time1:6256
+testSQLKV.html:33 time2:0
+testSQLKV.html:35 time3:2
+testSQLKV.html:37 buff.len:5447680
+*/
+        </script>
+    </body>
+</html>

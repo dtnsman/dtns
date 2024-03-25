@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <!-- <script src="./libs/bn.js"></script>
+        <script src="./libs/secp256k1.js"></script> -->
+        <script src="./libs/bs58.bundle.js"></script>
+        <script src="./libs/eccryptojs.js"></script>
+        <script src="./libs/crypto-js/crypto-js.js"></script>
+        <script src="./libs/axios.min.js"></script>
+        <script src="./static/str_filter.js"></script>
+        <script src="./static/key_util_eccryptojs.js"></script>
+        <script src="./libs/qrcode.js"></script>
+    </head>
+    <body>
+        <center><h1>《keys-creator》</h1></center>
+        <center>
+        <br/>
+        <div>
+        <span>私钥：</span><span id="prikey"></span><br/>
+        <span>公钥：</span><span id="pubkey"></span><br/>
+        <span>提示：</span><span id="tips"></span><br/>
+        <br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;刷新&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button onclick="save()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;复制&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>
+        <br/>
+        <br/>
+
+        <img id="qrimg" width="200px" height="200px"/>
+        </center>
+    <script>
+        var keys = {}
+        var priEle = document.getElementById('prikey')
+        var pubEle = document.getElementById('pubkey')
+        var tipsEle = document.getElementById('tips')
+        var qrimg = document.getElementById('qrimg')
+        start()
+        function start(){
+            let privateKey = key_util.newPrivateKey()
+            console.log('privateKey',privateKey)
+            let publicKey = key_util.getPublicKey(privateKey)
+            console.log('publicKey',publicKey)
+            
+            pubEle.innerHTML = publicKey
+            priEle.innerHTML = privateKey
+            tipsEle.innerHTML = '生成ECC密钥成功，请复制或扫码（私钥、公钥）'
+            keys = {privateKey,publicKey}
+            qrcode()
+        }
+        function save()
+        {
+            try{
+                navigator.clipboard.writeText(keys.privateKey+'\n'+keys.publicKey);
+                tipsEle.innerHTML = '内容已复制'
+            }catch(ex){
+                console.log('copy-exception:'+ex)
+                tipsEle.innerHTML = "内容复制失败，原因（可能无权限）"
+            }
+        }
+        function qrcode(){
+            QRCode.toDataURL(keys.privateKey+'\n'+keys.publicKey)
+                .then(url => {
+                //console.log(url)
+                    qrimg.src = url
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        }
+    </script>
+    </body>
+</html>

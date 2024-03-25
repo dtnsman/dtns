@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>dtns.network-ib3.hub</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script src="./public/rmb_test.js"></script>
+        <!-- <script src="./libs/bn.js"></script>
+        <script src="./libs/secp256k1.js"></script> -->
+        <script src="./libs/bs58.bundle.js"></script>
+        <script src="./libs/bignumber.min.js"></script>
+        <script src="./libs/eccryptojs.js"></script>
+        <script src="./libs/icache-db.js"></script>
+        <script src="./libs/ifile-db.js"></script>
+        <script src="./libs/md5.js"></script>
+        <!-- <script src="./libs/rpc-client.js"></script> -->
+        <script src="./libs/simple-signal-client.min.js"></script>
+        <script src="./libs/socket.io.min.js"></script>
+        <script src="./libs/crypto-js/crypto-js.js"></script>
+        <script src="./libs/axios.min.js"></script>
+        <script src="./libs/jszip.min.js"></script>
+        <script src="./libs/FileSaver.js"></script>
+        <!-- <script src="http://lx.opencom.cn/js/sql-wasm.js"></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script> -->
+        <script src="./static/sql-wasm.js"></script>
+        <!-- <script src="./libs/sql-wasm.wasm"></script> -->
+        <script src="./static/pop_runtime2.js"></script>
+        <script src="./static/SQLDB.js"></script>
+        <script src="./static/str_filter.js"></script>
+        <script src="./static/key_util_eccryptojs.js"></script>
+        <script src="./libs/sign_util.js"></script>
+        <!-- <script src="./static/key_util.js"></script> -->
+
+        <script src="./static/lx/lianxian_gsb_59872.js"></script>
+        <script src="./static/lx/lianxian_msg_59876.js"></script>
+        <script src="./static/lx/lianxian_obj_59875.js"></script>
+        <script src="./static/lx/lianxian_order_59871.js"></script>
+        <script src="./static/lx/lianxian_rmb_59874.js"></script>
+        <script src="./static/lx/lianxian_score_59873.js"></script>
+        <script src="./static/lx/lianxian_user_59877.js"></script>
+        <script src="./static/lx/lianxian_vip_59870.js"></script>
+        <script src="./static/dtns/dtns-score.js"></script>
+
+        <script src="./static/dnalink_api_util.js"></script>
+        <script src="./static/dnalink_dao_chain.js"></script>
+        <script src="./static/dnalink_dao_wallet.js"></script>
+        <script src="./static/dnalink_engine.js"></script>
+        <script src="./static/dnalink_protocol.js"></script>
+        <script src="./static/dnalink_rpc.js"></script>
+        <script src="./static/dnalink_rtc_client.js"></script>
+        <script src="./static/dnalink_rtc_service.js"></script>
+        <script src="./static/dnalink_super_file.js"></script>
+        <script src="./static/dnalink_super_meta.js"></script>
+        <script src="./static/dnalink_super_websocket.js"></script>
+        <!-- <script src="./static/dnalink_rpc_main.js"></script> -->
+        <script src="./static/lx_all.js"></script>
+        <script src="./static/dtns_all.js"></script>
+
+        <script src="./js/config.js"></script>
+        <script src="./static/DTNSManager.js"></script>
+        <script src="./js/RPCClient.js"></script>
+        <script src="./js/RPCHost.js"></script>
+        <script src="./js/rpc_api_config.js"></script>
+        <script src="./js/rpc_api_util.js"></script>
+
+        <script src="./middleware/common_interceptor.js"></script>
+
+        <script src="./clibs/notice_util.js"></script>
+        <script src="./controller/mc_logos.js"></script>
+        <script src="./controller/fengjing_imgs.js"></script>
+        <script src="./controller/address_c.js"></script>
+        <script src="./controller/cashout_c.js"></script>
+        <script src="./controller/classify_c.js"></script>
+        <script src="./controller/console_c.js"></script>
+        <script src="./controller/customer_c.js"></script>
+        <script src="./controller/fapiao_c.js"></script>
+        <script src="./controller/feedback_c.js"></script>
+        <script src="./controller/file_c.js"></script>
+        <script src="./controller/groupchat_c.js"></script>
+        <!-- <script src="./controller/groupchat_live_c.js"></script> -->
+        <script src="./controller/gsbshop_c.js"></script>
+        <script src="./controller/manager_c.js"></script>
+        <script src="./controller/menu_c.js"></script>
+        <script src="./controller/obj_c.js"></script>
+        <script src="./controller/order_c.js"></script>
+        <script src="./controller/post_c.js"></script>
+        <script src="./controller/product_c.js"></script>
+        <!-- <script src="./controller/pusher_c.js"></script> -->
+        <!-- <script src="./controller/qrcode_c.js"></script> -->
+        <script src="./controller/shop_c.js"></script>
+        <script src="./controller/shopping_c.js"></script>
+        <script src="./controller/srcshop_c.js"></script>
+        <script src="./controller/store_c.js"></script>
+        <script src="./controller/user_c.js"></script>
+        <!-- <script src="./controller/user_weixin_c.js"></script> -->
+
+        <script src="./controller/forklist_c.js"></script>
+        <script src="./controller/fork_order_c.js"></script>
+        <script src="./controller/forklist_pay_c.js"></script>
+
+        <script src="./routes/index.js"></script>
+        <script src="./plugins/index.js"></script>
+        <script src="./plugins/loadPlugins.js"></script>
+        <script src="./js/app.js"></script>
+    </head>
+    <body>
+        <center><h1>《dtns.network-ib3.hub》</h1>
+        <br/>
+        <span>ib3.hub-ID：</span><input id="roomid"  value="svr"><br/><br/>
+        <button onclick="start()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;开启&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>&nbsp; &nbsp; &nbsp; &nbsp;
+        <button onclick="save()">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;保存&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</button>
+    </center>
+    <script>
+        // window.onbeforeunload = function(){
+            
+        // }
+        window.g_axios = axios
+        async function queryUrls()
+        {
+            let tnsUrls = await
+            axios.get( typeof g_tns_nslookup_url!='undefined' ? g_tns_nslookup_url+'?'+Date.now() : 'https://static.yunapi.org/tns-urls.json?'+Date.now())//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), )
+            window.g_tns_urls = tnsUrls && tnsUrls.data ? tnsUrls.data : tnsUrls
+
+            let turnUrls = await
+            axios.get( typeof g_turn_nslookup_url!='undefined' ? g_turn_nslookup_url+'?'+Date.now() : 'https://static.yunapi.org/turn-urls.json?'+Date.now())//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+            window.g_turn_urls = turnUrls && turnUrls.data  ? turnUrls.data: turnUrls
+
+            let staticDtnsNetworkUrls = await
+            axios.get( typeof g_static_dtns_network_nslookup_url!='undefined' ? g_static_dtns_network_nslookup_url+'?'+Date.now() : 'https://static.yunapi.org/static-dtns-network.json?'+Date.now())//?timestamp='+time_x+'&sign='+encodeURIComponent(time_sign_base64), 
+            window.g_dtns_nslookup_static_urls = staticDtnsNetworkUrls && staticDtnsNetworkUrls.data ? staticDtnsNetworkUrls.data:staticDtnsNetworkUrls
+            console.log('g_tns_urls:',g_tns_urls,'g_turn_urls:',g_turn_urls,'g_dtns_nslookup_static_urls:',g_dtns_nslookup_static_urls)
+        }
+        queryUrls()
+        const roomMap = new Map()
+        function start(){
+            let roomid = 'svr'//localStorage.getItem('app-dev-roomid')//document.getElementById('roomid').value
+            //新增 2024-3-14
+            let dev_roomid = localStorage.getItem('app-dev-roomid')
+            // ll_config.init_console_user = localStorage.getItem('app-dev-manager')
+            // window.INIT_CONSOLE_USER = localStorage.getItem('app-dev-manager')
+
+            dev_roomid = dev_roomid ? dev_roomid : 'dev00app'
+
+            window.g_dev_origin_roomid = roomid
+            window.g_dev_roomid = dev_roomid
+            console.log('start-ib3.hub-dev-mode:')
+            console.log('g_dev_origin_roomid:',g_dev_origin_roomid)
+            console.log('g_dev_roomid:',g_dev_roomid)
+
+            console.log('start roomid:',roomid)
+            if(roomMap.has(roomid) || !roomid) return 
+            roomMap.set(roomid,roomid)
+            console.log('start roomid now:',roomid)
+            
+            lxStart(roomid,roomid)//+'-cell')
+        }
+
+        // window.g_saveAppItemsData = function()
+        // {
+        //     let dev_app_items = ['dtns','gsb','msg','obj','order','rmb','score','user','vip']
+        //     window.g_app_hub_saveAppItems = {}
+        //     for(let i=0;i<=dev_app_items.length;i++){
+        //         window.g_app_hub_saveAppItems[dev_app_items[i]] = localStorage.getItem('svr_'+dev_app_items[i]+'_last_db')
+        //     }
+        //     window.g_app_hub_saveAppItems_network = localStorage.getItem('dtns.network_dtns_last_db')
+        //     window.g_app_hub_manager_user_id_item = localStorage.getItem('manager_uid-svr')
+        //     localStorage.setItem('dtns-app-db-settting-bak',JSON.stringify(window.g_app_hub_saveAppItems))
+        // }
+        // window.g_recoverAppItemsData = function()
+        // {
+        //     let dev_app_items = ['dtns','gsb','msg','obj','order','rmb','score','user','vip']
+        //     for(let i=0;i<=dev_app_items.length;i++){
+        //             localStorage.setItem('svr_'+dev_app_items[i]+'_last_db',window.g_app_hub_saveAppItems[dev_app_items[i]])
+        //     }
+        //     localStorage.setItem('dtns.network_dtns_last_db',window.g_app_hub_saveAppItems_network)
+        //     localStorage.setItem('manager_uid-svr',window.g_app_hub_manager_user_id_item )
+        // }
+
+        //直接启动
+        setTimeout(()=>start(),1000)
+
+        function save(alertFlag = false)
+        {
+            window.m_onbeforeunload_results = []
+            let flag = false
+            if(typeof m_onbeforeunload == 'function'){
+                m_onbeforeunload()
+                if(alertFlag) alert('保存成功')
+                console.log('保存成功')
+                flag = true
+            }else{
+                console.log('保存函数不存在')
+            }
+            return {ret:flag,list:m_onbeforeunload_results,msg:flag ? 'success':'save failed'}
+        }
+        window.m_onbeforeunload_save = save
+    </script>
+    </body>
+</html>
