@@ -94,7 +94,7 @@ dtns.network创建 DID 系统、dtns 协议、forkpay 金融科技系统、dnali
 
 加入微信群：
 
-![alt 微信群二信码](https://gitee.com/dtnsman/dtns/raw/master/images/wechat-qr.png "微信二维码")
+![alt 微信群二信码](https://github.com/dtnsman/dtns/blob/main/images/wechat-qr.png?raw=true "微信二维码")
 
 
 
