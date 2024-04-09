@@ -90,6 +90,14 @@ dtns.network创建 DID 系统、dtns 协议、forkpay 金融科技系统、dnali
 作者：Poplang
 写于龙年第一天(2024.2.10)
 
+##### 开源地址：
+
+github地址：<https://github.com/dtnsman/dtns>
+
+Gitee地址：<https://github.com/dtnsman/dtns>
+
+官方文档：<http://docs.dtns.yunapi.org>
+
 加入QQ群：279931001
 
 加入微信群：
