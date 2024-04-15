@@ -96,7 +96,7 @@ github地址：<https://github.com/dtnsman/dtns>
 
 Gitee地址：<https://github.com/dtnsman/dtns>
 
-官方文档：<http://docs.dtns.yunapi.org>
+官方文档：<https://dtns.network.yunapi.org>
 
 加入QQ群：279931001
 
